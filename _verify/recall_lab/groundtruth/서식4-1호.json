@@ -1,0 +1,27 @@
+{
+  "form": "서식4-1호 · 발달재활서비스 의뢰서",
+  "note": "이미지 기준 사람이 채우는 모든 칸. alts=매칭용 동의어. 검토·수정 가능.",
+  "elements": [
+    {"id": "gt01", "label": "병록번호", "alts": [], "type": "text"},
+    {"id": "gt02", "label": "연번호", "alts": ["연 번 호"], "type": "text"},
+    {"id": "gt03", "label": "성명", "alts": ["신청인 성명"], "type": "text"},
+    {"id": "gt04", "label": "생년월일", "alts": [], "type": "date"},
+    {"id": "gt05", "label": "주소", "alts": ["신청인 주소"], "type": "text"},
+    {"id": "gt06", "label": "전화", "alts": ["전화번호"], "type": "phone"},
+    {"id": "gt07", "label": "병명 (예견되는 장애유형)", "alts": ["병명", "장애유형", "예견되는 장애"], "type": "checkbox_group", "options": ["시각", "청각", "언어", "뇌병변", "지적", "자폐성"]},
+    {"id": "gt08", "label": "발병 연월일", "alts": ["발병연월일"], "type": "date"},
+    {"id": "gt09", "label": "필요분야 영역", "alts": ["영역", "발달재활 영역"], "type": "checkbox_group", "options": ["신체발달", "의사소통", "심리행동"]},
+    {"id": "gt10", "label": "세부영역 신체발달", "alts": ["신체발달 세부", "감각 소근육 대근육"], "type": "checkbox_group", "options": ["감각", "소근육", "대근육"]},
+    {"id": "gt11", "label": "세부영역 의사소통", "alts": ["의사소통 세부"], "type": "checkbox_group", "options": ["구문/의미", "음운/청력", "화용"]},
+    {"id": "gt12", "label": "세부영역 심리행동", "alts": ["심리행동 세부"], "type": "checkbox_group", "options": ["행동문제", "정서/심리", "사회성"]},
+    {"id": "gt13", "label": "선택사항 지능", "alts": ["선택사항", "지능"], "type": "checkbox_group", "options": ["지능"]},
+    {"id": "gt14", "label": "향후 발달재활서비스에 대한 소견", "alts": ["소견", "향후 소견"], "type": "textarea"},
+    {"id": "gt15", "label": "진단일자", "alts": ["진단일", "진단 연월일"], "type": "date"},
+    {"id": "gt16", "label": "서명 또는 인", "alts": ["서명", "의사 서명"], "type": "signature"},
+    {"id": "gt17", "label": "병·의원 주소(전화번호)", "alts": ["병의원 주소", "병의원주소"], "type": "text"},
+    {"id": "gt18", "label": "병·의원 명", "alts": ["병의원명", "병의원 명"], "type": "text"},
+    {"id": "gt19", "label": "의사면허번호", "alts": [], "type": "text"},
+    {"id": "gt20", "label": "진료과", "alts": ["과", "전문의 과목"], "type": "text"},
+    {"id": "gt21", "label": "전문의 의사명", "alts": ["의사명", "전문의명"], "type": "text"}
+  ]
+}

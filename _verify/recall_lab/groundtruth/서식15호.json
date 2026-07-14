@@ -1,0 +1,26 @@
+{
+  "form": "서식15호 · 사고보고서",
+  "note": "이미지 기준 사람이 채우는 모든 칸. alts=매칭용 동의어. 검토·수정 가능.",
+  "elements": [
+    {"id": "gt01", "label": "기관명", "alts": ["기관 명"], "type": "text"},
+    {"id": "gt02", "label": "전화번호", "alts": ["전화"], "type": "phone"},
+    {"id": "gt03", "label": "기관주소", "alts": ["기관 주소"], "type": "text"},
+    {"id": "gt04", "label": "상해아동명", "alts": ["상해 아동명", "아동명"], "type": "text"},
+    {"id": "gt05", "label": "성별", "alts": [], "type": "radio", "options": ["남", "여"]},
+    {"id": "gt06", "label": "생년월일", "alts": [], "type": "date"},
+    {"id": "gt07", "label": "사고일자", "alts": [], "type": "date"},
+    {"id": "gt08", "label": "사고시간", "alts": [], "type": "time"},
+    {"id": "gt09", "label": "목격자명", "alts": ["목격자"], "type": "text"},
+    {"id": "gt10", "label": "부모에게 연락한 사항", "alts": ["부모 연락 사항", "연락한 사항"], "type": "textarea"},
+    {"id": "gt11", "label": "연락시간", "alts": [], "type": "time"},
+    {"id": "gt12", "label": "119신고여부", "alts": ["119 신고여부"], "type": "radio", "options": ["안함", "신고함"]},
+    {"id": "gt13", "label": "119신고시간", "alts": ["신고시간", "신고 시각"], "type": "time"},
+    {"id": "gt14", "label": "사고발생 장소", "alts": ["사고발생장소", "사고 장소"], "type": "radio", "options": ["화장실", "거실", "주방", "외출중", "실외놀이터", "이동중", "기타"]},
+    {"id": "gt15", "label": "사고발생 장소 기타", "alts": ["장소 기타"], "type": "text"},
+    {"id": "gt16", "label": "사고당시 활동내용", "alts": ["사고당시활동내용", "활동내용"], "type": "radio", "options": ["목욕 및 배변시간", "학습활동", "집안자유놀이", "식사/간식시간", "실외자유놀이", "등하원, 외출지도시", "기타"]},
+    {"id": "gt17", "label": "사고당시 활동내용 기타", "alts": ["활동 기타"], "type": "text"},
+    {"id": "gt18", "label": "상해의 유형", "alts": ["상해 유형"], "type": "checkbox_group", "options": ["화상", "쇼크/질식", "추락/강타", "물체에 끼임", "찢어짐", "뼈가 부러지거나 탈구", "압박, 눌림", "베임", "찰과상", "삠", "중독", "호흡곤란", "기타"]},
+    {"id": "gt19", "label": "상해의 유형 기타", "alts": ["유형 기타"], "type": "text"},
+    {"id": "gt20", "label": "상해를 입은 다른 형제가 있는가", "alts": ["다른 형제", "형제 여부"], "type": "radio", "options": ["예", "아니오"]}
+  ]
+}

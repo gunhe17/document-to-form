@@ -1,0 +1,251 @@
+[
+ {
+  "key": "name",
+  "label": "성명",
+  "type": "text",
+  "group": "신청자",
+  "cells": [
+   2
+  ]
+ },
+ {
+  "key": "gender",
+  "label": "성별",
+  "type": "text",
+  "group": "신청자",
+  "cells": [
+   4
+  ]
+ },
+ {
+  "key": "photo",
+  "label": "칼라사진 (3.5×4.5cm)",
+  "type": "text",
+  "group": "신청자",
+  "cells": [
+   5
+  ]
+ },
+ {
+  "key": "birth_date",
+  "label": "생년월일",
+  "type": "date",
+  "group": "신청자",
+  "cells": [
+   7
+  ]
+ },
+ {
+  "key": "age",
+  "label": "나이",
+  "type": "number",
+  "group": "신청자",
+  "cells": [
+   9
+  ]
+ },
+ {
+  "key": "contact",
+  "label": "연락처",
+  "type": "phone",
+  "group": "신청자",
+  "cells": [
+   11
+  ]
+ },
+ {
+  "key": "email",
+  "label": "이메일",
+  "type": "email",
+  "group": "신청자",
+  "cells": [
+   13
+  ]
+ },
+ {
+  "key": "address",
+  "label": "거주지 주소",
+  "type": "text",
+  "group": "신청자",
+  "cells": [
+   15
+  ]
+ },
+ {
+  "key": "activity_region",
+  "label": "활동가능지역",
+  "type": "text",
+  "group": "활동관련사항",
+  "cells": [
+   18
+  ]
+ },
+ {
+  "key": "activity_time",
+  "label": "활동가능시간",
+  "type": "checkbox_group",
+  "options": [
+   "정기적",
+   "언제든지"
+  ],
+  "group": "활동관련사항",
+  "cells": [
+   20
+  ]
+ },
+ {
+  "key": "activity_place",
+  "label": "활동희망장소",
+  "type": "checkbox_group",
+  "options": [
+   "①서비스 이용자 가정",
+   "②돌보미 가정",
+   "①과 ② 모두 가능"
+  ],
+  "group": "활동관련사항",
+  "cells": [
+   22
+  ]
+ },
+ {
+  "key": "activity_target",
+  "label": "활동희망대상",
+  "type": "checkbox_group",
+  "options": [
+   "자폐성장애",
+   "지적장애",
+   "뇌병변장애",
+   "모두"
+  ],
+  "group": "활동관련사항",
+  "cells": [
+   24
+  ]
+ },
+ {
+  "key": "participation_route",
+  "label": "활동참여경로",
+  "type": "checkbox_group",
+  "options": [
+   "관련신문",
+   "인터넷",
+   "주변권유",
+   "기타"
+  ],
+  "group": "활동관련사항",
+  "cells": [
+   26
+  ]
+ },
+ {
+  "key": "certificate",
+  "label": "자격증",
+  "type": "text",
+  "group": "활동관련사항",
+  "cells": [
+   28
+  ]
+ },
+ {
+  "key": "disqualification_check",
+  "label": "결격여부확인",
+  "type": "radio",
+  "options": [
+   "예",
+   "아니오"
+  ],
+  "group": "활동관련사항",
+  "cells": [
+   30
+  ]
+ },
+ {
+  "key": "motivation",
+  "label": "지원동기",
+  "type": "textarea",
+  "group": "활동관련사항",
+  "cells": [
+   31
+  ]
+ },
+ {
+  "key": "other_experience_date_1",
+  "label": "기간 1",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   35
+  ]
+ },
+ {
+  "key": "other_experience_detail_1",
+  "label": "활동사항 1",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   36
+  ]
+ },
+ {
+  "key": "other_experience_date_2",
+  "label": "기간 2",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   37
+  ]
+ },
+ {
+  "key": "other_experience_detail_2",
+  "label": "활동사항 2",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   38
+  ]
+ },
+ {
+  "key": "other_experience_date_3",
+  "label": "기간 3",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   39
+  ]
+ },
+ {
+  "key": "other_experience_detail_3",
+  "label": "활동사항 3",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   40
+  ]
+ },
+ {
+  "key": "other_experience_date_4",
+  "label": "기간 4",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   41
+  ]
+ },
+ {
+  "key": "other_experience_detail_4",
+  "label": "활동사항 4",
+  "type": "text",
+  "group": "기타사항(관련 활동 경험 및 이력사항)",
+  "cells": [
+   42
+  ]
+ },
+ {
+  "key": "privacy_consent",
+  "label": "개인정보 동의 및 서명",
+  "type": "consent",
+  "cells": [
+   45
+  ]
+ }
+]

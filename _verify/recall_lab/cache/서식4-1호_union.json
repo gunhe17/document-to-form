@@ -1,0 +1,150 @@
+{
+ "fields": [
+  {
+   "key": "medical_record_number",
+   "label": "병록번호",
+   "type": "text"
+  },
+  {
+   "key": "serial_number",
+   "label": "연번호",
+   "type": "text"
+  },
+  {
+   "key": "applicant_name",
+   "label": "신청인 성명",
+   "type": "text",
+   "group": "신청인"
+  },
+  {
+   "key": "applicant_birthdate",
+   "label": "신청인 생년월일",
+   "type": "date",
+   "group": "신청인"
+  },
+  {
+   "key": "applicant_address",
+   "label": "신청인 주소",
+   "type": "text",
+   "group": "신청인"
+  },
+  {
+   "key": "applicant_phone",
+   "label": "신청인 전화",
+   "type": "phone",
+   "group": "신청인"
+  },
+  {
+   "key": "disease_name",
+   "label": "병명",
+   "type": "text"
+  },
+  {
+   "key": "expected_disability_type",
+   "label": "예견되는 장애 유형",
+   "type": "checkbox_group",
+   "options": [
+    "시각",
+    "청각",
+    "언어",
+    "뇌병변",
+    "지적",
+    "자폐성"
+   ]
+  },
+  {
+   "key": "onset_date",
+   "label": "발병 연월일",
+   "type": "date"
+  },
+  {
+   "key": "needs_area",
+   "label": "발달재활서비스 필요 분야 - 영역",
+   "type": "checkbox_group",
+   "options": [
+    "신체발달",
+    "의사소통",
+    "심리행동"
+   ]
+  },
+  {
+   "key": "sub_area_physical",
+   "label": "세부영역 - 신체발달",
+   "type": "checkbox_group",
+   "options": [
+    "감각",
+    "소근육",
+    "대근육"
+   ]
+  },
+  {
+   "key": "sub_area_communication",
+   "label": "세부영역 - 의사소통",
+   "type": "checkbox_group",
+   "options": [
+    "구문/의미",
+    "음운/청력",
+    "화용"
+   ]
+  },
+  {
+   "key": "sub_area_psychological",
+   "label": "세부영역 - 심리행동",
+   "type": "checkbox_group",
+   "options": [
+    "행동문제",
+    "정서/심리",
+    "사회성"
+   ]
+  },
+  {
+   "key": "sub_area_optional",
+   "label": "선택사항",
+   "type": "checkbox_group",
+   "options": [
+    "지능"
+   ]
+  },
+  {
+   "key": "doctor_opinion",
+   "label": "향후 발달재활서비스에 대한 소견",
+   "type": "textarea"
+  },
+  {
+   "key": "diagnosis_date",
+   "label": "진단일",
+   "type": "date"
+  },
+  {
+   "key": "signature",
+   "label": "서명 또는 인",
+   "type": "signature"
+  },
+  {
+   "key": "clinic_address_phone",
+   "label": "병·의원 주소(전화번호)",
+   "type": "text"
+  },
+  {
+   "key": "clinic_name",
+   "label": "병·의원 명",
+   "type": "text"
+  },
+  {
+   "key": "doctor_license_number",
+   "label": "의사면허번호",
+   "type": "text"
+  },
+  {
+   "key": "specialist_department",
+   "label": "전문의 과명",
+   "type": "text"
+  },
+  {
+   "key": "doctor_name",
+   "label": "의사명",
+   "type": "text"
+  }
+ ],
+ "constraints": []
+}

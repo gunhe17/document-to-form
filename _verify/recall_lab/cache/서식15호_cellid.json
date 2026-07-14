@@ -1,0 +1,175 @@
+[
+ {
+  "key": "agency_name",
+  "label": "기 관 명",
+  "type": "text",
+  "cells": [
+   1
+  ]
+ },
+ {
+  "key": "phone_number",
+  "label": "전화번호",
+  "type": "phone",
+  "cells": [
+   3
+  ]
+ },
+ {
+  "key": "agency_address",
+  "label": "기관 주소",
+  "type": "text",
+  "cells": [
+   5
+  ]
+ },
+ {
+  "key": "injured_child_name",
+  "label": "상해아동명",
+  "type": "text",
+  "cells": [
+   7
+  ]
+ },
+ {
+  "key": "gender",
+  "label": "성별",
+  "type": "radio",
+  "options": [
+   "남",
+   "여"
+  ],
+  "cells": [
+   9
+  ]
+ },
+ {
+  "key": "birthdate",
+  "label": "생년월일",
+  "type": "date",
+  "cells": [
+   11
+  ]
+ },
+ {
+  "key": "accident_date",
+  "label": "사고일자",
+  "type": "date",
+  "cells": [
+   13
+  ]
+ },
+ {
+  "key": "accident_time",
+  "label": "사고시간",
+  "type": "time",
+  "cells": [
+   15
+  ]
+ },
+ {
+  "key": "witness_name",
+  "label": "목격자명",
+  "type": "text",
+  "cells": [
+   17
+  ]
+ },
+ {
+  "key": "parent_contact_details",
+  "label": "부모에게 연락한 사항",
+  "type": "text",
+  "cells": [
+   19
+  ]
+ },
+ {
+  "key": "contact_time",
+  "label": "연락시간",
+  "type": "time",
+  "cells": [
+   21
+  ]
+ },
+ {
+  "key": "call_119",
+  "label": "119신고여부",
+  "type": "radio",
+  "options": [
+   "안함",
+   "신고함 (am/pm)"
+  ],
+  "cells": [
+   23
+  ]
+ },
+ {
+  "key": "accident_location",
+  "label": "사고발생 장소",
+  "type": "checkbox_group",
+  "options": [
+   "화장실",
+   "거실",
+   "주방",
+   "외출중",
+   "실외놀이터",
+   "이동중",
+   "기타"
+  ],
+  "cells": [
+   25
+  ]
+ },
+ {
+  "key": "activity_at_time_of_accident",
+  "label": "사고당시 활동내용",
+  "type": "checkbox_group",
+  "options": [
+   "목욕 및 배변시간",
+   "학습활동",
+   "집안자유놀이",
+   "식사/간식시간",
+   "실외자유놀이",
+   "등하원, 외출지도시",
+   "기타"
+  ],
+  "cells": [
+   27
+  ]
+ },
+ {
+  "key": "injury_type",
+  "label": "상해의 유형",
+  "type": "checkbox_group",
+  "options": [
+   "화상",
+   "쇼크/질식",
+   "추락/강타",
+   "물체에 끼임",
+   "찢어짐",
+   "뼈가 부러지거나 탈구",
+   "압박, 눌림",
+   "베임",
+   "찰과상(벗겨짐)",
+   "삠",
+   "중독",
+   "호흡곤란",
+   "기타"
+  ],
+  "cells": [
+   29
+  ]
+ },
+ {
+  "key": "other_injured_siblings",
+  "label": "상해를 입은 다른 형제가 있는가 ?",
+  "type": "radio",
+  "options": [
+   "예",
+   "아니오"
+  ],
+  "cells": [
+   31
+  ]
+ }
+]

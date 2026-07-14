@@ -1,0 +1,217 @@
+[
+ {
+  "key": "applicant_name",
+  "label": "성명",
+  "type": "text"
+ },
+ {
+  "key": "applicant_gender",
+  "label": "성별",
+  "type": "text"
+ },
+ {
+  "key": "applicant_photo",
+  "label": "칼라사진 (3.5×4.5cm)",
+  "type": "text"
+ },
+ {
+  "key": "applicant_birth_date",
+  "label": "생년월일",
+  "type": "date"
+ },
+ {
+  "key": "applicant_age",
+  "label": "나이",
+  "type": "number"
+ },
+ {
+  "key": "applicant_contact",
+  "label": "연락처",
+  "type": "phone"
+ },
+ {
+  "key": "applicant_email",
+  "label": "이메일",
+  "type": "email"
+ },
+ {
+  "key": "applicant_address",
+  "label": "거주지 주소",
+  "type": "text"
+ },
+ {
+  "key": "activity_region",
+  "label": "활동가능지역",
+  "type": "text"
+ },
+ {
+  "key": "activity_time_type",
+  "label": "활동가능시간",
+  "type": "radio",
+  "options": [
+   "정기적",
+   "언제든지"
+  ]
+ },
+ {
+  "key": "activity_time_regular_day",
+  "label": "정기적 요일",
+  "type": "text"
+ },
+ {
+  "key": "activity_time_regular_start",
+  "label": "정기적 시작 시간",
+  "type": "time"
+ },
+ {
+  "key": "activity_time_regular_end",
+  "label": "정기적 종료 시간",
+  "type": "time"
+ },
+ {
+  "key": "activity_time_regular_total",
+  "label": "정기적 총 시간",
+  "type": "number"
+ },
+ {
+  "key": "activity_space",
+  "label": "활동희망장소",
+  "type": "radio",
+  "options": [
+   "①서비스 이용자 가정",
+   "②돌보미 가정",
+   "①과 ② 모두 가능"
+  ]
+ },
+ {
+  "key": "activity_target",
+  "label": "활동희망대상",
+  "type": "checkbox_group",
+  "options": [
+   "자폐성장애",
+   "지적장애",
+   "뇌병변장애",
+   "모두"
+  ]
+ },
+ {
+  "key": "participation_path",
+  "label": "활동참여경로",
+  "type": "radio",
+  "options": [
+   "관련신문",
+   "인터넷",
+   "주변권유",
+   "기타"
+  ]
+ },
+ {
+  "key": "participation_path_etc",
+  "label": "활동참여경로 기타",
+  "type": "text"
+ },
+ {
+  "key": "qualification_level",
+  "label": "자격증 급",
+  "type": "text"
+ },
+ {
+  "key": "qualification_etc",
+  "label": "자격증 기타",
+  "type": "text"
+ },
+ {
+  "key": "disqualification_check",
+  "label": "결격사유에 해당하는지 여부",
+  "type": "radio",
+  "options": [
+   "예",
+   "아니오"
+  ]
+ },
+ {
+  "key": "motivation",
+  "label": "지원동기",
+  "type": "textarea"
+ },
+ {
+  "key": "other_experience",
+  "label": "기타사항(관련 활동 경험 및 이력사항)",
+  "type": "textarea"
+ },
+ {
+  "key": "career_1_start",
+  "label": "경력 1 시작일",
+  "type": "date"
+ },
+ {
+  "key": "career_1_end",
+  "label": "경력 1 종료일",
+  "type": "date"
+ },
+ {
+  "key": "career_1_activity",
+  "label": "경력 1 활동사항",
+  "type": "text"
+ },
+ {
+  "key": "career_2_start",
+  "label": "경력 2 시작일",
+  "type": "date"
+ },
+ {
+  "key": "career_2_end",
+  "label": "경력 2 종료일",
+  "type": "date"
+ },
+ {
+  "key": "career_2_activity",
+  "label": "경력 2 활동사항",
+  "type": "text"
+ },
+ {
+  "key": "career_3_start",
+  "label": "경력 3 시작일",
+  "type": "date"
+ },
+ {
+  "key": "career_3_end",
+  "label": "경력 3 종료일",
+  "type": "date"
+ },
+ {
+  "key": "career_3_activity",
+  "label": "경력 3 활동사항",
+  "type": "text"
+ },
+ {
+  "key": "career_4_start",
+  "label": "경력 4 시작일",
+  "type": "date"
+ },
+ {
+  "key": "career_4_end",
+  "label": "경력 4 종료일",
+  "type": "date"
+ },
+ {
+  "key": "career_4_activity",
+  "label": "경력 4 활동사항",
+  "type": "text"
+ },
+ {
+  "key": "privacy_consent",
+  "label": "개인정보 제공 및 활용 동의",
+  "type": "consent"
+ },
+ {
+  "key": "application_date",
+  "label": "신청일",
+  "type": "date"
+ },
+ {
+  "key": "applicant_signature",
+  "label": "신청인 서명",
+  "type": "signature"
+ }
+]

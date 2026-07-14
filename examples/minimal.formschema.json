@@ -1,0 +1,33 @@
+{
+  "pages": [
+    { "no": 1, "image": "s3://forms/p-1.png", "w": 1275, "h": 1788 }
+  ],
+  "fields": {
+    "name": { "type": "text", "label": "성명", "required": true },
+    "birth_date": { "type": "date", "label": "생년월일" },
+    "gender": {
+      "type": "radio", "label": "성별",
+      "options": [
+        { "value": "male", "label": "남" },
+        { "value": "female", "label": "여" }
+      ]
+    },
+    "channel": {
+      "type": "checkbox_group", "label": "활동참여경로",
+      "options": [
+        { "value": "news", "label": "관련신문" },
+        { "value": "web", "label": "인터넷" },
+        { "value": "etc", "label": "기타", "allow_text": true }
+      ]
+    }
+  },
+  "elements": [
+    { "id": "el-name", "page": 1, "rect": [0.42, 0.18, 0.14, 0.037], "widget": "text_input", "field_refs": ["name"] },
+    { "id": "el-birth_date", "page": 1, "rect": [0.19, 0.21, 0.13, 0.037], "widget": "text_input", "field_refs": ["birth_date"] },
+    { "id": "el-gender-male", "page": 1, "rect": [0.55, 0.18, 0.02, 0.015], "widget": "radio", "field_refs": ["gender"], "option": "male" },
+    { "id": "el-gender-female", "page": 1, "rect": [0.62, 0.18, 0.02, 0.015], "widget": "radio", "field_refs": ["gender"], "option": "female" },
+    { "id": "el-channel-news", "page": 1, "rect": [0.20, 0.30, 0.02, 0.015], "widget": "checkbox", "field_refs": ["channel"], "option": "news" },
+    { "id": "el-channel-web", "page": 1, "rect": [0.35, 0.30, 0.02, 0.015], "widget": "checkbox", "field_refs": ["channel"], "option": "web" },
+    { "id": "el-channel-etc", "page": 1, "rect": [0.50, 0.30, 0.02, 0.015], "widget": "checkbox", "field_refs": ["channel"], "option": "etc" }
+  ]
+}

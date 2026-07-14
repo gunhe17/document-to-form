@@ -1,0 +1,180 @@
+[
+ {
+  "key": "medical_record_number",
+  "label": "병록번호",
+  "type": "text",
+  "cells": [
+   2
+  ]
+ },
+ {
+  "key": "serial_number",
+  "label": "연 번 호",
+  "type": "text",
+  "cells": [
+   4
+  ]
+ },
+ {
+  "key": "applicant_name",
+  "label": "신청인 성명",
+  "type": "text",
+  "cells": [
+   7
+  ]
+ },
+ {
+  "key": "applicant_birthdate",
+  "label": "생년월일",
+  "type": "date",
+  "cells": [
+   9
+  ]
+ },
+ {
+  "key": "applicant_address_phone",
+  "label": "주소 (전화)",
+  "type": "text",
+  "cells": [
+   11
+  ]
+ },
+ {
+  "key": "predicted_disability_type",
+  "label": "예견되는 장애 유형",
+  "type": "checkbox_group",
+  "options": [
+   "시각",
+   "청각",
+   "언어",
+   "뇌병변",
+   "지적",
+   "자폐성"
+  ],
+  "cells": [
+   13,
+   14
+  ]
+ },
+ {
+  "key": "발병 연월일",
+  "label": "발병 연월일",
+  "type": "date",
+  "cells": [
+   17
+  ]
+ },
+ {
+  "key": "physical_development",
+  "label": "영역: 신체발달",
+  "type": "checkbox_group",
+  "options": [
+   "신체발달",
+   "감각",
+   "소근육",
+   "대근육"
+  ],
+  "cells": [
+   21,
+   22
+  ]
+ },
+ {
+  "key": "communication",
+  "label": "영역: 의사소통",
+  "type": "checkbox_group",
+  "options": [
+   "의사소통",
+   "구문/의미",
+   "음운/청력",
+   "화용"
+  ],
+  "cells": [
+   23,
+   24
+  ]
+ },
+ {
+  "key": "psychological_behavior",
+  "label": "영역: 심리행동",
+  "type": "checkbox_group",
+  "options": [
+   "심리행동",
+   "행동문제",
+   "정서/심리",
+   "사회성"
+  ],
+  "cells": [
+   25,
+   26
+  ]
+ },
+ {
+  "key": "optional",
+  "label": "선택사항: 지능",
+  "type": "checkbox_group",
+  "options": [
+   "지능"
+  ],
+  "cells": [
+   28
+  ]
+ },
+ {
+  "key": "opinion",
+  "label": "향후 발달재활서비스에 대한 소견",
+  "type": "textarea",
+  "cells": [
+   30,
+   35
+  ]
+ },
+ {
+  "key": "diagnosis_date",
+  "label": "진단일",
+  "type": "date",
+  "cells": [
+   32
+  ]
+ },
+ {
+  "key": "signature",
+  "label": "서명 또는 인",
+  "type": "signature",
+  "cells": [
+   34
+  ]
+ },
+ {
+  "key": "hospital_address_phone",
+  "label": "병･의원 주소(전화번호)",
+  "type": "text",
+  "cells": [
+   36
+  ]
+ },
+ {
+  "key": "hospital_name",
+  "label": "병･의원 명",
+  "type": "text",
+  "cells": [
+   37
+  ]
+ },
+ {
+  "key": "doctor_license_number",
+  "label": "의사면허번호",
+  "type": "text",
+  "cells": [
+   38
+  ]
+ },
+ {
+  "key": "doctor_specialty_name",
+  "label": "전문의 의사명",
+  "type": "text",
+  "cells": [
+   39
+  ]
+ }
+]

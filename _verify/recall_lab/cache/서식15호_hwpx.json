@@ -1,0 +1,147 @@
+[
+ {
+  "key": "agency_name",
+  "label": "기관명",
+  "type": "text"
+ },
+ {
+  "key": "phone",
+  "label": "전화번호",
+  "type": "phone"
+ },
+ {
+  "key": "agency_address",
+  "label": "기관 주소",
+  "type": "text"
+ },
+ {
+  "key": "child_name",
+  "label": "상해아동명",
+  "type": "text"
+ },
+ {
+  "key": "gender",
+  "label": "성별",
+  "type": "radio",
+  "options": [
+   "남",
+   "여"
+  ]
+ },
+ {
+  "key": "birth_date",
+  "label": "생년월일",
+  "type": "date"
+ },
+ {
+  "key": "accident_date",
+  "label": "사고일자",
+  "type": "date"
+ },
+ {
+  "key": "accident_time",
+  "label": "사고시간",
+  "type": "time"
+ },
+ {
+  "key": "witness_name",
+  "label": "목격자명",
+  "type": "text"
+ },
+ {
+  "key": "parent_contact_details",
+  "label": "부모에게 연락한 사항",
+  "type": "textarea"
+ },
+ {
+  "key": "contact_time",
+  "label": "연락시간",
+  "type": "time"
+ },
+ {
+  "key": "119_report_status",
+  "label": "119신고여부",
+  "type": "radio",
+  "options": [
+   "안함",
+   "신고함"
+  ]
+ },
+ {
+  "key": "119_report_time",
+  "label": "119신고 시간",
+  "type": "time"
+ },
+ {
+  "key": "accident_location",
+  "label": "사고발생 장소",
+  "type": "checkbox_group",
+  "options": [
+   "화장실",
+   "거실",
+   "주방",
+   "외출중",
+   "실외놀이터",
+   "이동중",
+   "기타"
+  ]
+ },
+ {
+  "key": "accident_location_other",
+  "label": "사고발생 장소 기타 상세",
+  "type": "text"
+ },
+ {
+  "key": "activity_during_accident",
+  "label": "사고당시 활동내용",
+  "type": "checkbox_group",
+  "options": [
+   "목욕 및 배변시간",
+   "학습활동",
+   "집안자유놀이",
+   "식사/간식시간",
+   "실외자유놀이",
+   "등하원, 외출지도시",
+   "기타"
+  ]
+ },
+ {
+  "key": "activity_during_accident_other",
+  "label": "사고당시 활동내용 기타 상세",
+  "type": "text"
+ },
+ {
+  "key": "injury_type",
+  "label": "상해의 유형",
+  "type": "checkbox_group",
+  "options": [
+   "화상",
+   "쇼크/질식",
+   "추락/강타",
+   "물체에 끼임",
+   "찢어짐",
+   "뼈가 부러지거나 탈구",
+   "압박, 눌림",
+   "베임",
+   "찰과상(벗겨짐)",
+   "삠",
+   "중독",
+   "호흡곤란",
+   "기타"
+  ]
+ },
+ {
+  "key": "injury_type_other",
+  "label": "상해의 유형 기타 상세",
+  "type": "text"
+ },
+ {
+  "key": "injured_siblings",
+  "label": "상해를 입은 다른 형제가 있는가?",
+  "type": "radio",
+  "options": [
+   "예",
+   "아니오"
+  ]
+ }
+]
