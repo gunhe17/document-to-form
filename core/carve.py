@@ -33,7 +33,9 @@ def refine_blank(gray, rect, pad=2, floor=0.14):
 
 # ── CV 프리미티브 (combined2에서 추출) ──
 def text_bands(gray, x, y, w, h):
-    """글자 줄 밴드 (b0,b1) — 가로 꽉 찬 테두리행 제외. y 상대좌표."""
+    """글자 줄 밴드 (b0,b1) — 가로 꽉 찬 테두리행 제외. y 상대좌표.
+    gap 임계 3행: 폭 전체 합산이라 인접 줄 사이 진짜 여백만 3행 연속 0에 가까워도 뚜렷이 갈리고,
+    글자 내부 획 사이 틈은 폭 전체를 다 비우지 않아 오분리 안 됨(줄간격 촘촘한 서식에서 확인)."""
     rs = (gray[y:y+h, x:x+w] < INK).sum(1)
     txt = (rs > 3) & (rs < 0.7*w)
     out = []; s = None; g = 0
@@ -42,9 +44,11 @@ def text_bands(gray, x, y, w, h):
         else:
             if s is not None:
                 g += 1
-                if g >= 5:
+                if g >= 3:
                     if i-g-s >= 6: out.append((s, i-g))
                     s = None; g = 0
+    if s is not None and len(txt)-g-s >= 6:   # 잉크가 rect 끝까지 이어져 트레일링 gap이 안 생기는 경우도 반영
+        out.append((s, len(txt)-g))
     return out
 
 def merged_runs(gray, x, by0, by1, w, mgap=8, cbs=()):
@@ -149,6 +153,73 @@ def ocr_label_left(gray, box, text, hw, min_ratio=0.5):
         if key.startswith(t) or t in key or key in t or t.startswith(key[:2]): r = max(r, 0.6)  # 시작조각/포함
         if r >= br: br = r; best = int(wx)
     return best
+
+def ocr_word_box(gray, box, text, hw, bounds=None, min_ratio=0.5, expand=3.0):
+    """텍스트가 있는 LLM box를 넓게 OCR 재검색해 실제 글자 전체의 bbox로 스냅. 못 찾으면 None(폴백).
+    radio(글자에 동그라미) 옵션, signature 문구('(서명 또는 인)'·'(인)'·'인)' 등) 둘 다에 씀 —
+    LLM box가 옆 단어로 밀리는 경우(촘촘한 나열)나, 잉크 기반 fit이 괄호를 테두리로 오인해 잘라내는
+    경우 모두 이걸로 실제 텍스트 위치·범위를 확정한다.
+    ocr_label_left와 같은 원리(EasyOCR+퍼지매칭)지만 '라벨 왼쪽 x'가 아니라 '전체 bbox'가 필요해 분리.
+    '심하지 않음'·'(서명 또는 인)'처럼 여러 단어짜리 옵션/문구는 OCR이 토큰을 쪼개기도 해,
+    인접 토큰을 최대 3개까지 이어붙인 합성 후보도 본다."""
+    import difflib
+    if not text: return None
+    x, y, w, h = (int(v) for v in box); key = text.replace(" ", "")
+    ex = int(h*expand)
+    X0, X1 = x-ex, x+max(w, ex)+ex; Y0, Y1 = y-int(h*0.8), y+h+int(h*0.8)
+    X0, Y0, X1, Y1 = _clamp_roi(X0, Y0, X1, Y1, bounds)   # 배정 region 안으로 제한(다른 행 오앵커 방지)
+    results = _easyread(gray, X0, Y0, X1, Y1, detail=1, paragraph=False, width_ths=0.15)  # 좁게: 옆 단어와 안 뭉침
+    cy = y+h/2; toks = []
+    for bb, t, conf in results:
+        t = t.strip().replace(" ", "")
+        if not t: continue
+        wcy = (min(pt[1] for pt in bb)+max(pt[1] for pt in bb))/2
+        if abs(wcy-cy) > h*1.2: continue                       # 같은 줄만
+        xs = [pt[0] for pt in bb]; ys = [pt[1] for pt in bb]
+        toks.append((min(xs), max(xs), min(ys), max(ys), t))
+    toks.sort()
+    cands = list(toks)
+    n = len(toks)
+    for i in range(n):                                          # 인접 토큰 최대 3개까지 이어붙인 합성 후보
+        x0, x1, y0, y1, txt = toks[i]                            # (예: '(서명'+'또는'+'인)' → '(서명또는인)')
+        for j in range(i+1, min(i+3, n)):
+            if toks[j][0]-x1 >= h*1.5: break
+            x1 = toks[j][1]; y0 = min(y0, toks[j][2]); y1 = max(y1, toks[j][3]); txt = txt+toks[j][4]
+            cands.append((x0, x1, y0, y1, txt))
+    best = None; br = min_ratio
+    for x0, x1, y0, y1, t in cands:
+        r = difflib.SequenceMatcher(None, key, t).ratio()
+        sub = None
+        if len(t) > len(key):
+            # 원칙: 반환 bbox는 라벨(key) 글자만 포함한다 — 옆에 붙은 글자·문장부호는 절대 안 들어간다.
+            # t가 key보다 길면(완전 포함이든 자잘한 오독 섞인 퍼지매칭이든) 항상 정렬된 구간만 비례로
+            # 잘라낸다. get_matching_blocks로 실제 대응 글자 위치를 찾음(t.find는 완전일치만 찾음).
+            sm = difflib.SequenceMatcher(None, key, t)
+            blocks = [b for b in sm.get_matching_blocks() if b.size > 0]
+            if blocks:
+                r = max(r, 0.55)
+                i0 = blocks[0].b; i1 = blocks[-1].b+blocks[-1].size   # t 안에서 key가 걸리는 구간
+                cw = (x1-x0)/len(t)
+                sub = (x0+cw*i0, y0, cw*(i1-i0), y1-y0)          # 균일폭 근사(기본값)
+                # 실제 잉크 뭉치 경계로 정밀화: 글자 폭은 균일하지 않아서(예 쉼표 vs 한글 음절)
+                # 비례 분할은 근사일 뿐이다. 제외되는 쪽이 한쪽 끝에서 딱 1글자(대개 쉼표·마침표
+                # 등 짧은 문장부호)뿐인 흔한 경우엔, 좁은 gap으로 뭉친 실제 잉크 런을 찾아 그
+                # 경계에 스냅한다 — 음절 간 간격은 들쭉날쭉해 '런 개수=글자 수'를 보장 못 하지만,
+                # 제외 글자가 1개면 마지막(또는 첫) 런 하나만 떼어내는 것만으로 충분히 안전하다.
+                n_lead, n_trail = i0, len(t)-i1
+                if n_lead+n_trail == 1:
+                    ink_runs = merged_runs(gray, int(x0), int(y0), int(y1), int(x1-x0), mgap=4)
+                    if len(ink_runs) >= 2:
+                        abs_runs = [(x0+a, x0+b) for a, b in ink_runs]
+                        kept = abs_runs[1:] if n_lead else abs_runs[:-1]
+                        if kept:
+                            sub = (kept[0][0], y0, kept[-1][1]-kept[0][0], y1-y0)
+        elif t == key or t in key or key.startswith(t):
+            r = max(r, 0.6)                              # 같거나 key의 일부 조각(짧음) — 자를 것 없이 그대로
+        if r >= br:
+            br = r; best = sub or (x0, y0, x1-x0, y1-y0)
+    return best
+
 
 _EASY_READER = None
 def _easyocr():
@@ -276,28 +347,59 @@ def snap_to_cell(rect, cells, min_iou=0.55, pad=2):
     cx, cy, cw, ch = best
     return (cx+pad, cy+pad, max(4, cw-2*pad), max(4, ch-2*pad))
 
-def fit_bounded(gray, rect, cells, pad=3):
+def fit_bounded(gray, rect, cells, atom_rect=None, pad=3):
     """상하좌우 자동 맞춤: 포함 셀의 '박스가 놓인 텍스트 라인'(상·하)과 그 라인의 좌우 인접 잉크
-    (라벨·단위·괄호) 사이 빈칸에 일정 여백으로 박스를 맞춘다. 단위 입력(___세·(_급))처럼 둘러싸인 값칸용."""
+    (라벨·단위·괄호) 사이 빈칸에 일정 여백으로 박스를 맞춘다. 단위 입력(___세·(_급))처럼 둘러싸인 값칸용.
+    atom_rect: 괘선 셀이 안 걸리면(band) 이걸 폴백 컨테이너로 — band는 진짜 테두리가 없어 단일행이라도
+    셀처럼 '행 전체'를 쓰지 않고 라벨 글자밴드 높이 그대로 씀(밑줄 위 여백 과다 방지)."""
     x, y, w, h = (int(v) for v in rect); ccx, ccy = x+w/2, y+h/2
     cell = None                                              # 가장 작은 포함 셀
     for cx, cy, cw, ch in cells:
         if cx-2 <= ccx <= cx+cw+2 and cy-2 <= ccy <= cy+ch+2:
             if cell is None or cw*ch < cell[2]*cell[3]: cell = (cx, cy, cw, ch)
-    if cell is None: return (x, y, w, h)
-    clx, cty, cw, ch = cell
+    is_band = cell is None and atom_rect is not None
+    if cell is None and not is_band: return (x, y, w, h)
+    clx, cty, cw, ch = cell if cell else atom_rect
     bands = text_bands(gray, clx, cty, cw, ch)              # 세로: 박스가 놓인 '행' 높이
-    if len(bands) <= 1:                                     # 단일행 셀 → 셀 높이 전체(테두리 여백 pad)
+    if not bands and is_band: return (x, y, w, h)           # band인데 라벨조차 없음 → 기준 없이 원본 유지
+    # 단일행 셀이라도, 이 요소의 (refine 후) box 높이가 이미 셀 높이 대부분을 차지하면 그 칸 자체가
+    # 큰 작성란(예 지원동기)이라는 뜻 → 셀 전체 사용. box가 셀 높이의 절반도 안 되면(예: 서명 넣을 자리 때문에
+    # 유독 큰 셀에 한 줄짜리 날짜·시각 값이 얹힌 경우) 셀 전체로 늘리지 않고 그 텍스트 줄에만 맞춘다.
+    if not bands and not is_band: top, bot = cty, cty+ch; vpad = pad
+    elif len(bands) <= 1 and not is_band and h >= ch*0.5:   # 단일행 + 박스가 이미 셀 대부분 → 큰 작성란
         top, bot = cty, cty+ch; vpad = pad
-    else:                                                   # 다중행 블록 → 박스가 놓인 그 텍스트 줄에 딱 맞춤
+    else:                                                   # band, 다중행, 또는 셀 대비 유독 작은 단일값 → 그 텍스트 줄에 딱 맞춤
         ba = [(cty+b0, cty+b1) for b0, b1 in bands]          # (중점X: 마지막 줄이 셀 바닥까지 늘어나는 것 방지)
         top, bot = min(ba, key=lambda b: abs((b[0]+b[1])/2 - ccy)); vpad = 0   # 밴드=텍스트, 세로 깎지 않음
-    left, right = clx, clx+cw                               # 가로: 라인 잉크 런의 좌우 인접
-    for r0, r1 in merged_runs(gray, clx, top, bot, cw):
-        mid = clx+(r0+r1)/2
-        if mid < ccx: left = max(left, clx+r1)              # 왼쪽 라벨/괄호 뒤
-        elif mid > ccx: right = min(right, clx+r0); break   # 오른쪽 단위 앞
-    if right-left < 8: return (x, y, w, h)
+    # 세로 구분선(진짜 칼럼 경계·사이드바 등) 감지 — band가 옆 칼럼까지 포함하는 컨테이너라도
+    # 그 선 밖은 아예 스캔하지 않는다(옆 칼럼 글자를 이 줄의 값으로 오인하는 것 방지).
+    colcnt = (gray[top:bot, clx:clx+cw] < INK).sum(0)
+    vb = np.where(colcnt > 0.7*(bot-top))[0]
+    lb = max((clx+int(b) for b in vb if clx+b < ccx), default=clx)
+    rb = min((clx+int(b) for b in vb if clx+b > ccx), default=clx+cw)
+    left, right = lb, rb                                    # 가로: 라인 잉크 런의 좌우 인접
+    min_w = max(4, (bot-top)*0.3)                           # 원본 박스 '안'에서만: 점(.) 같은 잡음은 경계로 안 침
+    ix0, ix1 = x, x+w                                       # (밖에 있는 얇은 표시는 옆 칸과의 진짜 경계일 수 있어 그대로 존중)
+    found_l = found_r = False
+    for r0, r1 in merged_runs(gray, lb, top, bot, rb-lb):
+        a0, a1 = lb+r0, lb+r1
+        if r1-r0 < min_w and ix0 <= a0 and a1 <= ix1: continue   # 예: '날짜: __.__.__.'의 내부 마침표만 무시
+        mid = lb+(r0+r1)/2
+        if mid < ccx: left = max(left, lb+r1); found_l = True   # 왼쪽 라벨/괄호 뒤
+        elif mid > ccx: right = min(right, lb+r0); found_r = True; break   # 오른쪽 단위 앞
+    # band는 atom_rect(한 줄 전체 폭, 때로 옆 칸·사이드바까지 포함)가 컨테이너라 이 방향에 인접 잉크가
+    # 아예 없으면(예: '주소 : ' 뒤가 그 줄 끝까지 진짜 빈칸) 컨테이너 끝까지 뻗어버린다 — 그 끝이 실제
+    # 옆 칼럼(구분선 밖)일 수 있다. LLM 원본 box 자체가 이미 그렇게 크게 와서 ccx도 못 믿을 수 있으니,
+    # 못 찾은 쪽은 ccx가 아니라 반대쪽에서 실제로 찾은 경계 기준으로 상식적 상한을 둔다.
+    if is_band:
+        # 오른쪽은 found_r이어도 항상 상한 적용 — 사이드바 세로캡션처럼 진짜 글자처럼 보이는 잡음이
+        # 옆 칼럼에서 '경계'로 잡히는 경우가 있어(구분선이 이 행엔 안 지나가 위 검출로도 못 거름),
+        # found_r=True여도 안심할 수 없다. 왼쪽은 found_l이면(라벨을 신뢰할 수 있으면) 그대로 둔다.
+        cap = int(12*(bot-top))
+        right = min(right, (left if found_l else ccx)+cap)
+        if not found_l: left = max(left, (right if found_r else ccx)-cap)
+    if right-left < 8:                                      # 가로 인접 잉크 없음 → 가로는 원본 유지, 세로만 반영
+        left, right = x-pad, x+w+pad
     return (left+pad, top+vpad, right-left-2*pad, max(6, bot-top-2*vpad))
 
 def fill_cell(rect, cells, pad=4):
@@ -491,6 +593,14 @@ def ocr_anchor(gray, rect, unit, hw, min_conf=0.25, bounds=None):
     vp = max(1, gh//8)                                        # 세로: 단위글자(년/월/일) 높이에 맞춤
     return (b0+1, gy-vp, bw-2, gh+2*vp) if bw >= 6 else None
 
+def mark_pad(rect, fh):
+    """OCR로 찾은 타이트 텍스트 bbox에 두르는 여백 — radio(글자에 원 표시)·signature(그 위에 서명/도장)
+    공통 원칙: 'LLM 라벨과 텍스트 유사도로 감지 → 실제 잉크에 딱 맞춤 → 표시할 여백 추가'의 마지막 단계.
+    글자만큼 딱 맞으면 원이나 서명이 들어갈 자리가 없어 항상 이 여백을 통일해서 붙인다."""
+    x, y, w, h = rect
+    mx = max(3, int(fh*0.28)); my = max(2, int(fh*0.16))       # 가로 여백↑(동그라미·서명 폭)·세로 여백↓
+    return (x-mx, y-my, w+2*mx, h+2*my)
+
 def place(gray, box, ftype, option=None, page_hw=None, mark=None, unit=None, bounds=None):
     """LLM box를 타입 규칙으로 검증→수정. → (rect, corrected, rule). box=픽셀(x,y,w,h).
     mark: radio 'box'/'circle'. unit: 단위글자(년/급 등) — date/number면 OCR로 글자 앵커 먼저 시도.
@@ -501,10 +611,15 @@ def place(gray, box, ftype, option=None, page_hw=None, mark=None, unit=None, bou
         res = ocr_anchor(gray, (ox, oy, ow, oh), unit, hw, bounds=bounds)
         if res: rule = "_ocr_anchor"
     if res is None and ftype == "radio" and option and option not in ("L", "R", "좌", "우"):
-        # radio: LLM box(중심 3px 정확)를 box 안 잉크에 조인 뒤 여백. am/pm 슬래시만 살짝 포함(경미). L/R은 _lr_pair.
-        fx, fy, fw, fh = fit_ink(gray, (ox, oy, ow, oh), pad=1, thr=1)   # thr=1: 얇은 획 안 자름
-        mx = max(3, int(fh*0.28)); my = max(2, int(fh*0.16))       # 가로 여백↑(동그라미 폭)·세로 여백↓
-        res = (fx-mx, fy-my, fw+2*mx, fh+2*my); rule = "_fit_ink"
+        # radio: 옵션 text를 OCR로 넓게 찾아 정확한 글자에 앵커(촘촘한 나열에서 LLM box가 옆 단어로
+        # 밀려도 실제 텍스트 위치로 스냅). 못 찾으면 LLM box 안 잉크에 조이는 CV 폴백. L/R은 _lr_pair.
+        wb = ocr_word_box(gray, (ox, oy, ow, oh), option, hw, bounds=bounds)
+        if wb:
+            rule = "_ocr_word"
+        else:
+            wb = fit_ink(gray, (ox, oy, ow, oh), pad=1, thr=1)   # thr=1: 얇은 획 안 자름
+            rule = "_fit_ink"
+        res = mark_pad(wb, wb[3])
     if res is None:                                             # 폴백: _fit_word(CV 잉크런)
         fn = _fit_word if ftype == "radio" else PLACE_RULES.get(ftype, _keep)   # radio=글자에 fit
         res = fn(gray, (ox, oy, ow, oh), option, hw); rule = fn.__name__
@@ -554,6 +669,54 @@ def _demo():
     g10 = np.full((60, 200), 255, np.uint8); cv2.putText(g10, "M", (80, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.0, 0, 2)
     r10, ch10, rule10 = place(g10, (40, 5, 100, 50), "radio", "m")
     assert rule10 in ("_fit_letters", "_fit_ink", "_fit_word") and r10[2] < 70, f"radio fit to ink, got rule={rule10} w={r10[2]}"
+    # mark_pad: OCR로 찾은 타이트 텍스트에 원/서명 여백 추가 — radio·signature 공통 규칙(일괄 적용)
+    rp = mark_pad((100, 100, 40, 20), 20)
+    assert rp[0] < 100 and rp[1] < 100 and rp[2] > 40 and rp[3] > 20, f"mark_pad는 사방으로 늘림, got {rp}"
+    # fit_bounded: 괘선 없는 band(밑줄만 있는 줄)는 라벨 글자밴드 높이로 세로를 좁힘(atom_rect 폴백).
+    # 괘선 셀(cells에 걸림)은 기존처럼 셀 전체 높이 유지 — band만 달라짐, 회귀 없음.
+    gB = np.full((60, 200), 255, np.uint8)
+    cv2.putText(gB, "AB", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, 0, 2)   # 왼쪽 라벨(예 "추천인:")
+    cv2.putText(gB, "CD", (150, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, 0, 2)  # 오른쪽 문구(예 "(서명 또는 인)")
+    tall_box = (40, 2, 120, 54)                                            # LLM이 준 지나치게 큰 박스(atom 세로 거의 전체)
+    rB = fit_bounded(gB, tall_box, [], atom_rect=(0, 0, 200, 60))
+    assert rB[3] <= 15, f"band 세로를 라벨 줄 높이로 좁힘(원본54), got h={rB[3]}"
+    assert 25 < rB[0] < 45, f"가로 왼쪽은 AB 라벨 뒤로, got x={rB[0]}"
+    rCell = fit_bounded(gB, tall_box, [(0, 0, 200, 60)])                   # 진짜 괘선 셀이면 기존처럼 셀 전체 유지
+    assert rCell[3] > 45, f"괘선 셀은 회귀 없이 전체 높이 유지, got h={rCell[3]}"
+    # fit_bounded: band 오른쪽에 인접 잉크가 전혀 없으면(라벨 뒤가 그 줄 끝까지 진짜 빈칸) atom_rect
+    # 끝까지 뻗지 않고 상식적 상한을 둔다 — band가 옆 칼럼(예 사이드바)까지 포함하는 문서에서
+    # '주소:' 류 필드가 그 옆 칼럼까지 침범하는 걸 방지(서식6호 실측 버그).
+    gD = np.full((30, 800), 255, np.uint8)
+    cv2.putText(gD, "LBL", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, 0, 2)   # 라벨만 있고 그 뒤는 끝까지 빈칸
+    rD = fit_bounded(gD, (60, 2, 100, 26), [], atom_rect=(0, 0, 800, 30))
+    assert rD[2] < 300, f"오른쪽 잉크 없으면 atom(800) 끝까지 안 뻗고 상한 적용, got w={rD[2]}"
+    # fit_bounded: 단일행 괘선 셀이라도 box 높이가 셀의 절반에 못 미치면(서명란과 한 셀을 공유해 셀만 큰 경우)
+    # 셀 전체가 아니라 그 텍스트 줄에만 맞춘다 — box가 이미 셀 대부분이면(지원동기류) 기존처럼 셀 전체 유지.
+    gA = np.full((100, 200), 255, np.uint8)
+    cv2.putText(gA, "LBL", (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.6, 0, 2)
+    cellsA = [(0, 0, 200, 100)]
+    rSmall = fit_bounded(gA, (60, 10, 100, 25), cellsA)     # h=25, cellH=100 → ratio .25
+    assert rSmall[3] <= 20, f"작은 box는 줄 높이로, got h={rSmall[3]}"
+    rBig = fit_bounded(gA, (60, 5, 100, 85), cellsA)        # h=85, cellH=100 → ratio .85
+    assert rBig[3] > 80, f"큰 box(예 지원동기)는 셀 전체 유지, got h={rBig[3]}"
+    # fit_bounded: 값 '안'의 마침표(예 날짜 __.__.__.)는 경계로 안 치지만, 옆 필드와의 진짜 경계(라벨)는 유지
+    # — 그래서 인접한 두 필드가 같은 박스로 뭉개지지 않는다.
+    gC = np.full((40, 300), 255, np.uint8)
+    cv2.putText(gC, "TAG", (10, 26), cv2.FONT_HERSHEY_SIMPLEX, 0.7, 0, 2)
+    cv2.rectangle(gC, (95, 20), (98, 23), 0, -1)                          # 값1 내부의 점(마침표)
+    cv2.putText(gC, "NEXT", (150, 26), cv2.FONT_HERSHEY_SIMPLEX, 0.7, 0, 2)  # 옆 필드 라벨(진짜 경계)
+    cellsC = [(0, 0, 300, 40)]
+    r1 = fit_bounded(gC, (60, 5, 130, 30), cellsC)          # TAG 뒤 ~ NEXT 앞(내부에 점 포함)
+    r2 = fit_bounded(gC, (200, 5, 90, 30), cellsC)          # NEXT 뒤 별개 필드
+    assert r1[0]+r1[2] <= 150, f"내부 점 무시하되 NEXT 앞에서 멈춤, got right={r1[0]+r1[2]}"
+    assert r2[0] >= 150, f"옆 필드는 NEXT 뒤에서 시작(뭉개짐 없음), got x={r2[0]}"
+    # merged_runs: 기본 gap(8)로는 쉼표처럼 살짝 떨어진 문장부호가 글자에 뭉치지만, 좁힌 gap(4)이면
+    # 별도 런으로 갈라진다 — ocr_word_box가 "(인),"에서 쉼표만 떼어낼 때 기대는 바로 그 성질.
+    gE = np.full((30, 120), 255, np.uint8)
+    cv2.putText(gE, "AB", (10, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.7, 0, 2)
+    cv2.circle(gE, (42, 24), 1, 0, -1)                      # 쉼표 흉내: AB 뒤에 살짝(gap≈5px) 떨어진 점
+    assert len(merged_runs(gE, 0, 0, 30, 120)) == 1, "기본 gap(8)이면 쉼표가 글자에 뭉침"
+    assert len(merged_runs(gE, 0, 0, 30, 120, mgap=4)) == 2, "gap 좁히면(4) 쉼표가 별도 런으로 갈림"
     # ink_frac: 채워진 영역=높음, 빈칸=낮음
     gg = np.full((40, 60), 255, np.uint8); cv2.rectangle(gg, (15, 10), (45, 30), 0, -1)
     assert ink_frac(gg, (0, 0, 60, 40)) > 0.15 and ink_frac(np.full((40, 60), 255, np.uint8), (0, 0, 60, 40)) < 0.02, "ink_frac block vs blank"

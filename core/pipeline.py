@@ -48,12 +48,27 @@ def som_mark(img, atoms):
     return im
 
 
+def _nearest_letter(letters, cx):
+    """letter_runs 결과 중 x중심이 cx에 가장 가까운 하나. 닫는 괄호 ')' 등이 letter_runs 필터를 뚫고
+    같이 잡혀도, 원본 L/R 위치(cx)에 안 가까우면 고르지 않는다."""
+    return min(letters, key=lambda l: abs((l[0]+l[1])/2 - cx))
+
+
 def _unit_of(e):
-    """number: LLM이 준 unit. date/time: 라벨에서 단위글자 추출(년/월/일/시/분)."""
+    """number: LLM이 준 unit. date/time: 라벨에서 단위글자 추출(년/월/일/시/분).
+    '생년월일_월'처럼 라벨 자체에 다른 단위글자가 섞여 있으면(생년월일 안에 년·월·일이 다 들어있음)
+    끝 글자로 먼저 판단 — 안 그러면 셋 다 맨 앞의 '년'으로 잘못 앵커된다.
+    단, 라벨이 정확히 '생년월일'이면(프롬프트상 '단일칸 합침'의 표준 라벨) 그 자체가 이미 년·월·일을
+    다 포함한 하나의 값이라 끝글자 추출이 무의미 — 실제 인쇄된 단위글자가 없는데 라벨 안의 '일'을
+    그 자리로 오인해 OCR 앵커가 엉뚱한(라벨 글자 위) 위치로 붕괴한다. unit 없이 통짜 빈칸으로 둔다."""
     if e.get("unit"):
         return e["unit"]
     if e.get("type") in ("date", "time"):
-        return next((c for c in "년월일시분" if c in (e.get("label") or "")), None)
+        lab = e.get("label") or ""
+        if lab == "생년월일":
+            return None
+        return next((c for c in "년월일시분" if lab.endswith(c)), None) \
+            or next((c for c in "년월일시분" if c in lab), None)
     return None
 
 
@@ -85,7 +100,7 @@ def place_elements(gray, S, raw_elements):
                     moved = carve.fit_after_label(gray, obox, cells)
                     if moved: rx, ry, rw, rh = moved; corrected = True; rule = "_after_label"
             if moved is None:
-                r2 = carve.fit_bounded(gray, (rx, ry, rw, rh), cells)
+                r2 = carve.fit_bounded(gray, (rx, ry, rw, rh), cells, bounds)  # bounds=band 폴백(괘선 셀 없을 때)
                 if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_fit_bounded"
         elif t in _SNAP and not opt:                         # 사진란 → 표 셀 격자 스냅
             r2 = carve.snap_to_cell((rx, ry, rw, rh), cells)
@@ -93,9 +108,20 @@ def place_elements(gray, S, raw_elements):
         elif t in _FILL and not opt:                         # 여러 줄 쓰기칸 → 포함 셀 전체 채움(한 줄 축소 X)
             r2 = carve.fill_cell((rx, ry, rw, rh), cells)
             if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_fill_cell"
-        elif t == "signature":                               # '(서명 또는 인)' 인쇄문구 잉크에 맞춤
-            r2 = carve.fit_ink(gray, (rx, ry, rw, rh))
-            if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_fit_ink"
+        elif t == "signature":                               # '(서명 또는 인)'·'(인)'·'인)' 등 인쇄문구
+            # 라벨 text로 OCR 재검색 먼저 — ink_frac 기반 fit_ink는 괄호를 '테두리'로 오인해
+            # 잘라내는 경우가 있다(예 '(인)'에서 '(' ')' 둘 다 또는 한쪽만 잘림). 라벨과 매칭 안 되면
+            # (설명적 라벨이라 실제 인쇄문구와 다른 경우) 기존 fit_ink로 폴백.
+            # 이후 여백은 radio와 같은 원칙(mark_pad) — 문구에 딱 붙이면 실제 서명·도장 찍을 자리가
+            # 없으니, "텍스트 유사도로 감지 → 잉크에 fit → 표시 여백 추가"를 OCR 쓰는 곳에 통일한다.
+            label = e.get("label") or ""
+            wb = carve.ocr_word_box(gray, (rx, ry, rw, rh), label, (IH, IW), bounds=bounds) if label else None
+            if wb:
+                rule = "_ocr_word"
+            else:
+                wb = carve.fit_ink(gray, (rx, ry, rw, rh))
+                rule = "_fit_ink"
+            rx, ry, rw, rh = carve.mark_pad(wb, wb[3]); corrected = True
         items.append({"region": e.get("region"), "key": e.get("key"),
                       "label": e.get("label") or e.get("key") or "", "type": t, "option": opt,
                       "unit": e.get("unit"), "rect": tuple(int(v) for v in (rx, ry, rw, rh)),
@@ -120,6 +146,11 @@ def place_elements(gray, S, raw_elements):
                        key=lambda jm: (jm[1][0]+jm[1][2]/2-bcx)**2 + (jm[1][1]+jm[1][3]/2-bcy)**2)
             used.add(j); items[i]["rect"] = tuple(int(v) for v in m); items[i]["corrected"] = True; items[i]["rule"] = "_cb_assign"
     # ⑤a0b 단일글자 radio(L/R) 쌍: 부위별 '( L , R )'에서 글자런을 좌→우로 L·R 배정 (개별 OCR 부정확 보정)
+    # 검색창은 items[i]["rect"](개별 _fit_word 결과)가 아니라 LLM 원본 box로 잡는다 — 원본 box가 글자
+    # 일부만 살짝 걸치면 _fit_word가 그 안에서 잉크를 거의 못 찾고 2x2 같은 점으로 무너지는데, 그 무너진
+    # 좌표로 검색창을 잡으면 실제 글자가 통째로 창 밖에 남는다. 같은 행의 L·R 원본 box는 신뢰도가 높다.
+    # 글자런도 '오른쪽 2개'로 단정하지 않고 원본 L·R 위치에 가장 가까운 것을 각각 매칭 — 닫는 괄호 ')'가
+    # letter_runs 필터를 통과해 셋 이상 잡히는 경우 위치로 걸러낸다.
     lrp = defaultdict(dict)
     for i, it in enumerate(items):
         if it["type"] == "radio" and it.get("option") in ("L", "R", "좌", "우"):
@@ -128,21 +159,32 @@ def place_elements(gray, S, raw_elements):
         iL = d.get("L", d.get("좌")); iR = d.get("R", d.get("우"))
         if iL is None or iR is None:
             continue
-        rL, rR = items[iL]["rect"], items[iR]["rect"]
+        def _pxbox(i):
+            ymin, xmin, ymax, xmax = items[i]["box"]
+            return (xmin/1000*IW, ymin/1000*IH, (xmax-xmin)/1000*IW, (ymax-ymin)/1000*IH)
+        rL, rR = _pxbox(iL), _pxbox(iR)
         hh = max(rL[3], rR[3]); yy = min(rL[1], rR[1])
         x0 = max(0, min(rL[0], rR[0])-int(hh*0.6)); x1 = min(IW, max(rL[0]+rL[2], rR[0]+rR[2])+int(hh*0.6))
-        letters = carve.letter_runs(gray, x0, yy, x1, yy+hh)   # CC로 글자만 분리(괄호·콤마 제외)
+        letters = carve.letter_runs(gray, int(x0), int(yy), int(x1), int(yy+hh))  # CC로 글자만 분리(괄호·콤마는 대부분 제외)
         if len(letters) >= 2:
-            (lx0, lx1), (rx0, rx1) = letters[-2], letters[-1]  # L·R = 오른쪽 2개(부위명·'('는 왼쪽이라 배제)
-            items[iL]["rect"] = (lx0-1, yy, lx1-lx0+2, hh); items[iL]["rule"] = "_lr_pair"; items[iL]["corrected"] = True
-            items[iR]["rect"] = (rx0-1, yy, rx1-rx0+2, hh); items[iR]["rule"] = "_lr_pair"; items[iR]["corrected"] = True
+            cxL, cxR = rL[0]+rL[2]/2, rR[0]+rR[2]/2
+            lx0, lx1 = _nearest_letter(letters, cxL)
+            rx0, rx1 = _nearest_letter(letters, cxR)
+            items[iL]["rect"] = (lx0-1, int(yy), lx1-lx0+2, int(hh)); items[iL]["rule"] = "_lr_pair"; items[iL]["corrected"] = True
+            items[iR]["rect"] = (rx0-1, int(yy), rx1-rx0+2, int(hh)); items[iR]["rule"] = "_lr_pair"; items[iR]["corrected"] = True
     # ⑤a 촘촘한 날짜행 재카브 (표 셀에 date 2개↑ → 셀에서 빈칸 N개 좌→우)
+    # 재카브는 OCR 앵커가 실패했을 때(좁고 촘촘한 셀에서 글자를 못 읽음)의 폴백이지, 이미 맞은 결과를
+    # 덮어쓰는 단계가 아니다 — 그룹 전원이 이미 개별 OCR 앵커로 정확히 잡혔으면 건드리지 않는다.
+    # (일부만 성공한 경우는 원래대로 그룹 전체를 재카브 — carve_inline은 region의 date 개수 전체를
+    # 알아야 어느 gap이 어느 키인지 맞게 배정하므로, 성공분만 빼면 나머지가 엉뚱한 gap에 배정된다.)
     dbyr = defaultdict(list)
     for i, it in enumerate(items):
         if it["type"] == "date":
             dbyr[it["region"]].append(i)
     for region, idxs in dbyr.items():
         if len(idxs) < 2 or region not in rectof or rectof[region][3] > 90:   # 큰 블록(밴드)은 OCR 앵커 유지
+            continue
+        if all(items[k]["rule"] == "_ocr_anchor" for k in idxs):
             continue
         idxs.sort(key=lambda k: items[k]["rect"][0])
         for (_, rc), k in zip(carve.carve_inline(gray, rectof[region], [str(k) for k in idxs]), idxs):
@@ -236,3 +278,25 @@ def to_form_schema(built, image_name="form.png"):
             el["option"] = str(opt)
         elements.append(el)
     return {"pages": [{"no": 1, "image": image_name, "w": IW, "h": IH}], "fields": fields, "elements": elements}
+
+
+def _demo():
+    # _unit_of: '생년월일_월'처럼 라벨에 다른 단위글자가 섞여 있어도 끝 글자로 정확히 판단
+    assert _unit_of({"type": "date", "label": "생년월일_월"}) == "월", "복합 라벨은 끝 글자 우선"
+    assert _unit_of({"type": "date", "label": "생년월일_일"}) == "일", "복합 라벨은 끝 글자 우선"
+    assert _unit_of({"type": "date", "label": "생년월일_년"}) == "년", "복합 라벨은 끝 글자 우선"
+    assert _unit_of({"type": "date", "label": "년"}) == "년", "단순 라벨은 그대로 동작"
+    assert _unit_of({"type": "number", "label": "아무거나", "unit": "급"}) == "급", "unit 필드가 최우선"
+    # 정확히 '생년월일'(프롬프트상 단일칸 합침 표준 라벨)은 년월일이 다 섞여 있어도 unit 없음 —
+    # 안 그러면 라벨 글자 자체의 '일'을 OCR 앵커 대상으로 오인해 박스가 무너진다(서식6호 실측 버그).
+    assert _unit_of({"type": "date", "label": "생년월일"}) is None, "합침 라벨은 unit 추출 안 함"
+    # _nearest_letter: '팔( L, R )'에서 실측된 값 — 닫는 괄호 ')'가 letter_runs 필터를 뚫고 3번째로
+    # 잡혀도, 원본 L/R 중심(cx)에 안 가까우니 고르지 않는다.
+    letters = [(501, 510), (529, 540), (552, 558)]
+    assert _nearest_letter(letters, 505) == (501, 510), "L 중심에 가장 가까운 글자런"
+    assert _nearest_letter(letters, 534) == (529, 540), "R 중심에 가장 가까운 글자런(닫는 괄호 아님)"
+    print("pipeline self-check OK · _unit_of · _nearest_letter")
+
+
+if __name__ == "__main__":
+    _demo()
