@@ -1,1 +1,9 @@
 __pycache__/
+*.pyc
+
+# 생성된 검증 아티팩트 (큰 HTML·라벨 DB·크롭 이미지) — 코드에서 재생성 가능
+_verify/*.html
+_verify/verify.db
+_verify/**/*.png
+*.txt
+스크린샷*.png

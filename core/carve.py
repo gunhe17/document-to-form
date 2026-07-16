@@ -1,7 +1,8 @@
 """carve — CV/OCR 위치 도구함. LLM이 '무엇'(타입)을 주면, '어디'(정확한 좌표)를 여기서 잡는다.
 
 진입점: place(gray, box, type, ..., bounds) — 그라운딩 파이프라인(pipeline.py)용. LLM box를 타입 규칙으로 정밀화.
-  · checkbox → □스냅(_snap_mark→pipeline _cb_assign) · radio → 잉크fit(fit_ink)+L/R쌍(pipeline _lr_pair)
+  · checkbox → □스냅(_snap_mark→pipeline _cb_assign)
+  · radio → fit_radio(OCR→fit_ink→mark_pad); L/R만 pipeline _radio_pair(letter_runs→mark_pad)
   · 단위입력(년/월/시…) → OCR앵커(ocr_anchor) · 그외 → refine_blank
   · pipeline 후처리: fit_bounded·fill_cell·fit_placeholder(○○○)·carve_inline(날짜행)·merge_unit_fields·행높이통일
   · bounds(SoM region)로 OCR 탐색을 배정 영역 안으로 제한(이웃 오앵커 방지).
@@ -77,7 +78,11 @@ def find_cb(gray, x, y, w, h):
         top = (reg[:t, :].sum(0) > 0).mean(); bot = (reg[-t:, :].sum(0) > 0).mean()
         lft = (reg[:, :t].sum(1) > 0).mean(); rgt = (reg[:, -t:].sum(1) > 0).mean()
         inner = reg[int(bh*0.28):int(bh*0.72), int(bw*0.28):int(bw*0.72)]
-        if top > 0.85 and bot > 0.85 and max(lft, rgt) > 0.75 and inner.mean() < 0.15:
+        # □ = 속 비고(핵심) + 4변 모두 잉크 존재 + 테두리 총량 충분 + 2변 이상 뚜렷.
+        # 흐린 인쇄 □(한두 변만 진함)도 잡는다. 오검출(비-□)은 pipeline이 'box 안'에서만 스냅해 걸러냄.
+        edges = (top, bot, lft, rgt)
+        if (inner.mean() < 0.12 and min(edges) > 0.1
+                and sum(edges) > 2.2 and sum(e > 0.75 for e in edges) >= 2):
             out.append((x+bx, y+by, bw, bh))
     out = sorted(set(out), key=lambda b: (b[1]//20, b[0])); dd = []
     for b in out:
@@ -154,70 +159,54 @@ def ocr_label_left(gray, box, text, hw, min_ratio=0.5):
         if r >= br: br = r; best = int(wx)
     return best
 
-def ocr_word_box(gray, box, text, hw, bounds=None, min_ratio=0.5, expand=3.0):
+def _ocr_core(s):
+    """OCR/라벨 비교용 — 공백·괄호 제거."""
+    return s.replace(" ", "").translate(str.maketrans("", "", "()（）"))
+
+def ocr_word_box(gray, box, text, hw, bounds=None, min_ratio=0.5, expand=3.0, allow_wrapped=False):
     """텍스트가 있는 LLM box를 넓게 OCR 재검색해 실제 글자 전체의 bbox로 스냅. 못 찾으면 None(폴백).
-    radio(글자에 동그라미) 옵션, signature 문구('(서명 또는 인)'·'(인)'·'인)' 등) 둘 다에 씀 —
-    LLM box가 옆 단어로 밀리는 경우(촘촘한 나열)나, 잉크 기반 fit이 괄호를 테두리로 오인해 잘라내는
-    경우 모두 이걸로 실제 텍스트 위치·범위를 확정한다.
-    ocr_label_left와 같은 원리(EasyOCR+퍼지매칭)지만 '라벨 왼쪽 x'가 아니라 '전체 bbox'가 필요해 분리.
-    '심하지 않음'·'(서명 또는 인)'처럼 여러 단어짜리 옵션/문구는 OCR이 토큰을 쪼개기도 해,
-    인접 토큰을 최대 3개까지 이어붙인 합성 후보도 본다."""
+    radio·signature 공통. 인접 토큰은 최대 3개까지 이어붙여 후보로 본다(서명 문구 등).
+    allow_wrapped=True(signature): OCR이 `(서명 또는 인)`처럼 괄호만 더 붙여도 라벨과 같으면 전체 bbox.
+    radio는 allow_wrapped=False — amlpm 같은 긴 결합 토큰은 스킵."""
     import difflib
     if not text: return None
     x, y, w, h = (int(v) for v in box); key = text.replace(" ", "")
-    ex = int(h*expand)
-    X0, X1 = x-ex, x+max(w, ex)+ex; Y0, Y1 = y-int(h*0.8), y+h+int(h*0.8)
-    X0, Y0, X1, Y1 = _clamp_roi(X0, Y0, X1, Y1, bounds)   # 배정 region 안으로 제한(다른 행 오앵커 방지)
-    results = _easyread(gray, X0, Y0, X1, Y1, detail=1, paragraph=False, width_ths=0.15)  # 좁게: 옆 단어와 안 뭉침
-    cy = y+h/2; toks = []
+    ex = int(h * expand)
+    X0, X1 = x - ex, x + max(w, ex) + ex; Y0, Y1 = y - int(h * 0.8), y + h + int(h * 0.8)
+    X0, Y0, X1, Y1 = _clamp_roi(X0, Y0, X1, Y1, bounds)
+    results = _easyread(gray, X0, Y0, X1, Y1, detail=1, paragraph=False, width_ths=0.15)
+    cy = y + h / 2; toks = []
     for bb, t, conf in results:
         t = t.strip().replace(" ", "")
         if not t: continue
-        wcy = (min(pt[1] for pt in bb)+max(pt[1] for pt in bb))/2
-        if abs(wcy-cy) > h*1.2: continue                       # 같은 줄만
+        wcy = (min(pt[1] for pt in bb) + max(pt[1] for pt in bb)) / 2
+        if abs(wcy - cy) > h * 1.2: continue
         xs = [pt[0] for pt in bb]; ys = [pt[1] for pt in bb]
         toks.append((min(xs), max(xs), min(ys), max(ys), t))
     toks.sort()
     cands = list(toks)
     n = len(toks)
-    for i in range(n):                                          # 인접 토큰 최대 3개까지 이어붙인 합성 후보
-        x0, x1, y0, y1, txt = toks[i]                            # (예: '(서명'+'또는'+'인)' → '(서명또는인)')
-        for j in range(i+1, min(i+3, n)):
-            if toks[j][0]-x1 >= h*1.5: break
-            x1 = toks[j][1]; y0 = min(y0, toks[j][2]); y1 = max(y1, toks[j][3]); txt = txt+toks[j][4]
+    for i in range(n):
+        x0, x1, y0, y1, txt = toks[i]
+        for j in range(i + 1, min(i + 3, n)):
+            if toks[j][0] - x1 >= h * 1.5: break
+            x1 = toks[j][1]; y0 = min(y0, toks[j][2]); y1 = max(y1, toks[j][3]); txt = txt + toks[j][4]
             cands.append((x0, x1, y0, y1, txt))
+    if allow_wrapped:
+        core_key = _ocr_core(key)
+        wrapped = [(x0, y0, x1 - x0, y1 - y0) for x0, x1, y0, y1, t in cands
+                   if core_key and _ocr_core(t) == core_key]
+        if wrapped:
+            return max(wrapped, key=lambda b: b[2])  # 가장 넓은 = 전체 인쇄 문구
     best = None; br = min_ratio
     for x0, x1, y0, y1, t in cands:
-        r = difflib.SequenceMatcher(None, key, t).ratio()
-        sub = None
         if len(t) > len(key):
-            # 원칙: 반환 bbox는 라벨(key) 글자만 포함한다 — 옆에 붙은 글자·문장부호는 절대 안 들어간다.
-            # t가 key보다 길면(완전 포함이든 자잘한 오독 섞인 퍼지매칭이든) 항상 정렬된 구간만 비례로
-            # 잘라낸다. get_matching_blocks로 실제 대응 글자 위치를 찾음(t.find는 완전일치만 찾음).
-            sm = difflib.SequenceMatcher(None, key, t)
-            blocks = [b for b in sm.get_matching_blocks() if b.size > 0]
-            if blocks:
-                r = max(r, 0.55)
-                i0 = blocks[0].b; i1 = blocks[-1].b+blocks[-1].size   # t 안에서 key가 걸리는 구간
-                cw = (x1-x0)/len(t)
-                sub = (x0+cw*i0, y0, cw*(i1-i0), y1-y0)          # 균일폭 근사(기본값)
-                # 실제 잉크 뭉치 경계로 정밀화: 글자 폭은 균일하지 않아서(예 쉼표 vs 한글 음절)
-                # 비례 분할은 근사일 뿐이다. 제외되는 쪽이 한쪽 끝에서 딱 1글자(대개 쉼표·마침표
-                # 등 짧은 문장부호)뿐인 흔한 경우엔, 좁은 gap으로 뭉친 실제 잉크 런을 찾아 그
-                # 경계에 스냅한다 — 음절 간 간격은 들쭉날쭉해 '런 개수=글자 수'를 보장 못 하지만,
-                # 제외 글자가 1개면 마지막(또는 첫) 런 하나만 떼어내는 것만으로 충분히 안전하다.
-                n_lead, n_trail = i0, len(t)-i1
-                if n_lead+n_trail == 1:
-                    ink_runs = merged_runs(gray, int(x0), int(y0), int(y1), int(x1-x0), mgap=4)
-                    if len(ink_runs) >= 2:
-                        abs_runs = [(x0+a, x0+b) for a, b in ink_runs]
-                        kept = abs_runs[1:] if n_lead else abs_runs[:-1]
-                        if kept:
-                            sub = (kept[0][0], y0, kept[-1][1]-kept[0][0], y1-y0)
-        elif t == key or t in key or key.startswith(t):
-            r = max(r, 0.6)                              # 같거나 key의 일부 조각(짧음) — 자를 것 없이 그대로
+            continue  # amlpm 같은 결합 토큰 — 균일분할 안 함
+        r = difflib.SequenceMatcher(None, key, t).ratio()
+        if t == key or t in key or key.startswith(t):
+            r = max(r, 0.6)
         if r >= br:
-            br = r; best = sub or (x0, y0, x1-x0, y1-y0)
+            br = r; best = (x0, y0, x1 - x0, y1 - y0)
     return best
 
 
@@ -466,7 +455,9 @@ def fit_placeholder(gray, box, hw):
     """'○○○'·'□□□'·'△△△'·'000' 자리표시자 위에 덮어쓰는 입력칸(예 '○○○기관'·'담당자○○○'). box+문맥을
     EasyOCR해 자리표시자 런을 찾고, 그 x-구간(옆 한글 라벨 제외)을 실제 도형 윤곽에 스냅. 없으면 None."""
     x, y, w, h = (int(v) for v in box)
-    results = _easyread(gray, x-int(h*0.6), y-int(h*0.4), x+w+int(h*0.6), y+h+int(h*0.4), detail=1, paragraph=False)
+    # 가로 창을 넓게(±2h): box가 라벨('담당자') 위에 있고 표시자('○○○')가 라벨 바로 옆에 붙은 경우도
+    # 잡는다(좁으면 라벨만 읽고 표시자를 놓침). 표시자 런은 _ph_run이 걸러 위치는 비례로 잡으므로 과확장 안전.
+    results = _easyread(gray, x-int(h*2), y-int(h*0.4), x+w+int(h*2), y+h+int(h*0.4), detail=1, paragraph=False)
     best = None
     for bb, t, conf in results:
         s = t.strip()
@@ -551,6 +542,7 @@ def merge_unit_fields(items):
 # 작은 폼 글자 OCR 오독 허용셋 (년→녀 등)
 _UNIT_CONFUSE = {"년": {"년", "녀", "넌"}, "월": {"월"}, "일": {"일", "읽", "잌", "입"},
                  "세": {"세"}, "급": {"급"}, "시": {"시"}, "분": {"분"}, "회": {"회"}, "원": {"원"}}
+VAL_MARGIN = 4  # 단위 값칸이 좌우 잉크(라벨·단위)에서 떨어지는 고정 여백 — 필드별 글자높이 대신 고정이라 모든 값칸 동일
 def ocr_anchor(gray, rect, unit, hw, min_conf=0.25, bounds=None):
     """단위글자(unit)를 EasyOCR로 찾아 그 '왼쪽 빈칸' rect 반환. 못 찾으면 None → carve 폴백.
     tesseract가 못 읽던 년/월 등도 EasyOCR로 위치 확보 = '어느 글자에 붙었는지' 검증됨."""
@@ -591,15 +583,27 @@ def ocr_anchor(gray, rect, unit, hw, min_conf=0.25, bounds=None):
     b0 = max(b0, b1-int(6*gh))                                # 빈칸 상한: 중앙배치 '년'처럼 왼쪽 라벨이 멀면 과확장 방지
     bw = b1-b0
     vp = max(1, gh//8)                                        # 세로: 단위글자(년/월/일) 높이에 맞춤
-    return (b0+1, gy-vp, bw-2, gh+2*vp) if bw >= 6 else None
+    return (b0+VAL_MARGIN, gy-vp, bw-2*VAL_MARGIN, gh+2*vp) if bw >= 2*VAL_MARGIN+6 else None
 
-def mark_pad(rect, fh):
-    """OCR로 찾은 타이트 텍스트 bbox에 두르는 여백 — radio(글자에 원 표시)·signature(그 위에 서명/도장)
-    공통 원칙: 'LLM 라벨과 텍스트 유사도로 감지 → 실제 잉크에 딱 맞춤 → 표시할 여백 추가'의 마지막 단계.
-    글자만큼 딱 맞으면 원이나 서명이 들어갈 자리가 없어 항상 이 여백을 통일해서 붙인다."""
-    x, y, w, h = rect
-    mx = max(3, int(fh*0.28)); my = max(2, int(fh*0.16))       # 가로 여백↑(동그라미·서명 폭)·세로 여백↓
-    return (x-mx, y-my, w+2*mx, h+2*my)
+MARK_PAD_PX = 4  # radio/signature 여백 — 글자 높이 비례 대신 고정 px (사방 동일)
+
+def mark_pad(rect, fh=None, pad=MARK_PAD_PX):
+    """타이트 텍스트 bbox에 고정 px 여백 — radio(원)·signature(도장) 공통.
+    fh는 하위호환용(무시). 가로·세로 모두 pad px로 통일."""
+    x, y, w, h = (int(v) for v in rect)
+    return (x - pad, y - pad, w + 2 * pad, h + 2 * pad)
+
+def fit_radio(gray, box, option, hw, bounds=None):
+    """radio 공통: OCR(짧은 토큰만) → fit_ink → mark_pad(고정 px).
+    OCR 실패 시 LLM box fit_ink → mark_pad. → (rect, rule)."""
+    ox, oy, ow, oh = (int(v) for v in box)
+    wb = ocr_word_box(gray, (ox, oy, ow, oh), option, hw, bounds=bounds) if option else None
+    if wb:
+        rule = "_ocr_word"
+    else:
+        wb = (ox, oy, ow, oh); rule = "_fit_ink"
+    wb = fit_ink(gray, wb, pad=1, thr=1)
+    return mark_pad(wb), rule
 
 def place(gray, box, ftype, option=None, page_hw=None, mark=None, unit=None, bounds=None):
     """LLM box를 타입 규칙으로 검증→수정. → (rect, corrected, rule). box=픽셀(x,y,w,h).
@@ -610,18 +614,10 @@ def place(gray, box, ftype, option=None, page_hw=None, mark=None, unit=None, bou
     if ftype in ("date", "number", "time") and unit:            # OCR 글자 앵커 우선
         res = ocr_anchor(gray, (ox, oy, ow, oh), unit, hw, bounds=bounds)
         if res: rule = "_ocr_anchor"
-    if res is None and ftype == "radio" and option and option not in ("L", "R", "좌", "우"):
-        # radio: 옵션 text를 OCR로 넓게 찾아 정확한 글자에 앵커(촘촘한 나열에서 LLM box가 옆 단어로
-        # 밀려도 실제 텍스트 위치로 스냅). 못 찾으면 LLM box 안 잉크에 조이는 CV 폴백. L/R은 _lr_pair.
-        wb = ocr_word_box(gray, (ox, oy, ow, oh), option, hw, bounds=bounds)
-        if wb:
-            rule = "_ocr_word"
-        else:
-            wb = fit_ink(gray, (ox, oy, ow, oh), pad=1, thr=1)   # thr=1: 얇은 획 안 자름
-            rule = "_fit_ink"
-        res = mark_pad(wb, wb[3])
-    if res is None:                                             # 폴백: _fit_word(CV 잉크런)
-        fn = _fit_word if ftype == "radio" else PLACE_RULES.get(ftype, _keep)   # radio=글자에 fit
+    if res is None and ftype == "radio" and option:
+        res, rule = fit_radio(gray, (ox, oy, ow, oh), option, hw, bounds=bounds)
+    if res is None:                                             # 폴백: PLACE_RULES (radio는 위에서 처리)
+        fn = PLACE_RULES.get(ftype, _keep)
         res = fn(gray, (ox, oy, ow, oh), option, hw); rule = fn.__name__
     x, y, w, h = res
     x = max(0, min(x, hw[1]-1)); y = max(0, min(y, hw[0]-1))     # 경계 클램프
@@ -668,10 +664,10 @@ def _demo():
     # place: radio → LLM box를 잉크에 조임(_fit_ink) 또는 L/R 폴백(_fit_word), 폭 타이트
     g10 = np.full((60, 200), 255, np.uint8); cv2.putText(g10, "M", (80, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.0, 0, 2)
     r10, ch10, rule10 = place(g10, (40, 5, 100, 50), "radio", "m")
-    assert rule10 in ("_fit_letters", "_fit_ink", "_fit_word") and r10[2] < 70, f"radio fit to ink, got rule={rule10} w={r10[2]}"
-    # mark_pad: OCR로 찾은 타이트 텍스트에 원/서명 여백 추가 — radio·signature 공통 규칙(일괄 적용)
-    rp = mark_pad((100, 100, 40, 20), 20)
-    assert rp[0] < 100 and rp[1] < 100 and rp[2] > 40 and rp[3] > 20, f"mark_pad는 사방으로 늘림, got {rp}"
+    assert rule10 in ("_ocr_word", "_fit_ink") and r10[2] < 100, f"radio fit_radio, got rule={rule10} w={r10[2]}"
+    # mark_pad: 고정 px 사방 여백
+    rp = mark_pad((100, 100, 40, 20))
+    assert rp == (100 - MARK_PAD_PX, 100 - MARK_PAD_PX, 40 + 2 * MARK_PAD_PX, 20 + 2 * MARK_PAD_PX), f"mark_pad 고정px, got {rp}"
     # fit_bounded: 괘선 없는 band(밑줄만 있는 줄)는 라벨 글자밴드 높이로 세로를 좁힘(atom_rect 폴백).
     # 괘선 셀(cells에 걸림)은 기존처럼 셀 전체 높이 유지 — band만 달라짐, 회귀 없음.
     gB = np.full((60, 200), 255, np.uint8)

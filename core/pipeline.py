@@ -12,7 +12,7 @@ import os, json, base64
 from collections import defaultdict
 import cv2
 
-from . import carve, extract
+from . import carve, extract, carve_slots
 from .region_segment import segment
 
 # ④ 배치 후처리 대상 (타입별)
@@ -39,12 +39,16 @@ def atoms_of(S):
 
 
 def som_mark(img, atoms):
-    """원자마다 번호 박스를 그린 SoM 이미지 (LLM 입력용)."""
+    """원자마다 번호 박스를 그린 SoM 이미지 (LLM 입력용).
+    배지·테두리를 키워 영역 번호가 비전 다운스케일에서도 읽히게 한다(전 영역 동일 → 고정 이미지 캐시 가능)."""
     im = img.copy()
     for j, (x, y, w, h) in atoms:
-        cv2.rectangle(im, (x, y), (x + 22, y + 13), (0, 150, 255), -1)
-        cv2.rectangle(im, (x, y), (x + w, y + h), (0, 150, 255), 1)
-        cv2.putText(im, str(j), (x + 1, y + 11), cv2.FONT_HERSHEY_SIMPLEX, 0.36, (255, 255, 255), 1, cv2.LINE_AA)
+        label = str(j)
+        bw, bh = (34, 22) if j < 10 else (44, 22)
+        cv2.rectangle(im, (x, y), (x + w, y + h), (0, 150, 255), 2)
+        cv2.rectangle(im, (x, y), (x + bw, y + bh), (0, 120, 255), -1)
+        cv2.rectangle(im, (x, y), (x + bw, y + bh), (0, 80, 200), 1)
+        cv2.putText(im, label, (x + 4, y + 17), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
     return im
 
 
@@ -88,12 +92,14 @@ def place_elements(gray, S, raw_elements):
         if w <= 1 or h <= 1:
             continue
         t = e.get("type", "text"); opt = e.get("option")
+        # number carve(ocr_anchor)는 carve.py에 유지. 배치는 text 경로로 통일(실험).
+        ct = "text" if t == "number" else t
         bounds = rectof.get(e.get("region"))                 # 배정 SoM region rect → OCR 탐색을 그 안으로 제한
-        (rx, ry, rw, rh), corrected, rule = carve.place(gray, (x, y, w, h), t, opt, (IH, IW), None, _unit_of(e), bounds)
-        if t in _BOUND and not opt and rule != "_ocr_anchor":  # 단위 값칸·인라인 → 상하좌우 여백 맞춤 (OCR앵커는 이미 글자높이 맞춤)
+        (rx, ry, rw, rh), corrected, rule = carve.place(gray, (x, y, w, h), ct, opt, (IH, IW), None, _unit_of(e), bounds)
+        if ct in _BOUND and not opt and rule != "_ocr_anchor":  # 단위 값칸·인라인 → 상하좌우 여백 맞춤 (OCR앵커는 이미 글자높이 맞춤)
             moved = None
             obox = (int(x), int(y), int(w), int(h))            # LLM 원본 box(_refine 붕괴 전) 기준으로 재배치 판단
-            if t in ("text", "textarea") and carve.ink_frac(gray, obox) > 0.06:  # box가 잉크 위 → 자리표시자? 라벨?
+            if ct in ("text", "textarea") and carve.ink_frac(gray, obox) > 0.06:  # box가 잉크 위 → 자리표시자? 라벨?
                 moved = carve.fit_placeholder(gray, obox, (IH, IW))               # '○○○·000' 위 → 자리표시자에 배치
                 if moved: rx, ry, rw, rh = moved; corrected = True; rule = "_placeholder"
                 else:                                                            # 라벨 글자 위 → 콜론 뒤 빈칸으로 이동
@@ -102,20 +108,22 @@ def place_elements(gray, S, raw_elements):
             if moved is None:
                 r2 = carve.fit_bounded(gray, (rx, ry, rw, rh), cells, bounds)  # bounds=band 폴백(괘선 셀 없을 때)
                 if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_fit_bounded"
-        elif t in _SNAP and not opt:                         # 사진란 → 표 셀 격자 스냅
+        elif ct in _SNAP and not opt:                         # 사진란 → 표 셀 격자 스냅
             r2 = carve.snap_to_cell((rx, ry, rw, rh), cells)
             if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_snap_cell"
-        elif t in _FILL and not opt:                         # 여러 줄 쓰기칸 → 포함 셀 전체 채움(한 줄 축소 X)
+        elif ct in _FILL and not opt:                         # 여러 줄 쓰기칸 → 포함 셀 전체 채움(한 줄 축소 X)
             r2 = carve.fill_cell((rx, ry, rw, rh), cells)
             if r2 != (rx, ry, rw, rh): rx, ry, rw, rh = r2; corrected = True; rule = "_fill_cell"
-        elif t == "signature":                               # '(서명 또는 인)'·'(인)'·'인)' 등 인쇄문구
+        elif ct == "signature":                               # '(서명 또는 인)'·'(인)'·'인)' 등 인쇄문구
             # 라벨 text로 OCR 재검색 먼저 — ink_frac 기반 fit_ink는 괄호를 '테두리'로 오인해
             # 잘라내는 경우가 있다(예 '(인)'에서 '(' ')' 둘 다 또는 한쪽만 잘림). 라벨과 매칭 안 되면
             # (설명적 라벨이라 실제 인쇄문구와 다른 경우) 기존 fit_ink로 폴백.
             # 이후 여백은 radio와 같은 원칙(mark_pad) — 문구에 딱 붙이면 실제 서명·도장 찍을 자리가
             # 없으니, "텍스트 유사도로 감지 → 잉크에 fit → 표시 여백 추가"를 OCR 쓰는 곳에 통일한다.
             label = e.get("label") or ""
-            wb = carve.ocr_word_box(gray, (rx, ry, rw, rh), label, (IH, IW), bounds=bounds) if label else None
+            wb = carve.ocr_word_box(
+                gray, (rx, ry, rw, rh), label, (IH, IW), bounds=bounds, allow_wrapped=True
+            ) if label else None
             if wb:
                 rule = "_ocr_word"
             else:
@@ -126,52 +134,75 @@ def place_elements(gray, S, raw_elements):
                       "label": e.get("label") or e.get("key") or "", "type": t, "option": opt,
                       "unit": e.get("unit"), "rect": tuple(int(v) for v in (rx, ry, rw, rh)),
                       "box": tuple(bx), "corrected": corrected, "rule": rule})
-    # ⑤a0 checkbox_group: region별 □ 검출 → LLM box 위치로 1:1 배정(중복 방지). OCR 라벨 우회 대체.
-    cbyr = defaultdict(list)
-    for i, it in enumerate(items):
-        if it["type"] == "checkbox_group":
-            cbyr[it["region"]].append(i)
-    for region, idxs in cbyr.items():
-        if region not in rectof:
-            continue
-        rx, ry, rw, rh = rectof[region]
-        marks = carve.find_cb(gray, rx, ry, rw, rh)          # 그 영역 모든 □
-        if len(marks) < len(idxs):                           # □가 옵션보다 적으면 개별 결과 유지
-            continue
-        used = set()
-        for i in sorted(idxs, key=lambda k: (items[k]["box"][0], items[k]["box"][1])):  # 읽기순(ymin,xmin)
-            ymin, xmin, ymax, xmax = items[i]["box"]
-            bcx = (xmin+xmax)/2/1000*IW; bcy = (ymin+ymax)/2/1000*IH
-            j, m = min(((j, m) for j, m in enumerate(marks) if j not in used),
-                       key=lambda jm: (jm[1][0]+jm[1][2]/2-bcx)**2 + (jm[1][1]+jm[1][3]/2-bcy)**2)
-            used.add(j); items[i]["rect"] = tuple(int(v) for v in m); items[i]["corrected"] = True; items[i]["rule"] = "_cb_assign"
-    # ⑤a0b 단일글자 radio(L/R) 쌍: 부위별 '( L , R )'에서 글자런을 좌→우로 L·R 배정 (개별 OCR 부정확 보정)
-    # 검색창은 items[i]["rect"](개별 _fit_word 결과)가 아니라 LLM 원본 box로 잡는다 — 원본 box가 글자
-    # 일부만 살짝 걸치면 _fit_word가 그 안에서 잉크를 거의 못 찾고 2x2 같은 점으로 무너지는데, 그 무너진
-    # 좌표로 검색창을 잡으면 실제 글자가 통째로 창 밖에 남는다. 같은 행의 L·R 원본 box는 신뢰도가 높다.
-    # 글자런도 '오른쪽 2개'로 단정하지 않고 원본 L·R 위치에 가장 가까운 것을 각각 매칭 — 닫는 괄호 ')'가
-    # letter_runs 필터를 통과해 셋 이상 잡히는 경우 위치로 걸러낸다.
+    # ⑤a0 □-스냅: region별 □ 검출 → LLM box 위치로 1:1 배정(중복 방지). OCR 라벨 우회.
+    # checkbox_group·consent 공통 — consent도 동의 체크란(□)이면 checkbox와 같은 규칙으로 □에 스냅.
+    # □가 요소 수보다 적으면(동의 '문구' 블록 등 □ 없음) 개별 결과 유지. 타입별 별도 pass(서로 간섭 X).
+    def _mark_assign(ftype):
+        byr = defaultdict(list)
+        for i, it in enumerate(items):
+            if it["type"] == ftype:
+                byr[it["region"]].append(i)
+        for region, idxs in byr.items():
+            if region not in rectof:
+                continue
+            rx, ry, rw, rh = rectof[region]
+            marks = carve.find_cb(gray, rx, ry, rw, rh)          # 그 영역 모든 □
+            if not marks:
+                continue
+            used = set()
+            for i in sorted(idxs, key=lambda k: (items[k]["box"][0], items[k]["box"][1])):  # 읽기순(ymin,xmin)
+                ymin, xmin, ymax, xmax = items[i]["box"]
+                bx0, bx1 = xmin/1000*IW, xmax/1000*IW; by0, by1 = ymin/1000*IH, ymax/1000*IH
+                pad = 0.5*max(bx1-bx0, by1-by0)                  # 거리가드: □가 요소 box(±pad) 안일 때만
+                bcy = (by0+by1)/2
+                cand = [(j, m) for j, m in enumerate(marks) if j not in used
+                        and bx0-pad <= m[0]+m[2]/2 <= bx1+pad and by0-pad <= m[1]+m[3]/2 <= by1+pad]
+                if not cand:                                     # box 안에 □ 없음 → 개별 결과 유지(먼 오검출 거부)
+                    continue
+                # □는 'box+라벨'의 왼쪽에 있으니 box 왼쪽 모서리(bx0) 기준 최근접 (중심 기준이면 wide box가 옆 □를 잡음)
+                j, m = min(cand, key=lambda jm: (jm[1][0]+jm[1][2]/2-bx0)**2 + (jm[1][1]+jm[1][3]/2-bcy)**2)
+                used.add(j); items[i]["rect"] = tuple(int(v) for v in m); items[i]["corrected"] = True; items[i]["rule"] = "_cb_assign"
+    _mark_assign("checkbox_group")
+    _mark_assign("consent")                                   # consent □-스냅 (문구형은 guard가 스킵)
+    # ⑤a0b 단일글자 radio 쌍: '( L , R )' — place() OCR이 흔들리므로 letter_runs로 재배정 후 mark_pad.
+    # am/pm은 fit_radio(OCR→fit_ink→mark_pad)만으로 충분(2자라 쪼개면 오히려 깨짐).
+    PAIR_OPTS = (("L", "R"), ("좌", "우"))
+    def _pair_key(opt):
+        for a, b in PAIR_OPTS:
+            if opt in (a, b): return (a, b)
+        return None
     lrp = defaultdict(dict)
     for i, it in enumerate(items):
-        if it["type"] == "radio" and it.get("option") in ("L", "R", "좌", "우"):
-            lrp[(it["region"], it["label"].rsplit(" ", 1)[0])][it["option"]] = i
-    for d in lrp.values():
-        iL = d.get("L", d.get("좌")); iR = d.get("R", d.get("우"))
-        if iL is None or iR is None:
+        opt = it.get("option"); pk = _pair_key(opt) if it["type"] == "radio" else None
+        if not pk: continue
+        lab = (it["label"] or "").strip()
+        site = "" if lab.replace(" ", "") in pk or lab == opt else lab.rsplit(" ", 1)[0]
+        lrp[(it["region"], site, pk)][opt] = i
+    for (_region, _site, (oa, ob)), d in lrp.items():
+        iA, iB = d.get(oa), d.get(ob)
+        if iA is None or iB is None:
             continue
         def _pxbox(i):
             ymin, xmin, ymax, xmax = items[i]["box"]
             return (xmin/1000*IW, ymin/1000*IH, (xmax-xmin)/1000*IW, (ymax-ymin)/1000*IH)
-        rL, rR = _pxbox(iL), _pxbox(iR)
-        hh = max(rL[3], rR[3]); yy = min(rL[1], rR[1])
-        x0 = max(0, min(rL[0], rR[0])-int(hh*0.6)); x1 = min(IW, max(rL[0]+rL[2], rR[0]+rR[2])+int(hh*0.6))
-        letters = carve.letter_runs(gray, int(x0), int(yy), int(x1), int(yy+hh))  # CC로 글자만 분리(괄호·콤마는 대부분 제외)
+        rA, rB = _pxbox(iA), _pxbox(iB)
+        hh = max(rA[3], rB[3]); yy = min(rA[1], rB[1])
+        x0 = max(0, min(rA[0], rB[0])-int(hh*0.6)); x1 = min(IW, max(rA[0]+rA[2], rB[0]+rB[2])+int(hh*0.6))
+        letters = carve.letter_runs(gray, int(x0), int(yy), int(x1), int(yy+hh))
         if len(letters) >= 2:
-            cxL, cxR = rL[0]+rL[2]/2, rR[0]+rR[2]/2
-            lx0, lx1 = _nearest_letter(letters, cxL)
-            rx0, rx1 = _nearest_letter(letters, cxR)
-            items[iL]["rect"] = (lx0-1, int(yy), lx1-lx0+2, int(hh)); items[iL]["rule"] = "_lr_pair"; items[iL]["corrected"] = True
-            items[iR]["rect"] = (rx0-1, int(yy), rx1-rx0+2, int(hh)); items[iR]["rule"] = "_lr_pair"; items[iR]["corrected"] = True
+            cxA, cxB = rA[0]+rA[2]/2, rB[0]+rB[2]/2
+            ax0, ax1 = _nearest_letter(letters, cxA)
+            bx0, bx1 = _nearest_letter(letters, cxB)
+            for idx, (x0l, x1l) in ((iA, (ax0, ax1)), (iB, (bx0, bx1))):
+                tight = (x0l-1, int(yy), x1l-x0l+2, int(hh))
+                items[idx]["rect"] = carve.mark_pad(tight, tight[3])
+                items[idx]["rule"] = "_radio_pair"; items[idx]["corrected"] = True
+    # ⑤a0c radio slot: 영역 OCR 1회로 보기글자 위치 확정 → option 텍스트 매칭 → mark_pad.
+    #   요소마다 box-ROI로 OCR하던 것(_ocr_word↔_fit_ink flip)을 영역 단위로 승격 → 씨앗불변·식별정확.
+    #   매칭 실패(숫자 scale 등)는 기존 결과 유지. L/R쌍(_radio_pair)은 보존.
+    for i, rect in carve_slots.place_radios(gray, rectof, items).items():
+        if items[i].get("rule") != "_radio_pair":
+            items[i]["rect"] = rect; items[i]["rule"] = "_radio_slot"; items[i]["corrected"] = True
     # ⑤a 촘촘한 날짜행 재카브 (표 셀에 date 2개↑ → 셀에서 빈칸 N개 좌→우)
     # 재카브는 OCR 앵커가 실패했을 때(좁고 촘촘한 셀에서 글자를 못 읽음)의 폴백이지, 이미 맞은 결과를
     # 덮어쓰는 단계가 아니다 — 그룹 전원이 이미 개별 OCR 앵커로 정확히 잡혔으면 건드리지 않는다.
@@ -228,12 +259,28 @@ def _unify_row_heights(items):
                 H = int(median(it["rect"][3] for it in cl)); CY = median(it["rect"][1]+it["rect"][3]/2 for it in cl)
                 for it in cl:
                     x, y, w, h = it["rect"]; it["rect"] = (x, int(CY-H/2), w, H)
+                # 폭도 통일: 같은 unit끼리(시·시 / 년·년) median 폭으로, 중심 유지.
+                # ocr_anchor·fit_bounded가 물리적 빈칸에 따라 폭이 제각각인 것을 '잉크 기준 통일 여백'으로 균일화.
+                byu = defaultdict(list)
+                for it in cl:
+                    byu[it.get("unit") or ""].append(it)
+                # 라디오(숫자 scale·남/여)만 폭 통일 — 보기글자 중심 고정, 대칭.
+                # (단위 값칸은 폭을 억지로 맞추면 좁은 빈칸이 라벨에 겹침 → 대신 ocr_anchor가 좌우 잉크에서 균일 여백)
+                for us in byu.values():
+                    if len(us) < 2 or us[0]["type"] != "radio": continue
+                    W = int(median(it["rect"][2] for it in us))
+                    for it in us:
+                        x, y, w, h = it["rect"]; it["rect"] = (int(x + w/2 - W/2), y, W, h)
 
 
-def build(image_path, cache_path=None):
+def build(image_path, cache_path=None, ground_mode=None):
     """서식 이미지 → 파이프라인 산출물.
     cache_path: LLM 응답(JSON) 캐시. 있으면 재사용, 없으면 호출 후 저장(그라운딩 비용 절감).
+    ground_mode: "page"(기본, extract.ground) | "focus"(영역 하이라이트 실험 core.ground_focus).
+                 None이면 환경변수 IMG2FORM_GROUND (기본 page).
     → {page, segmentation, atoms, img, marked, raw, elements}."""
+    if ground_mode is None:
+        ground_mode = os.environ.get("IMG2FORM_GROUND", "page")
     img = cv2.imread(str(image_path))
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     IH, IW = gray.shape
@@ -242,13 +289,21 @@ def build(image_path, cache_path=None):
     marked = som_mark(img, atoms)
     if cache_path and os.path.exists(cache_path):
         res = json.load(open(cache_path))
+    elif ground_mode == "focus":
+        from . import ground_focus
+        res = ground_focus.ground_by_regions(img, atoms)
+        if cache_path:
+            # per-region 원본은 크고 캐시에 불필요 — elements+_meta만
+            slim = {"elements": res.get("elements", []), "_meta": res.get("_meta")}
+            json.dump(slim, open(cache_path, "w"), ensure_ascii=False)
     else:
         res = extract.ground(_b64(marked), len(atoms))
         if cache_path:
             json.dump(res, open(cache_path, "w"), ensure_ascii=False)
     elements = place_elements(gray, S, res.get("elements", []))
     return {"page": {"w": IW, "h": IH}, "segmentation": S, "atoms": atoms,
-            "img": img, "marked": marked, "raw": res.get("elements", []), "elements": elements}
+            "img": img, "marked": marked, "raw": res.get("elements", []), "elements": elements,
+            "ground_mode": ground_mode, "ground_meta": res.get("_meta")}
 
 
 def to_form_schema(built, image_name="form.png"):

@@ -140,7 +140,7 @@ function pick(el){
   h+=`<div class=row><span class=rk>타입</span><span class=rv><span class=tag style="background:${col}">${d.type}</span></span></div>`;
   h+=row('필드키',`<code>${esc(d.key)}</code>`); if(d.opt) h+=row('선택값',`<b style=color:#e8590c>${esc(d.opt)}</b>`);
   if(d.unit) h+=row('단위',esc(d.unit));
-  const RN={'_snap_mark':'□ 스냅','_refine':'빈칸 축소','_ocr_anchor':'OCR 글자앵커','_ocr_word':'OCR 보기fit','_date_inline':'날짜행 카브','_snap_cell':'격자 스냅','_fit_bounded':'상하좌우 맞춤','_fit_word':'글자 맞춤','_keep':'유지'};
+  const RN={'_snap_mark':'□ 스냅','_refine':'빈칸 축소','_ocr_anchor':'OCR 글자앵커','_ocr_word':'OCR 보기fit','_radio_pair':'radio 쌍 글자','_lr_pair':'L/R 쌍','_date_inline':'날짜행 카브','_snap_cell':'격자 스냅','_fit_bounded':'상하좌우 맞춤','_fit_word':'글자 맞춤','_fit_ink':'잉크 맞춤','_keep':'유지'};
   h+=row('배치규칙',`${RN[d.rule]||d.rule} ${d.corr==='1'?'<b style=color:#2b8a3e>· 수정됨</b>':'<span style=color:#adb5bd>· 원본유지</span>'}`);
   h+=row('영역#',esc(d.region)); h+=row('box(0~1e3)',esc(d.box));
   document.getElementById('info'+d.i+'b').innerHTML=h;
