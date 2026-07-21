@@ -7,3 +7,7 @@ _verify/verify.db
 _verify/**/*.png
 *.txt
 스크린샷*.png
+
+# 비밀키·스크래치
+.env
+_verify/raw/*.log

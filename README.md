@@ -3,35 +3,54 @@
 서식 이미지 → **입력 필드 위치 추출** → `FormSchema` JSON.
 (image-to-md 가 "표 내용"이라면, image-to-form 은 "작성해야 할 입력 위치".)
 
-## 파이프라인 (`pipeline.build`)
+## 파이프라인
 
-```
-서식 이미지
- ① 영역분리   region_segment.segment      CV(LLM 없음) → frames/tables/cells/bands
- ② SoM 마킹   원자(cells+bands)에 번호      LLM 입력 이미지
- ③ 그라운딩   extract.ground              Gemini 3.1 Pro → 무엇·타입·option·unit·대략box
- ④ 배치       carve.place + 후처리         CV/OCR → 정확한 픽셀 위치
- ⑤ 병합/조립  merge_unit_fields → FormSchema
-```
+> 📊 **시각 자료**: [절차 다이어그램](_verify/pipeline_diagram.html) · [서식2호 단계별 입력→출력](_verify/stagedemo.html)
 
 **원칙: LLM = 의미(무엇이 입력), CV/OCR = 위치(어디에).** LLM box는 대략치, 정밀 좌표는 carve 담당.
 
-- **③ 그라운딩**: `temperature=1.0`(Gemini 3 권장·낮추면 검출저하), reasoning effort=low. box=`[ymin,xmin,ymax,xmax]` 0~1000 정규화. `OPENROUTER_API_KEY` 필요(.env 자동탐색). SoM region마다 `region` 번호도 반환.
+```
+빈 서식 이미지
+ ① 영역분리        region_segment.segment       CV·결정론 → atoms(셀/밴드)
+ ② 대구획 검출      ground_focus.detect_focus_regions   LLM → 논리 대구획 번호목록
+ ③ 구획별 그라운딩   mark_focus_multi + extract.ground   LLM → 구획 안 입력칸(type·region·대략box)
+ ④ region-clamp    박스를 region 셀 안으로            결정론 후처리
+ ⑤ carve          pipeline.place_elements           CV/OCR → 정밀 픽셀 위치
+ → FormSchema
+```
 
-- **④ 배치 규칙**(`carve.place`, 타입별) — LLM이 배정한 **SoM region 안으로 OCR 탐색 제한**(이웃 오앵커 방지):
+### 확정 조건 (실측 최적, 2026-07-21)
+| 항목 | 값 | 근거 |
+|---|---|---|
+| temperature | **0.5** | raw 박스 위치정확 78%→100% (sweep 실측) |
+| reasoning | **low** | 3.1 Pro 최저·최안정 (medium은 불일치↑) |
+| 프롬프트 | **간결·직접** | gemini3devguide: Gemini 3은 장황한 프롬프트 과잉분석 |
+| **대구획 스코핑** | 표=[머리행+본문]통째·제목별개·최대5~6 | 검출을 발산→수렴으로 = 일관성의 핵심 |
+| 속도 | 대구획 병렬 17.9s (page 28.7s) | 지연 ∝ 출력토큰 → 쪼개 병렬 디코딩 |
+
+- **① 영역분리**: `region_segment.segment(gray)` → atoms. 순수 CV, 결정론, 무료. box=`[ymin,xmin,ymax,xmax]` 0~1000 정규화 규약.
+- **② 대구획 검출**: `detect_focus_regions(img)` — SoM 마킹 → **LLM 단독**이 논리 대구획 판단(`PARTITION_SYS`, temp 0.5·low). 표는 머리행+본문 통째, 제목 밴드는 별개, 반복행표는 통째, 최대 5~6.
+- **③ 구획별 그라운딩**: 대구획마다 `mark_focus_multi`로 하이라이트 → `extract.ground(focus_ids=…)` 병렬 → 그 구획 안 입력칸 검출. region-filter로 구획 밖 드롭. `OPENROUTER_API_KEY` 필요(.env 자동탐색).
+- **④ region-clamp**: LLM 박스가 영역 밖으로 샌 것을 region 셀 안으로 잘라 스팬·좌표복사 아티팩트 제거. 결정론·무료.
+- **⑤ carve 배치 규칙**(`carve.place`, 타입별) — LLM 배정 region 안으로 OCR 탐색 제한:
 
 | 타입 | 규칙 | 방법 |
 |---|---|---|
 | checkbox_group | `_cb_assign` | region 내 □ 검출 → LLM box 위치로 1:1 배정(중복 방지) |
-| radio (보기) | `_fit_ink` | LLM box(중심 3px 정확)를 잉크에 조임 + 여백. OCR 안 씀 |
-| radio (L/R·좌/우) | `_lr_pair` | region 부위별 글자(CC) 좌우 배정 |
-| number/date/time + 단위 | `_ocr_anchor` | 단위글자(년/시…) EasyOCR 앵커 → 왼쪽 빈칸(글자 열-잉크로 높이 측정) |
-| text/textarea | `_placeholder`(○○○/□□□/△△△ 도형)·`_after_label`(콜론뒤 빈칸)·`_fit_bounded`(셀 빈칸)·`_fill_cell`(여러 줄) | ink_frac로 분기 |
+| radio (보기) | `_fit_ink` | LLM box를 잉크에 조임 + 여백 |
+| number/date/time + 단위 | `_ocr_anchor` | 단위글자(년/시…) EasyOCR 앵커 → 왼쪽 빈칸 |
+| text/textarea | `_placeholder`·`_after_label`·`_fit_bounded`·`_fill_cell` | ink_frac로 분기 |
 | signature | `_fit_ink` | "(서명 또는 인)" 문구 잉크 |
 | image | `_snap_cell` | 표 셀 격자 스냅 |
 
-- **⑤ 전역 후처리**: `carve_inline`(촘촘한 날짜행) · `merge_unit_fields`(급 등 단위 분할 병합) · **행 높이통일**(같은 행·타입·수평근접 요소 높이 median 통일).
-- **OCR**: 모두 EasyOCR, 작은 글자는 **자동 업스케일**(년→녀 오독·단일글자 미검출 감소).
+### 연결 상태 (정직)
+- ✅ **end-to-end**: `ground_focus.extract_form(img)` = ①영역분리 → ②대구획 → ③구획별 그라운딩(+④region-clamp). carve 전 raw 반환.
+- ✅ **부품·동작**: `detect_focus_regions` · `ground_blocks`(구획별 하이라이트 그라운딩+clamp) · `place_elements`(carve)
+- ✅ **전체 실행됨**: 18개 서식 raw 그라운딩 → `_verify/raw/*.json`(재사용, LLM 재호출 없이 carve/렌더 재생성). 러너 `_verify/run_all.py`(resumable·예산가드·불완전결과 미저장).
+- 🔴 **미구현**: MD-context(전사모듈 제거) · `extract_form`+carve를 잇는 `to_form_schema` 자동화(수동으로는 `place_elements`로 재실행 가능)
+- **레거시**: `pipeline.build()`는 page 모드(단일 그라운딩) — 여전히 동작, `_verify/render.py`가 사용
+
+**OCR**: EasyOCR, 작은 글자 자동 업스케일. **일관성 원천은 파라미터보다 MD-context·대구획 스코핑**(검출→localization).
 
 ## 출력 형태 — FormSchema (3 평면)
 
@@ -83,14 +102,24 @@ imomtae `FormTemplate.schema` 계약. 검증기 통과가 합격선.
 image-to-form/
 ├── README.md
 ├── price.md                           그라운딩 실측 비용
+├── gemini3devguide.md                 Gemini 3 프롬프트 지침 (간결·직접)
 ├── examples/minimal.formschema.json   유효 예시
-├── _verify/render.py                  절차별 검증 HTML 리포트 (→ step5_grounding.html)
+├── _verify/
+│   ├── run_all.py                     확정 파이프라인 전체 서식 실행 → raw/*.json (resumable·예산가드)
+│   ├── render_raw.py                  raw/*.json → 절차별 고화질 HTML (LLM 재호출 없음)
+│   ├── raw/*.json                     ★재사용 raw 그라운딩 (carve 전, 서식당 1개)
+│   ├── pipeline_raw.html              18서식 절차별 결과 리포트
+│   ├── render.py                      page 모드 검증 HTML (→ step5_grounding.html)
+│   ├── pipeline_diagram.html          절차 다이어그램 (연결 상태색)
+│   └── stagedemo.html                 서식2호 단계별 입력→출력
 └── core/
     ├── schema.py          FormSchema pydantic 계약 + validate_form_schema
     ├── region_segment.py  ① 영역분리 (CV)
-    ├── extract.py         ③ LLM 그라운딩 (Gemini) — SYS 프롬프트 + ground()
-    ├── carve.py           ④ 위치 도구함 (CV/OCR) — place() · fit_ink · ocr_anchor · fit_placeholder · letter_runs …
-    ├── pipeline.py        오케스트레이션 — build() · place_elements() · to_form_schema()
+    ├── ground_focus.py    ② 대구획 검출 + ③ 구획별 그라운딩 — detect_focus_regions() · mark_focus_multi() · PARTITION_SYS
+    ├── extract.py         LLM 그라운딩 (Gemini) — SYS 프롬프트 · ground(focus_ids)
+    ├── carve.py           ⑤ 위치 도구함 (CV/OCR) — place() · fit_ink · ocr_anchor · fit_placeholder …
+    ├── budget.py          OpenRouter $20/일 가드
+    ├── pipeline.py        오케스트레이션 — build()(page 레거시) · place_elements()(carve) · to_form_schema()
     └── __init__.py        공개 API
 ```
 

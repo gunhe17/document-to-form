@@ -41,6 +41,10 @@ DOCS = [("서식2호", D + "제1편_장애아가족_양육지원_서식/_extract
         ("아동정서발달 소견서", str(ROOT / "_verify" / "아동정서발달" / "p-10.png"))]
 
 
+# 서식이 아닌 페이지(계약 본문·booklet 비-서식) — 뷰/그라운딩에서 제외
+SKIP = {11, 12, 13, 15, 16, 21, 22}   # booklet p17·p22, 서식2호 p2, 서식6호 p2·p3, booklet p14·p19
+
+
 def b64(im):
     return base64.b64encode(cv2.imencode(".jpg", im, [cv2.IMWRITE_JPEG_QUALITY, 72])[1]).decode()
 

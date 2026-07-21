@@ -1,0 +1,375 @@
+{
+ "name": "서식24호",
+ "index": 4,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식24호_장애아가족_양육지원사업_(_)월_실적_보고서/pages/p-01.png",
+ "n_atoms": 65,
+ "groups": [
+  [
+   47,
+   48,
+   49,
+   50,
+   51,
+   52,
+   53
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17
+  ],
+  [
+   54,
+   55,
+   56,
+   57,
+   58
+  ],
+  [
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28
+  ],
+  [
+   59,
+   60,
+   61,
+   62
+  ],
+  [
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   63,
+   64
+  ]
+ ],
+ "elements": [
+  {
+   "region": 10,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    383,
+    146,
+    414,
+    217
+   ],
+   "key": "r10_text_1"
+  },
+  {
+   "region": 11,
+   "label": "전월 서비스 이용 가정 (이월)",
+   "type": "number",
+   "box": [
+    383,
+    223,
+    414,
+    316
+   ],
+   "key": "r11_number_1"
+  },
+  {
+   "region": 12,
+   "label": "최초선정",
+   "type": "number",
+   "box": [
+    383,
+    322,
+    414,
+    400
+   ],
+   "key": "r12_number_1"
+  },
+  {
+   "region": 13,
+   "label": "재선정",
+   "type": "number",
+   "box": [
+    383,
+    407,
+    414,
+    485
+   ],
+   "key": "r13_number_1"
+  },
+  {
+   "region": 14,
+   "label": "긴급선정",
+   "type": "number",
+   "box": [
+    383,
+    491,
+    414,
+    569
+   ],
+   "key": "r14_number_1"
+  },
+  {
+   "region": 15,
+   "label": "선정 취소 (이용 無)",
+   "type": "number",
+   "box": [
+    383,
+    576,
+    414,
+    662
+   ],
+   "key": "r15_number_1"
+  },
+  {
+   "region": 16,
+   "label": "실선정",
+   "type": "number",
+   "box": [
+    383,
+    669,
+    414,
+    756
+   ],
+   "key": "r16_number_1"
+  },
+  {
+   "region": 17,
+   "label": "선정종결 (1회 이상 이용)",
+   "type": "number",
+   "box": [
+    383,
+    762,
+    414,
+    848
+   ],
+   "key": "r17_number_1"
+  },
+  {
+   "region": 24,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    602,
+    144,
+    633,
+    217
+   ],
+   "key": "r24_text_1"
+  },
+  {
+   "region": 25,
+   "label": "배정량 초과",
+   "type": "number",
+   "box": [
+    602,
+    220,
+    633,
+    368
+   ],
+   "key": "r25_number_1"
+  },
+  {
+   "region": 26,
+   "label": "서비스 보류",
+   "type": "number",
+   "box": [
+    602,
+    371,
+    633,
+    518
+   ],
+   "key": "r26_number_1"
+  },
+  {
+   "region": 27,
+   "label": "서비스 미연계",
+   "type": "number",
+   "box": [
+    602,
+    522,
+    633,
+    669
+   ],
+   "key": "r27_number_1"
+  },
+  {
+   "region": 28,
+   "label": "대기 가정 수(합계)",
+   "type": "number",
+   "box": [
+    602,
+    673,
+    633,
+    849
+   ],
+   "key": "r28_number_1"
+  },
+  {
+   "region": 39,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    831,
+    145,
+    856,
+    197
+   ],
+   "key": "r39_text_1"
+  },
+  {
+   "region": 40,
+   "label": "전월 서비스 이용 가정 (이월)",
+   "type": "number",
+   "box": [
+    831,
+    203,
+    856,
+    285
+   ],
+   "key": "r40_number_1"
+  },
+  {
+   "region": 41,
+   "label": "최초이용",
+   "type": "number",
+   "box": [
+    831,
+    291,
+    856,
+    379
+   ],
+   "key": "r41_number_1"
+  },
+  {
+   "region": 42,
+   "label": "연속이용 및 재이용",
+   "type": "number",
+   "box": [
+    831,
+    386,
+    856,
+    473
+   ],
+   "key": "r42_number_1"
+  },
+  {
+   "region": 43,
+   "label": "긴급이용",
+   "type": "number",
+   "box": [
+    831,
+    480,
+    856,
+    568
+   ],
+   "key": "r43_number_1"
+  },
+  {
+   "region": 44,
+   "label": "이용종결",
+   "type": "number",
+   "box": [
+    831,
+    574,
+    856,
+    661
+   ],
+   "key": "r44_number_1"
+  },
+  {
+   "region": 45,
+   "label": "월이용 가정",
+   "type": "number",
+   "box": [
+    831,
+    668,
+    856,
+    762
+   ],
+   "key": "r45_number_1"
+  },
+  {
+   "region": 46,
+   "label": "실이용 가정 (사업 실적)",
+   "type": "number",
+   "box": [
+    831,
+    769,
+    856,
+    853
+   ],
+   "key": "r46_number_1"
+  },
+  {
+   "region": 49,
+   "label": "장애아가족 양육지원사업 월 실적 보고서",
+   "type": "number",
+   "box": [
+    146,
+    545,
+    165,
+    570
+   ],
+   "unit": "월",
+   "key": "r49_number_월_1"
+  },
+  {
+   "region": 50,
+   "label": "기관명",
+   "type": "text",
+   "box": [
+    179,
+    442,
+    194,
+    609
+   ],
+   "key": "r50_text_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 6,
+  "n_calls": 6,
+  "n_failed": 0,
+  "merged_count": 23,
+  "cost_sum": 0.048808,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 23.5
+}

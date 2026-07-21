@@ -1,0 +1,284 @@
+{
+ "name": "booklet p05",
+ "index": 7,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식24호_장애아가족_양육지원사업_(_)월_실적_보고서/pages/p-05.png",
+ "n_atoms": 40,
+ "groups": [
+  [
+   35
+  ],
+  [
+   36,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  [
+   37,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20
+  ],
+  [
+   38,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34
+  ],
+  [
+   39
+  ]
+ ],
+ "elements": [
+  {
+   "region": 7,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    202,
+    146,
+    227,
+    219
+   ],
+   "key": "r7_text_1"
+  },
+  {
+   "region": 8,
+   "label": "평일(월~금)",
+   "type": "number",
+   "box": [
+    202,
+    223,
+    227,
+    353
+   ],
+   "key": "r8_number_1"
+  },
+  {
+   "region": 9,
+   "label": "토요일",
+   "type": "number",
+   "box": [
+    202,
+    358,
+    227,
+    487
+   ],
+   "key": "r9_number_1"
+  },
+  {
+   "region": 10,
+   "label": "일요일",
+   "type": "number",
+   "box": [
+    202,
+    491,
+    227,
+    637
+   ],
+   "key": "r10_number_1"
+  },
+  {
+   "region": 11,
+   "label": "일요일 외 공휴일",
+   "type": "number",
+   "box": [
+    202,
+    641,
+    227,
+    787
+   ],
+   "key": "r11_number_1"
+  },
+  {
+   "region": 12,
+   "label": "계",
+   "type": "number",
+   "box": [
+    202,
+    792,
+    227,
+    851
+   ],
+   "key": "r12_number_1"
+  },
+  {
+   "region": 17,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    339,
+    148,
+    363,
+    219
+   ],
+   "key": "r17_text_1"
+  },
+  {
+   "region": 18,
+   "label": "돌봄 전담",
+   "type": "number",
+   "box": [
+    339,
+    226,
+    363,
+    502
+   ],
+   "unit": "건",
+   "key": "r18_number_건_1"
+  },
+  {
+   "region": 19,
+   "label": "돌봄 보조",
+   "type": "number",
+   "box": [
+    339,
+    510,
+    363,
+    787
+   ],
+   "unit": "건",
+   "key": "r19_number_건_1"
+  },
+  {
+   "region": 20,
+   "label": "계",
+   "type": "number",
+   "box": [
+    339,
+    794,
+    363,
+    850
+   ],
+   "unit": "건",
+   "key": "r20_number_건_1"
+  },
+  {
+   "region": 28,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    478,
+    146,
+    502,
+    220
+   ],
+   "key": "r28_text_1"
+  },
+  {
+   "region": 29,
+   "label": "일상생활",
+   "type": "number",
+   "box": [
+    478,
+    223,
+    502,
+    326
+   ],
+   "unit": "건",
+   "key": "r29_number_건_1"
+  },
+  {
+   "region": 30,
+   "label": "외출, 산책",
+   "type": "number",
+   "box": [
+    478,
+    328,
+    502,
+    431
+   ],
+   "unit": "건",
+   "key": "r30_number_건_1"
+  },
+  {
+   "region": 31,
+   "label": "이동, 동반",
+   "type": "number",
+   "box": [
+    478,
+    433,
+    502,
+    536
+   ],
+   "unit": "건",
+   "key": "r31_number_건_1"
+  },
+  {
+   "region": 32,
+   "label": "안전 및 보호",
+   "type": "number",
+   "box": [
+    478,
+    539,
+    502,
+    641
+   ],
+   "unit": "건",
+   "key": "r32_number_건_1"
+  },
+  {
+   "region": 33,
+   "label": "학습, 놀이",
+   "type": "number",
+   "box": [
+    478,
+    644,
+    502,
+    747
+   ],
+   "unit": "건",
+   "key": "r33_number_건_1"
+  },
+  {
+   "region": 34,
+   "label": "계",
+   "type": "number",
+   "box": [
+    478,
+    749,
+    502,
+    851
+   ],
+   "unit": "건",
+   "key": "r34_number_건_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 5,
+  "n_calls": 5,
+  "n_failed": 0,
+  "merged_count": 17,
+  "cost_sum": 0.040936,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 25.1
+}

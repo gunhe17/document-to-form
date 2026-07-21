@@ -1,0 +1,868 @@
+{
+ "name": "서식15호 p2",
+ "index": 14,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식15호_사고보고서/pages/p-2.png",
+ "n_atoms": 24,
+ "groups": [
+  [
+   22
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21
+  ],
+  [
+   23
+  ]
+ ],
+ "elements": [
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "number",
+   "box": [
+    136,
+    555,
+    149,
+    600
+   ],
+   "unit": "m",
+   "key": "r1_number_m_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    138,
+    312,
+    147,
+    325
+   ],
+   "option": "바닥으로 떨어짐",
+   "key": "r1_checkbox_group_바닥으로떨어짐_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "text",
+   "box": [
+    155,
+    502,
+    169,
+    582
+   ],
+   "key": "r1_text_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    178,
+    312,
+    187,
+    325
+   ],
+   "option": "뛰거나 발을 헛디뎌 넘어짐",
+   "key": "r1_checkbox_group_뛰거나발을헛디뎌넘어짐_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    178,
+    585,
+    187,
+    598
+   ],
+   "option": "다른 형제와 장난, 다툼",
+   "key": "r1_checkbox_group_다른형제와장난다툼_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    197,
+    312,
+    207,
+    325
+   ],
+   "option": "외부충격(사람, 차, 자전거 등)",
+   "key": "r1_checkbox_group_외부충격사람차자전거등_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    197,
+    585,
+    207,
+    598
+   ],
+   "option": "바퀴달린 탈것(인라인 스케이트 등)",
+   "key": "r1_checkbox_group_바퀴달린탈것인라인스케이트등_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    237,
+    312,
+    247,
+    325
+   ],
+   "option": "물체에 의해 다침",
+   "key": "r1_checkbox_group_물체에의해다침_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    237,
+    585,
+    247,
+    598
+   ],
+   "option": "음식물에 의한 질식",
+   "key": "r1_checkbox_group_음식물에의한질식_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    257,
+    312,
+    267,
+    325
+   ],
+   "option": "곤충에 물리거나 쏘임",
+   "key": "r1_checkbox_group_곤충에물리거나쏘임_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    257,
+    585,
+    267,
+    598
+   ],
+   "option": "동물에게 물림",
+   "key": "r1_checkbox_group_동물에게물림_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "text",
+   "box": [
+    276,
+    646,
+    289,
+    750
+   ],
+   "key": "r1_text_2"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    277,
+    312,
+    287,
+    325
+   ],
+   "option": "열, 추위에 노출",
+   "key": "r1_checkbox_group_열추위에노출_1"
+  },
+  {
+   "region": 1,
+   "label": "사고원인",
+   "type": "checkbox_group",
+   "box": [
+    277,
+    585,
+    287,
+    598
+   ],
+   "option": "기타",
+   "key": "r1_checkbox_group_기타_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    307,
+    422,
+    320,
+    432
+   ],
+   "option": "L",
+   "key": "r3_radio_L_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    307,
+    442,
+    320,
+    452
+   ],
+   "option": "R",
+   "key": "r3_radio_R_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    307,
+    556,
+    320,
+    566
+   ],
+   "option": "L",
+   "key": "r3_radio_L_2"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    307,
+    576,
+    320,
+    586
+   ],
+   "option": "R",
+   "key": "r3_radio_R_2"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    308,
+    312,
+    318,
+    325
+   ],
+   "option": "머리",
+   "key": "r3_checkbox_group_머리_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    308,
+    388,
+    318,
+    401
+   ],
+   "option": "눈",
+   "key": "r3_checkbox_group_눈_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    308,
+    522,
+    318,
+    535
+   ],
+   "option": "귀",
+   "key": "r3_checkbox_group_귀_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    308,
+    639,
+    318,
+    652
+   ],
+   "option": "코",
+   "key": "r3_checkbox_group_코_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    308,
+    720,
+    318,
+    733
+   ],
+   "option": "입",
+   "key": "r3_checkbox_group_입_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    330,
+    312,
+    340,
+    325
+   ],
+   "option": "목",
+   "key": "r3_checkbox_group_목_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    330,
+    388,
+    340,
+    401
+   ],
+   "option": "가슴",
+   "key": "r3_checkbox_group_가슴_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    330,
+    522,
+    340,
+    535
+   ],
+   "option": "등",
+   "key": "r3_checkbox_group_등_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    330,
+    639,
+    340,
+    652
+   ],
+   "option": "배",
+   "key": "r3_checkbox_group_배_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    350,
+    390,
+    363,
+    400
+   ],
+   "option": "L",
+   "key": "r3_radio_L_3"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    350,
+    410,
+    363,
+    420
+   ],
+   "option": "R",
+   "key": "r3_radio_R_3"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    351,
+    312,
+    361,
+    325
+   ],
+   "option": "엉덩이",
+   "key": "r3_checkbox_group_엉덩이_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    351,
+    522,
+    361,
+    535
+   ],
+   "option": "생식기",
+   "key": "r3_checkbox_group_생식기_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    371,
+    363,
+    384,
+    373
+   ],
+   "option": "L",
+   "key": "r3_radio_L_4"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    371,
+    383,
+    384,
+    393
+   ],
+   "option": "R",
+   "key": "r3_radio_R_4"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    371,
+    573,
+    384,
+    583
+   ],
+   "option": "L",
+   "key": "r3_radio_L_5"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    371,
+    593,
+    384,
+    603
+   ],
+   "option": "R",
+   "key": "r3_radio_R_5"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    372,
+    312,
+    382,
+    325
+   ],
+   "option": "팔",
+   "key": "r3_checkbox_group_팔_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    372,
+    522,
+    382,
+    535
+   ],
+   "option": "손",
+   "key": "r3_checkbox_group_손_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    392,
+    376,
+    405,
+    386
+   ],
+   "option": "L",
+   "key": "r3_radio_L_6"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    392,
+    396,
+    405,
+    406
+   ],
+   "option": "R",
+   "key": "r3_radio_R_6"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    392,
+    573,
+    405,
+    583
+   ],
+   "option": "L",
+   "key": "r3_radio_L_7"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "radio",
+   "box": [
+    392,
+    593,
+    405,
+    603
+   ],
+   "option": "R",
+   "key": "r3_radio_R_7"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    393,
+    312,
+    403,
+    325
+   ],
+   "option": "다리",
+   "key": "r3_checkbox_group_다리_1"
+  },
+  {
+   "region": 3,
+   "label": "다친 부위",
+   "type": "checkbox_group",
+   "box": [
+    393,
+    522,
+    403,
+    535
+   ],
+   "option": "발",
+   "key": "r3_checkbox_group_발_1"
+  },
+  {
+   "region": 5,
+   "label": "장애아돌보미가 행한 응급처치",
+   "type": "textarea",
+   "box": [
+    478,
+    144,
+    513,
+    855
+   ],
+   "key": "r5_textarea_1"
+  },
+  {
+   "region": 7,
+   "label": "응급처치자",
+   "type": "text",
+   "box": [
+    517,
+    297,
+    563,
+    427
+   ],
+   "key": "r7_text_1"
+  },
+  {
+   "region": 9,
+   "label": "의료기관 진료여부",
+   "type": "checkbox_group",
+   "box": [
+    535,
+    701,
+    545,
+    714
+   ],
+   "option": "안함",
+   "key": "r9_checkbox_group_안함_1"
+  },
+  {
+   "region": 9,
+   "label": "의료기관 진료여부",
+   "type": "checkbox_group",
+   "box": [
+    535,
+    779,
+    545,
+    792
+   ],
+   "option": "함",
+   "key": "r9_checkbox_group_함_1"
+  },
+  {
+   "region": 11,
+   "label": "의료기관 진료를 한 경우",
+   "type": "checkbox_group",
+   "box": [
+    583,
+    307,
+    593,
+    320
+   ],
+   "option": "외래 진료를 받음(예 : 진료실, 응급실)",
+   "key": "r11_checkbox_group_외래진료를받음예진료실응급실_1"
+  },
+  {
+   "region": 11,
+   "label": "의료기관 진료를 한 경우",
+   "type": "number",
+   "box": [
+    603,
+    422,
+    616,
+    480
+   ],
+   "unit": "시간",
+   "key": "r11_number_시간_1"
+  },
+  {
+   "region": 11,
+   "label": "의료기관 진료를 한 경우",
+   "type": "checkbox_group",
+   "box": [
+    604,
+    307,
+    614,
+    320
+   ],
+   "option": "입원(밤새 혹은)",
+   "key": "r11_checkbox_group_입원밤새혹은_1"
+  },
+  {
+   "region": 13,
+   "label": "아동의 보호(재활)를 위한 추후 계획",
+   "type": "textarea",
+   "box": [
+    629,
+    521,
+    676,
+    855
+   ],
+   "key": "r13_textarea_1"
+  },
+  {
+   "region": 15,
+   "label": "재발방지에 필요한 교정활동",
+   "type": "textarea",
+   "box": [
+    679,
+    470,
+    726,
+    855
+   ],
+   "key": "r15_textarea_1"
+  },
+  {
+   "region": 17,
+   "label": "장애아돌보미서명",
+   "type": "signature",
+   "box": [
+    743,
+    427,
+    756,
+    452
+   ],
+   "key": "r17_signature_1"
+  },
+  {
+   "region": 17,
+   "label": "장애아돌보미서명 날짜",
+   "type": "date",
+   "box": [
+    743,
+    542,
+    756,
+    620
+   ],
+   "key": "r17_date_1"
+  },
+  {
+   "region": 17,
+   "label": "장애아돌보미서명 시간",
+   "type": "time",
+   "box": [
+    743,
+    620,
+    756,
+    660
+   ],
+   "key": "r17_time_1"
+  },
+  {
+   "region": 17,
+   "label": "장애아돌보미서명 오전/오후",
+   "type": "radio",
+   "box": [
+    743,
+    660,
+    756,
+    705
+   ],
+   "option": "am/pm",
+   "key": "r17_radio_ampm_1"
+  },
+  {
+   "region": 19,
+   "label": "전담자 서명",
+   "type": "signature",
+   "box": [
+    793,
+    427,
+    806,
+    452
+   ],
+   "key": "r19_signature_1"
+  },
+  {
+   "region": 19,
+   "label": "전담자 서명 날짜",
+   "type": "date",
+   "box": [
+    793,
+    542,
+    806,
+    620
+   ],
+   "key": "r19_date_1"
+  },
+  {
+   "region": 19,
+   "label": "전담자 서명 시간",
+   "type": "time",
+   "box": [
+    793,
+    620,
+    806,
+    660
+   ],
+   "key": "r19_time_1"
+  },
+  {
+   "region": 19,
+   "label": "전담자 서명 오전/오후",
+   "type": "radio",
+   "box": [
+    793,
+    660,
+    806,
+    705
+   ],
+   "option": "am/pm",
+   "key": "r19_radio_ampm_1"
+  },
+  {
+   "region": 21,
+   "label": "부모서명",
+   "type": "signature",
+   "box": [
+    843,
+    427,
+    856,
+    452
+   ],
+   "key": "r21_signature_1"
+  },
+  {
+   "region": 21,
+   "label": "부모서명 날짜",
+   "type": "date",
+   "box": [
+    843,
+    542,
+    856,
+    620
+   ],
+   "key": "r21_date_1"
+  },
+  {
+   "region": 21,
+   "label": "부모서명 시간",
+   "type": "time",
+   "box": [
+    843,
+    620,
+    856,
+    660
+   ],
+   "key": "r21_time_1"
+  },
+  {
+   "region": 21,
+   "label": "부모서명 오전/오후",
+   "type": "radio",
+   "box": [
+    843,
+    660,
+    856,
+    705
+   ],
+   "option": "am/pm",
+   "key": "r21_radio_ampm_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 3,
+  "n_calls": 3,
+  "n_failed": 0,
+  "merged_count": 64,
+  "cost_sum": 0.069464,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 33.2
+}

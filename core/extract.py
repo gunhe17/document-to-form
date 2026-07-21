@@ -5,7 +5,7 @@ temperature=1.0 (Gemini 3 권장; 낮추면 검출 저하·looping). reasoning e
 
 LLM = 의미(무엇이 입력·타입·option·unit) + 대략 위치. 정확한 위치는 carve 가 잡는다.
 """
-import os, json, re, urllib.request
+import os, json, re, time, urllib.request
 from pathlib import Path
 
 MODEL = "google/gemini-3.1-pro-preview"
@@ -96,7 +96,7 @@ SYS_V2 = """# 역할
 □ 없이, **하나만** 고르는 배타적 텍스트 보기(○·동그라미·슬래시·괄호 택1 포함).
 보기마다 요소 1개, option=그 보기. 빈 양식에 ○가 없어도 배타 보기면 radio.
 항목 라벨 뒤 괄호 택1은 본 항목과 별도로 각 보기 radio.
-형태: `A/B` · `A · B` · `(A, B)` · `am/pm` · `남/여`.
+형태: `A/B` · `A · B` · `(A, B)` · `am/pm` · `남/여`. 슬래시·중점으로 나열된 각 낱개가 개별 보기(`am/pm`→am·pm 2개, `오전/오후`→오전·오후 2개, `남/여`→남·여 2개). 단 `쇼크/질식`·`식사/간식시간`처럼 한 항목명 안의 슬래시는 나누지 않는다.
 경계: □가 있으면 checkbox_group. □ 없이 택1이면 radio.
 
 ## consent
@@ -363,7 +363,7 @@ def majority_merge_trace(runs, min_votes=None, iou_thresh=0.25):
 
 def ground(marked_jpg_b64, n_atoms, model=MODEL, temperature=1.0, retries=3, system=None,
            reasoning_effort="low", focus_region=None, assign=True,
-           focus_style="highlight", image_first=False):
+           focus_style="highlight", image_first=False, focus_ids=None, region_enum=None):
     """SoM 마킹된 JPEG(base64) → {"elements":[...]}.
     Structured Output(json_schema)로 type/box 형태 고정. key는 assign_keys로 코드 부여.
     reasoning_effort: OpenRouter reasoning.effort (= Gemini thinking_level) low|medium|high.
@@ -372,9 +372,19 @@ def ground(marked_jpg_b64, n_atoms, model=MODEL, temperature=1.0, retries=3, sys
     image_first: True면 user content를 [이미지, 텍스트] 순 — 고정 이미지+가변 텍스트 캐시에 유리.
     파싱 실패 시 재시도, 최종 실패면 빈 리스트. system: 프롬프트(기본 SYS_V2).
     반환에 _meta(usage)가 붙을 수 있음(파이프라인은 elements만 사용)."""
+    model = model or MODEL                          # 호출자가 model=None을 명시해도 기본 모델로(빈 model=API 400 방지)
     sys_prompt = SYS_V2 if system is None else system
     head = f"번호 0~{n_atoms-1}. key 필드는 넣지 말 것.\n"
-    if focus_region is not None:
+    if focus_ids is not None:
+        head = (
+            f"번호 목록 {list(focus_ids)}에 해당하는 영역만 다룬다. 이 목록에 없는 번호의 영역은 "
+            f"절대 요소로 만들지 않는다. 각 요소의 region은 반드시 이 목록 {list(focus_ids)} 중 하나여야 한다. "
+            f"box는 그 번호 영역 사각형 안에만.\n"
+            f"이 목록의 각 영역이 **키(라벨·제목·항목명)** 인지 "
+            f"**값(작성자가 채우는 입력칸·선택지)** 인지 판단해, 값 성격일 때만 입력 요소를 만든다.\n"
+            + head
+        )
+    elif focus_region is not None:
         if focus_style == "text":
             head = (
                 f"이미지의 번호 박스 중 **영역 {focus_region}만** 다룬다. "
@@ -394,6 +404,12 @@ def ground(marked_jpg_b64, n_atoms, model=MODEL, temperature=1.0, retries=3, sys
                 f"키 성격이면 요소를 만들지 않는다. 값 성격일 때만 입력 요소를 만든다.\n"
                 + head
             )
+    resp_schema = RESPONSE_SCHEMA
+    if region_enum is not None:                            # region을 이 블록 번호들로 강제(생성 시점 봉쇄)
+        import copy
+        resp_schema = copy.deepcopy(RESPONSE_SCHEMA)
+        resp_schema["properties"]["elements"]["items"]["properties"]["region"] = {
+            "type": "integer", "enum": sorted(set(int(i) for i in region_enum))}
     img_part = {"type": "image_url",
                 "image_url": {"url": "data:image/jpeg;base64," + marked_jpg_b64}}
     txt_part = {"type": "text", "text": head if image_first else (head + "[이미지]↓")}
@@ -410,13 +426,13 @@ def ground(marked_jpg_b64, n_atoms, model=MODEL, temperature=1.0, retries=3, sys
             "json_schema": {
                 "name": "form_elements",
                 "strict": True,
-                "schema": RESPONSE_SCHEMA,
+                "schema": resp_schema,
             },
         },
     }
     body = json.dumps(body_obj).encode()
     last_err = None
-    for _ in range(retries):
+    for attempt in range(retries):
         req = urllib.request.Request(API, data=body, headers={
             "Authorization": f"Bearer {load_key()}", "Content-Type": "application/json"})
         try:
@@ -428,6 +444,8 @@ def ground(marked_jpg_b64, n_atoms, model=MODEL, temperature=1.0, retries=3, sys
             return {"elements": els, "_meta": {"usage": resp.get("usage"), "effort": reasoning_effort}}
         except Exception as ex:
             last_err = ex
+            if attempt < retries - 1:
+                time.sleep(1.5 * (attempt + 1))    # 레이트리밋·일시장애 백오프(병렬 콜에서 429 회복)
     try:
         body_obj["response_format"] = {"type": "json_object"}
         body = json.dumps(body_obj).encode()

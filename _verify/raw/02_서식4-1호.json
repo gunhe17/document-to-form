@@ -1,0 +1,549 @@
+{
+ "name": "서식4-1호",
+ "index": 2,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제2편_발달재활서비스_서식/_extract/서식4_1호_발달재활서비스_의뢰서/pages/p-1.png",
+ "n_atoms": 37,
+ "groups": [
+  [
+   33,
+   34,
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  [
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11
+  ],
+  [
+   12,
+   13,
+   14,
+   15,
+   16,
+   17
+  ],
+  [
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28
+  ],
+  [
+   29,
+   30,
+   31,
+   32,
+   35,
+   36
+  ]
+ ],
+ "elements": [
+  {
+   "region": 2,
+   "label": "병록번호",
+   "type": "text",
+   "box": [
+    141,
+    680,
+    163,
+    854
+   ],
+   "key": "r2_text_1"
+  },
+  {
+   "region": 4,
+   "label": "연번호",
+   "type": "text",
+   "box": [
+    164,
+    680,
+    186,
+    854
+   ],
+   "key": "r4_text_1"
+  },
+  {
+   "region": 7,
+   "label": "성명",
+   "type": "text",
+   "box": [
+    188,
+    284,
+    225,
+    510
+   ],
+   "key": "r7_text_1"
+  },
+  {
+   "region": 9,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    207,
+    511,
+    225,
+    854
+   ],
+   "key": "r9_date_1"
+  },
+  {
+   "region": 11,
+   "label": "주소",
+   "type": "text",
+   "box": [
+    227,
+    284,
+    259,
+    633
+   ],
+   "key": "r11_text_1"
+  },
+  {
+   "region": 11,
+   "label": "전화",
+   "type": "phone",
+   "box": [
+    227,
+    689,
+    259,
+    854
+   ],
+   "key": "r11_phone_1"
+  },
+  {
+   "region": 13,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    268,
+    396,
+    281,
+    464
+   ],
+   "option": "시각",
+   "key": "r13_checkbox_group_시각_1"
+  },
+  {
+   "region": 13,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    287,
+    396,
+    298,
+    463
+   ],
+   "option": "청각",
+   "key": "r13_checkbox_group_청각_1"
+  },
+  {
+   "region": 13,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    305,
+    396,
+    317,
+    463
+   ],
+   "option": "언어",
+   "key": "r13_checkbox_group_언어_1"
+  },
+  {
+   "region": 14,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    268,
+    533,
+    281,
+    599
+   ],
+   "option": "뇌병변",
+   "key": "r14_checkbox_group_뇌병변_1"
+  },
+  {
+   "region": 14,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    287,
+    533,
+    298,
+    599
+   ],
+   "option": "지적",
+   "key": "r14_checkbox_group_지적_1"
+  },
+  {
+   "region": 14,
+   "label": "병명",
+   "type": "checkbox_group",
+   "box": [
+    305,
+    533,
+    317,
+    598
+   ],
+   "option": "자폐성",
+   "key": "r14_checkbox_group_자폐성_1"
+  },
+  {
+   "region": 17,
+   "label": "발병 연월일",
+   "type": "date",
+   "box": [
+    302,
+    655,
+    317,
+    700
+   ],
+   "unit": "년",
+   "key": "r17_date_년_1"
+  },
+  {
+   "region": 17,
+   "label": "발병 연월일",
+   "type": "date",
+   "box": [
+    302,
+    715,
+    317,
+    749
+   ],
+   "unit": "월",
+   "key": "r17_date_월_1"
+  },
+  {
+   "region": 17,
+   "label": "발병 연월일",
+   "type": "date",
+   "box": [
+    302,
+    765,
+    317,
+    799
+   ],
+   "unit": "일",
+   "key": "r17_date_일_1"
+  },
+  {
+   "region": 21,
+   "label": "신체발달",
+   "type": "checkbox_group",
+   "box": [
+    383,
+    191,
+    399,
+    289
+   ],
+   "option": "신체발달",
+   "key": "r21_checkbox_group_신체발달_1"
+  },
+  {
+   "region": 22,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    383,
+    348,
+    399,
+    404
+   ],
+   "option": "감각",
+   "key": "r22_checkbox_group_감각_1"
+  },
+  {
+   "region": 22,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    383,
+    476,
+    399,
+    547
+   ],
+   "option": "소근육",
+   "key": "r22_checkbox_group_소근육_1"
+  },
+  {
+   "region": 22,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    383,
+    620,
+    399,
+    691
+   ],
+   "option": "대근육",
+   "key": "r22_checkbox_group_대근육_1"
+  },
+  {
+   "region": 23,
+   "label": "의사소통",
+   "type": "checkbox_group",
+   "box": [
+    406,
+    191,
+    422,
+    289
+   ],
+   "option": "의사소통",
+   "key": "r23_checkbox_group_의사소통_1"
+  },
+  {
+   "region": 24,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    406,
+    348,
+    422,
+    433
+   ],
+   "option": "구문/의미",
+   "key": "r24_checkbox_group_구문의미_1"
+  },
+  {
+   "region": 24,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    406,
+    476,
+    422,
+    561
+   ],
+   "option": "음운/청력",
+   "key": "r24_checkbox_group_음운청력_1"
+  },
+  {
+   "region": 24,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    406,
+    620,
+    422,
+    662
+   ],
+   "option": "화용",
+   "key": "r24_checkbox_group_화용_1"
+  },
+  {
+   "region": 25,
+   "label": "심리행동",
+   "type": "checkbox_group",
+   "box": [
+    429,
+    191,
+    446,
+    289
+   ],
+   "option": "심리행동",
+   "key": "r25_checkbox_group_심리행동_1"
+  },
+  {
+   "region": 26,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    429,
+    348,
+    446,
+    433
+   ],
+   "option": "행동문제",
+   "key": "r26_checkbox_group_행동문제_1"
+  },
+  {
+   "region": 26,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    429,
+    476,
+    446,
+    561
+   ],
+   "option": "정서/심리",
+   "key": "r26_checkbox_group_정서심리_1"
+  },
+  {
+   "region": 26,
+   "label": "세부영역",
+   "type": "checkbox_group",
+   "box": [
+    429,
+    620,
+    446,
+    691
+   ],
+   "option": "사회성",
+   "key": "r26_checkbox_group_사회성_1"
+  },
+  {
+   "region": 28,
+   "label": "선택사항",
+   "type": "checkbox_group",
+   "box": [
+    452,
+    348,
+    469,
+    404
+   ],
+   "option": "지능",
+   "key": "r28_checkbox_group_지능_1"
+  },
+  {
+   "region": 30,
+   "label": "향후 발달재활서비스에 대한 소견",
+   "type": "textarea",
+   "box": [
+    497,
+    144,
+    606,
+    854
+   ],
+   "key": "r30_textarea_1"
+  },
+  {
+   "region": 32,
+   "label": "년",
+   "type": "date",
+   "box": [
+    706,
+    421,
+    720,
+    442
+   ],
+   "unit": "년",
+   "key": "r32_date_년_1"
+  },
+  {
+   "region": 32,
+   "label": "월",
+   "type": "date",
+   "box": [
+    706,
+    488,
+    720,
+    508
+   ],
+   "unit": "월",
+   "key": "r32_date_월_1"
+  },
+  {
+   "region": 32,
+   "label": "일",
+   "type": "date",
+   "box": [
+    706,
+    555,
+    720,
+    574
+   ],
+   "unit": "일",
+   "key": "r32_date_일_1"
+  },
+  {
+   "region": 32,
+   "label": "서명 또는 인",
+   "type": "signature",
+   "box": [
+    734,
+    563,
+    748,
+    668
+   ],
+   "key": "r32_signature_1"
+  },
+  {
+   "region": 32,
+   "label": "병·의원 주소(전화번호)",
+   "type": "text",
+   "box": [
+    793,
+    319,
+    810,
+    840
+   ],
+   "key": "r32_text_1"
+  },
+  {
+   "region": 32,
+   "label": "병·의원 명",
+   "type": "text",
+   "box": [
+    817,
+    237,
+    833,
+    840
+   ],
+   "key": "r32_text_2"
+  },
+  {
+   "region": 32,
+   "label": "의사면허번호",
+   "type": "text",
+   "box": [
+    839,
+    245,
+    855,
+    449
+   ],
+   "key": "r32_text_3"
+  },
+  {
+   "region": 32,
+   "label": "전문의 의사명",
+   "type": "text",
+   "box": [
+    839,
+    452,
+    855,
+    542
+   ],
+   "key": "r32_text_4"
+  },
+  {
+   "region": 32,
+   "label": "전문의 의사명",
+   "type": "text",
+   "box": [
+    839,
+    670,
+    855,
+    840
+   ],
+   "key": "r32_text_5"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 5,
+  "n_calls": 5,
+  "n_failed": 0,
+  "merged_count": 38,
+  "cost_sum": 0.059632,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 18.6
+}

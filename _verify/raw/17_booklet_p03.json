@@ -1,0 +1,552 @@
+{
+ "name": "booklet p03",
+ "index": 17,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식24호_장애아가족_양육지원사업_(_)월_실적_보고서/pages/p-03.png",
+ "n_atoms": 89,
+ "groups": [
+  [
+   71,
+   72,
+   73
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22
+  ],
+  [
+   74,
+   75
+  ],
+  [
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34
+  ],
+  [
+   76,
+   77,
+   78
+  ],
+  [
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46
+  ],
+  [
+   79,
+   80,
+   81,
+   82,
+   83
+  ],
+  [
+   47,
+   48,
+   49,
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62
+  ],
+  [
+   84,
+   85,
+   86
+  ],
+  [
+   63,
+   64,
+   65,
+   66,
+   67,
+   68,
+   69,
+   70
+  ],
+  [
+   87,
+   88
+  ]
+ ],
+ "elements": [
+  {
+   "region": 12,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    219,
+    148,
+    242,
+    220
+   ],
+   "key": "r12_text_1"
+  },
+  {
+   "region": 13,
+   "label": "1시간",
+   "type": "number",
+   "box": [
+    219,
+    224,
+    242,
+    281
+   ],
+   "key": "r13_number_1"
+  },
+  {
+   "region": 14,
+   "label": "2시간",
+   "type": "number",
+   "box": [
+    219,
+    284,
+    242,
+    342
+   ],
+   "key": "r14_number_1"
+  },
+  {
+   "region": 15,
+   "label": "3시간",
+   "type": "number",
+   "box": [
+    219,
+    345,
+    242,
+    403
+   ],
+   "key": "r15_number_1"
+  },
+  {
+   "region": 16,
+   "label": "4시간",
+   "type": "number",
+   "box": [
+    219,
+    407,
+    242,
+    464
+   ],
+   "key": "r16_number_1"
+  },
+  {
+   "region": 17,
+   "label": "5시간",
+   "type": "number",
+   "box": [
+    219,
+    468,
+    242,
+    526
+   ],
+   "key": "r17_number_1"
+  },
+  {
+   "region": 18,
+   "label": "6시간",
+   "type": "number",
+   "box": [
+    219,
+    529,
+    242,
+    587
+   ],
+   "key": "r18_number_1"
+  },
+  {
+   "region": 19,
+   "label": "7시간",
+   "type": "number",
+   "box": [
+    219,
+    591,
+    242,
+    647
+   ],
+   "key": "r19_number_1"
+  },
+  {
+   "region": 20,
+   "label": "8시간",
+   "type": "number",
+   "box": [
+    219,
+    652,
+    242,
+    708
+   ],
+   "key": "r20_number_1"
+  },
+  {
+   "region": 21,
+   "label": "8시간 초과",
+   "type": "number",
+   "box": [
+    219,
+    712,
+    242,
+    770
+   ],
+   "key": "r21_number_1"
+  },
+  {
+   "region": 22,
+   "label": "계",
+   "type": "number",
+   "box": [
+    219,
+    773,
+    242,
+    850
+   ],
+   "key": "r22_number_1"
+  },
+  {
+   "region": 29,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    353,
+    146,
+    380,
+    219
+   ],
+   "key": "r29_text_1"
+  },
+  {
+   "region": 30,
+   "label": "3세 미만",
+   "type": "number",
+   "box": [
+    353,
+    223,
+    380,
+    342
+   ],
+   "key": "r30_number_1"
+  },
+  {
+   "region": 31,
+   "label": "3세 이상 ~6세 미만",
+   "type": "number",
+   "box": [
+    353,
+    345,
+    380,
+    484
+   ],
+   "key": "r31_number_1"
+  },
+  {
+   "region": 32,
+   "label": "6세 이상 ~12세 미만",
+   "type": "number",
+   "box": [
+    353,
+    488,
+    380,
+    627
+   ],
+   "key": "r32_number_1"
+  },
+  {
+   "region": 33,
+   "label": "12세 이상 ~18세 미만",
+   "type": "number",
+   "box": [
+    353,
+    630,
+    380,
+    770
+   ],
+   "key": "r33_number_1"
+  },
+  {
+   "region": 34,
+   "label": "계",
+   "type": "number",
+   "box": [
+    353,
+    773,
+    380,
+    851
+   ],
+   "key": "r34_number_1"
+  },
+  {
+   "region": 41,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    499,
+    146,
+    525,
+    220
+   ],
+   "key": "r41_text_1"
+  },
+  {
+   "region": 42,
+   "label": "자폐성 장애",
+   "type": "number",
+   "box": [
+    499,
+    223,
+    525,
+    342
+   ],
+   "key": "r42_number_1"
+  },
+  {
+   "region": 43,
+   "label": "지적 장애",
+   "type": "number",
+   "box": [
+    499,
+    345,
+    525,
+    485
+   ],
+   "key": "r43_number_1"
+  },
+  {
+   "region": 44,
+   "label": "뇌병변 장애",
+   "type": "number",
+   "box": [
+    499,
+    488,
+    525,
+    628
+   ],
+   "key": "r44_number_1"
+  },
+  {
+   "region": 45,
+   "label": "기타",
+   "type": "number",
+   "box": [
+    499,
+    630,
+    525,
+    770
+   ],
+   "key": "r45_number_1"
+  },
+  {
+   "region": 46,
+   "label": "계",
+   "type": "number",
+   "box": [
+    499,
+    773,
+    525,
+    851
+   ],
+   "key": "r46_number_1"
+  },
+  {
+   "region": 55,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    683,
+    146,
+    707,
+    220
+   ],
+   "key": "r55_text_1"
+  },
+  {
+   "region": 56,
+   "label": "한부모",
+   "type": "number",
+   "box": [
+    683,
+    223,
+    707,
+    309
+   ],
+   "key": "r56_number_1"
+  },
+  {
+   "region": 57,
+   "label": "조손",
+   "type": "number",
+   "box": [
+    683,
+    313,
+    707,
+    399
+   ],
+   "key": "r57_number_1"
+  },
+  {
+   "region": 58,
+   "label": "맞벌이",
+   "type": "number",
+   "box": [
+    683,
+    403,
+    707,
+    489
+   ],
+   "key": "r58_number_1"
+  },
+  {
+   "region": 59,
+   "label": "다자녀",
+   "type": "number",
+   "box": [
+    683,
+    493,
+    707,
+    579
+   ],
+   "key": "r59_number_1"
+  },
+  {
+   "region": 60,
+   "label": "다문화",
+   "type": "number",
+   "box": [
+    683,
+    584,
+    707,
+    670
+   ],
+   "key": "r60_number_1"
+  },
+  {
+   "region": 61,
+   "label": "일반",
+   "type": "number",
+   "box": [
+    683,
+    674,
+    707,
+    760
+   ],
+   "key": "r61_number_1"
+  },
+  {
+   "region": 62,
+   "label": "계",
+   "type": "number",
+   "box": [
+    683,
+    764,
+    707,
+    851
+   ],
+   "key": "r62_number_1"
+  },
+  {
+   "region": 67,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    821,
+    146,
+    848,
+    220
+   ],
+   "key": "r67_text_1"
+  },
+  {
+   "region": 68,
+   "label": "양육자 장애 有",
+   "type": "number",
+   "box": [
+    821,
+    223,
+    848,
+    490
+   ],
+   "key": "r68_number_1"
+  },
+  {
+   "region": 69,
+   "label": "양육자 장애 無",
+   "type": "number",
+   "box": [
+    821,
+    493,
+    848,
+    761
+   ],
+   "key": "r69_number_1"
+  },
+  {
+   "region": 70,
+   "label": "계",
+   "type": "number",
+   "box": [
+    821,
+    764,
+    848,
+    851
+   ],
+   "key": "r70_number_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 11,
+  "n_calls": 11,
+  "n_failed": 0,
+  "merged_count": 35,
+  "cost_sum": 0.086912,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 24.3
+}

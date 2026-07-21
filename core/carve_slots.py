@@ -80,7 +80,7 @@ def place_radios(gray, rectof, items, min_ratio=0.5):
             if not best:
                 continue
             x0, y0, x1, y1, t, core = best
-            if len(core) > len(opt) + 1:                         # 병합 토큰 → opt 위치로 비례 분할
+            if len(core) > len(opt):                             # 병합 토큰(남여·amlpm 등) → opt 위치로 비례 분할
                 sm = difflib.SequenceMatcher(None, opt, t.replace(" ", ""))
                 blocks = [b for b in sm.get_matching_blocks() if b.size > 0]
                 if blocks:

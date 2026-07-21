@@ -1,0 +1,718 @@
+{
+ "name": "아동정서발달 소견서",
+ "index": 24,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/image-to-form/_verify/아동정서발달/p-10.png",
+ "n_atoms": 71,
+ "groups": [
+  [
+   65,
+   66
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  [
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49
+  ],
+  [
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64
+  ],
+  [
+   67,
+   68,
+   69,
+   70
+  ]
+ ],
+ "elements": [
+  {
+   "region": 2,
+   "label": "이름",
+   "type": "text",
+   "box": [
+    198,
+    235,
+    229,
+    354
+   ],
+   "key": "r2_text_1"
+  },
+  {
+   "region": 4,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    198,
+    448,
+    229,
+    631
+   ],
+   "key": "r4_date_1"
+  },
+  {
+   "region": 6,
+   "label": "성별(O체크)",
+   "type": "radio",
+   "option": "여",
+   "box": [
+    198,
+    731,
+    229,
+    805
+   ],
+   "key": "r6_radio_여_1"
+  },
+  {
+   "region": 6,
+   "label": "성별(O체크)",
+   "type": "radio",
+   "option": "남",
+   "box": [
+    198,
+    805,
+    229,
+    876
+   ],
+   "key": "r6_radio_남_1"
+  },
+  {
+   "region": 8,
+   "label": "연령",
+   "type": "number",
+   "unit": "세",
+   "box": [
+    231,
+    235,
+    264,
+    354
+   ],
+   "key": "r8_number_세_1"
+  },
+  {
+   "region": 10,
+   "label": "학년",
+   "type": "text",
+   "box": [
+    231,
+    448,
+    264,
+    631
+   ],
+   "key": "r10_text_1"
+  },
+  {
+   "region": 12,
+   "label": "보호자 이름",
+   "type": "text",
+   "box": [
+    231,
+    731,
+    264,
+    876
+   ],
+   "key": "r12_text_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "② 정서적 어려움: 우울, 불안, 강박, 양극성, 분열 등",
+   "box": [
+    316,
+    498,
+    329,
+    517
+   ],
+   "key": "r15_checkbox_group_②정서적어려움우울불안강박양극성분열등_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "① 주의력결핍 및 과잉행동장애",
+   "box": [
+    326,
+    239,
+    340,
+    258
+   ],
+   "key": "r15_checkbox_group_①주의력결핍및과잉행동장애_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "③ 사회성결여: 사회적 위축, 자기표현 및 또래관계의 어려움",
+   "box": [
+    351,
+    239,
+    365,
+    258
+   ],
+   "key": "r15_checkbox_group_③사회성결여사회적위축자기표현및또래관계의어려움_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "⑤ 문화적 소외로 인한 소외감, 고립감, 무기력 등",
+   "box": [
+    374,
+    498,
+    387,
+    517
+   ],
+   "key": "r15_checkbox_group_⑤문화적소외로인한소외감고립감무기력등_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "④ 반항, 품행장애, 비행 등",
+   "box": [
+    381,
+    239,
+    395,
+    258
+   ],
+   "key": "r15_checkbox_group_④반항품행장애비행등_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성 기타",
+   "type": "text",
+   "box": [
+    408,
+    529,
+    426,
+    684
+   ],
+   "key": "r15_text_1"
+  },
+  {
+   "region": 15,
+   "label": "신청자의 특성",
+   "type": "checkbox_group",
+   "option": "⑥ 기타 (그 밖의 어려움 및 문제행동",
+   "box": [
+    410,
+    239,
+    424,
+    258
+   ],
+   "key": "r15_checkbox_group_⑥기타그밖의어려움및문제행동_1"
+  },
+  {
+   "region": 23,
+   "label": "사용한 검사도구 부모 보고 검사 도구",
+   "type": "text",
+   "box": [
+    471,
+    311,
+    504,
+    443
+   ],
+   "key": "r23_text_1"
+  },
+  {
+   "region": 24,
+   "label": "사용한 검사도구 부모 보고 절단점",
+   "type": "text",
+   "box": [
+    471,
+    445,
+    504,
+    587
+   ],
+   "key": "r24_text_1"
+  },
+  {
+   "region": 25,
+   "label": "사용한 검사도구 부모 보고 평가결과(점수)",
+   "type": "number",
+   "unit": "점수",
+   "box": [
+    471,
+    590,
+    504,
+    727
+   ],
+   "key": "r25_number_점수_1"
+  },
+  {
+   "region": 26,
+   "label": "사용한 검사도구 부모 보고 참고점수(하위척도의 점수)",
+   "type": "number",
+   "unit": "하위척도의 점수",
+   "box": [
+    471,
+    729,
+    504,
+    876
+   ],
+   "key": "r26_number_하위척도의점수_1"
+  },
+  {
+   "region": 28,
+   "label": "사용한 검사도구 자기 보고 검사 도구",
+   "type": "text",
+   "box": [
+    506,
+    311,
+    539,
+    443
+   ],
+   "key": "r28_text_1"
+  },
+  {
+   "region": 29,
+   "label": "사용한 검사도구 자기 보고 절단점",
+   "type": "text",
+   "box": [
+    506,
+    445,
+    539,
+    587
+   ],
+   "key": "r29_text_1"
+  },
+  {
+   "region": 30,
+   "label": "사용한 검사도구 자기 보고 평가결과(점수)",
+   "type": "number",
+   "unit": "점수",
+   "box": [
+    506,
+    590,
+    539,
+    727
+   ],
+   "key": "r30_number_점수_1"
+  },
+  {
+   "region": 31,
+   "label": "사용한 검사도구 자기 보고 참고점수(하위척도의 점수)",
+   "type": "number",
+   "unit": "하위척도의 점수",
+   "box": [
+    506,
+    729,
+    539,
+    876
+   ],
+   "key": "r31_number_하위척도의점수_1"
+  },
+  {
+   "region": 33,
+   "label": "사용한 검사도구 교사(전문가) 보고 검사 도구",
+   "type": "text",
+   "box": [
+    541,
+    311,
+    586,
+    443
+   ],
+   "key": "r33_text_1"
+  },
+  {
+   "region": 34,
+   "label": "사용한 검사도구 교사(전문가) 보고 절단점",
+   "type": "text",
+   "box": [
+    541,
+    445,
+    586,
+    587
+   ],
+   "key": "r34_text_1"
+  },
+  {
+   "region": 35,
+   "label": "사용한 검사도구 교사(전문가) 보고 평가결과(점수)",
+   "type": "number",
+   "unit": "점수",
+   "box": [
+    541,
+    590,
+    586,
+    727
+   ],
+   "key": "r35_number_점수_1"
+  },
+  {
+   "region": 36,
+   "label": "사용한 검사도구 교사(전문가) 보고 참고점수(하위척도의 점수)",
+   "type": "number",
+   "unit": "하위척도의 점수",
+   "box": [
+    541,
+    729,
+    586,
+    876
+   ],
+   "key": "r36_number_하위척도의점수_1"
+  },
+  {
+   "region": 38,
+   "label": "소견 및 치료의 주관적 서술",
+   "type": "textarea",
+   "box": [
+    588,
+    233,
+    617,
+    876
+   ],
+   "key": "r38_textarea_1"
+  },
+  {
+   "region": 40,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "1",
+   "box": [
+    654,
+    241,
+    668,
+    276
+   ],
+   "key": "r40_radio_1_1"
+  },
+  {
+   "region": 41,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "2",
+   "box": [
+    654,
+    295,
+    668,
+    330
+   ],
+   "key": "r41_radio_2_1"
+  },
+  {
+   "region": 42,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "3",
+   "box": [
+    654,
+    350,
+    668,
+    384
+   ],
+   "key": "r42_radio_3_1"
+  },
+  {
+   "region": 43,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "4",
+   "box": [
+    654,
+    404,
+    668,
+    438
+   ],
+   "key": "r43_radio_4_1"
+  },
+  {
+   "region": 44,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "5",
+   "box": [
+    654,
+    458,
+    668,
+    492
+   ],
+   "key": "r44_radio_5_1"
+  },
+  {
+   "region": 45,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "6",
+   "box": [
+    654,
+    512,
+    668,
+    546
+   ],
+   "key": "r45_radio_6_1"
+  },
+  {
+   "region": 46,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "7",
+   "box": [
+    654,
+    566,
+    668,
+    600
+   ],
+   "key": "r46_radio_7_1"
+  },
+  {
+   "region": 47,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "8",
+   "box": [
+    654,
+    621,
+    668,
+    654
+   ],
+   "key": "r47_radio_8_1"
+  },
+  {
+   "region": 48,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "9",
+   "box": [
+    654,
+    675,
+    668,
+    708
+   ],
+   "key": "r48_radio_9_1"
+  },
+  {
+   "region": 49,
+   "label": "평가소견",
+   "type": "radio",
+   "option": "10",
+   "box": [
+    654,
+    729,
+    668,
+    762
+   ],
+   "key": "r49_radio_10_1"
+  },
+  {
+   "region": 52,
+   "label": "기관명",
+   "type": "text",
+   "box": [
+    720,
+    273,
+    740,
+    490
+   ],
+   "key": "r52_text_1"
+  },
+  {
+   "region": 54,
+   "label": "기관연락처",
+   "type": "phone",
+   "box": [
+    720,
+    642,
+    740,
+    873
+   ],
+   "key": "r54_phone_1"
+  },
+  {
+   "region": 56,
+   "label": "기관주소",
+   "type": "text",
+   "box": [
+    743,
+    271,
+    762,
+    874
+   ],
+   "key": "r56_text_1"
+  },
+  {
+   "region": 58,
+   "label": "작성자이름",
+   "type": "text",
+   "box": [
+    765,
+    271,
+    784,
+    490
+   ],
+   "key": "r58_text_1"
+  },
+  {
+   "region": 60,
+   "label": "작성자 연락처",
+   "type": "phone",
+   "box": [
+    765,
+    642,
+    784,
+    874
+   ],
+   "key": "r60_phone_1"
+  },
+  {
+   "region": 62,
+   "label": "작성자 자격명",
+   "type": "text",
+   "box": [
+    787,
+    271,
+    805,
+    490
+   ],
+   "key": "r62_text_1"
+  },
+  {
+   "region": 64,
+   "label": "작성자 자격번호",
+   "type": "text",
+   "box": [
+    787,
+    642,
+    805,
+    874
+   ],
+   "key": "r64_text_1"
+  },
+  {
+   "region": 68,
+   "label": "년",
+   "type": "date",
+   "box": [
+    831,
+    413,
+    854,
+    471
+   ],
+   "unit": "년",
+   "key": "r68_date_년_1"
+  },
+  {
+   "region": 68,
+   "label": "월",
+   "type": "date",
+   "box": [
+    831,
+    483,
+    854,
+    519
+   ],
+   "unit": "월",
+   "key": "r68_date_월_1"
+  },
+  {
+   "region": 68,
+   "label": "일",
+   "type": "date",
+   "box": [
+    831,
+    531,
+    854,
+    567
+   ],
+   "unit": "일",
+   "key": "r68_date_일_1"
+  },
+  {
+   "region": 69,
+   "label": "작성자",
+   "type": "text",
+   "box": [
+    855,
+    749,
+    878,
+    874
+   ],
+   "key": "r69_text_1"
+  },
+  {
+   "region": 69,
+   "label": "작성자",
+   "type": "signature",
+   "box": [
+    855,
+    874,
+    878,
+    907
+   ],
+   "key": "r69_signature_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 5,
+  "n_calls": 5,
+  "n_failed": 0,
+  "merged_count": 49,
+  "cost_sum": 0.066576,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 31.4
+}

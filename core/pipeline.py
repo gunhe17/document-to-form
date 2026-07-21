@@ -77,7 +77,8 @@ def _unit_of(e):
 
 
 def place_elements(gray, S, raw_elements):
-    """③ LLM 요소 → ④ 배치된 items. 타입별 carve.place + 후처리 + 병합."""
+    """③ LLM 요소 → ④ 배치된 items. 타입별 carve.place + 후처리 + 병합.
+    LLM이 검출한 옵션(선택지)을 그대로 받아 위치만 정한다 — 옵션 분할·펼침은 검출(LLM)의 몫이지 carve가 아니다."""
     IH, IW = gray.shape
     cells = S["cells"]
     rectof = {j: r for j, r in atoms_of(S)}

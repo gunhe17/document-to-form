@@ -1,0 +1,386 @@
+{
+ "name": "서식6호",
+ "index": 6,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제2편_발달재활서비스_서식/_extract/서식6호_장애아동_발달재활_서비스_제공(이용)계약서/pages/p-1.png",
+ "n_atoms": 29,
+ "groups": [
+  [
+   0,
+   1,
+   2,
+   3
+  ],
+  [
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  [
+   11,
+   12,
+   13,
+   14,
+   15
+  ],
+  [
+   16,
+   17,
+   18
+  ],
+  [
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28
+  ]
+ ],
+ "elements": [
+  {
+   "region": 5,
+   "label": "성명",
+   "type": "text",
+   "box": [
+    223,
+    226,
+    241,
+    426
+   ],
+   "key": "r5_text_1"
+  },
+  {
+   "region": 5,
+   "label": "성명 인",
+   "type": "signature",
+   "box": [
+    223,
+    431,
+    241,
+    467
+   ],
+   "key": "r5_signature_1"
+  },
+  {
+   "region": 5,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    223,
+    611,
+    241,
+    936
+   ],
+   "key": "r5_date_1"
+  },
+  {
+   "region": 6,
+   "label": "주소",
+   "type": "text",
+   "box": [
+    246,
+    226,
+    264,
+    936
+   ],
+   "key": "r6_text_1"
+  },
+  {
+   "region": 7,
+   "label": "연락처",
+   "type": "phone",
+   "box": [
+    269,
+    226,
+    287,
+    936
+   ],
+   "key": "r7_phone_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    381,
+    310,
+    417
+   ],
+   "option": "시각",
+   "key": "r8_radio_시각_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    424,
+    310,
+    460
+   ],
+   "option": "청각",
+   "key": "r8_radio_청각_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    467,
+    310,
+    503
+   ],
+   "option": "언어",
+   "key": "r8_radio_언어_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    510,
+    310,
+    546
+   ],
+   "option": "지적",
+   "key": "r8_radio_지적_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    553,
+    310,
+    606
+   ],
+   "option": "자폐성",
+   "key": "r8_radio_자폐성_1"
+  },
+  {
+   "region": 8,
+   "label": "등록(예견) 장애유형",
+   "type": "radio",
+   "box": [
+    292,
+    613,
+    310,
+    666
+   ],
+   "option": "뇌병변",
+   "key": "r8_radio_뇌병변_1"
+  },
+  {
+   "region": 9,
+   "label": "장애정도",
+   "type": "radio",
+   "box": [
+    315,
+    265,
+    333,
+    301
+   ],
+   "option": "심함",
+   "key": "r9_radio_심함_1"
+  },
+  {
+   "region": 9,
+   "label": "장애정도",
+   "type": "radio",
+   "box": [
+    315,
+    308,
+    333,
+    396
+   ],
+   "option": "심하지 않음",
+   "key": "r9_radio_심하지않음_1"
+  },
+  {
+   "region": 12,
+   "label": "대리인(보호자) 성명",
+   "type": "text",
+   "box": [
+    409,
+    237,
+    429,
+    432
+   ],
+   "key": "r12_text_1"
+  },
+  {
+   "region": 12,
+   "label": "대리인(보호자) 성명 인",
+   "type": "signature",
+   "box": [
+    409,
+    434,
+    429,
+    465
+   ],
+   "key": "r12_signature_1"
+  },
+  {
+   "region": 12,
+   "label": "갑과의 관계",
+   "type": "text",
+   "box": [
+    409,
+    600,
+    429,
+    720
+   ],
+   "key": "r12_text_2"
+  },
+  {
+   "region": 17,
+   "label": "기관명",
+   "type": "text",
+   "box": [
+    526,
+    248,
+    542,
+    415
+   ],
+   "key": "r17_text_1"
+  },
+  {
+   "region": 17,
+   "label": "대표자",
+   "type": "text",
+   "box": [
+    526,
+    495,
+    542,
+    597
+   ],
+   "key": "r17_text_2"
+  },
+  {
+   "region": 17,
+   "label": "대표자",
+   "type": "signature",
+   "box": [
+    526,
+    597,
+    542,
+    632
+   ],
+   "key": "r17_signature_1"
+  },
+  {
+   "region": 18,
+   "label": "주소",
+   "type": "text",
+   "box": [
+    548,
+    248,
+    564,
+    925
+   ],
+   "key": "r18_text_1"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 시작 년",
+   "type": "date",
+   "box": [
+    595,
+    273,
+    614,
+    290
+   ],
+   "unit": "년",
+   "key": "r19_date_년_1"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 시작 월",
+   "type": "date",
+   "box": [
+    595,
+    320,
+    614,
+    337
+   ],
+   "unit": "월",
+   "key": "r19_date_월_1"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 시작 일",
+   "type": "date",
+   "box": [
+    595,
+    367,
+    614,
+    384
+   ],
+   "unit": "일",
+   "key": "r19_date_일_1"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 종료 년",
+   "type": "date",
+   "box": [
+    595,
+    449,
+    614,
+    466
+   ],
+   "unit": "년",
+   "key": "r19_date_년_2"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 종료 월",
+   "type": "date",
+   "box": [
+    595,
+    496,
+    614,
+    513
+   ],
+   "unit": "월",
+   "key": "r19_date_월_2"
+  },
+  {
+   "region": 19,
+   "label": "계약기간 종료 일",
+   "type": "date",
+   "box": [
+    595,
+    543,
+    614,
+    560
+   ],
+   "unit": "일",
+   "key": "r19_date_일_2"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 5,
+  "n_calls": 5,
+  "n_failed": 0,
+  "merged_count": 26,
+  "cost_sum": 0.051068,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 17.2
+}

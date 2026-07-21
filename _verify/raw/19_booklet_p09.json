@@ -1,0 +1,575 @@
+{
+ "name": "booklet p09",
+ "index": 19,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식24호_장애아가족_양육지원사업_(_)월_실적_보고서/pages/p-09.png",
+ "n_atoms": 92,
+ "groups": [
+  [
+   82
+  ],
+  [
+   83,
+   84,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14
+  ],
+  [
+   85,
+   86,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51
+  ],
+  [
+   87,
+   88,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64,
+   65,
+   66
+  ],
+  [
+   89,
+   90,
+   67,
+   68,
+   69,
+   70,
+   71,
+   72,
+   73,
+   74,
+   75,
+   76,
+   77,
+   78,
+   79,
+   80,
+   81
+  ],
+  [
+   91
+  ]
+ ],
+ "elements": [
+  {
+   "region": 8,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    192,
+    146,
+    222,
+    220
+   ],
+   "key": "r8_text_1"
+  },
+  {
+   "region": 9,
+   "label": "온라인 진행방법",
+   "type": "text",
+   "box": [
+    192,
+    223,
+    222,
+    309
+   ],
+   "key": "r9_text_1"
+  },
+  {
+   "region": 10,
+   "label": "오프라인 진행방법",
+   "type": "text",
+   "box": [
+    192,
+    312,
+    222,
+    399
+   ],
+   "key": "r10_text_1"
+  },
+  {
+   "region": 11,
+   "label": "(월별) 총 교육시간",
+   "type": "number",
+   "box": [
+    192,
+    402,
+    222,
+    512
+   ],
+   "key": "r11_number_1"
+  },
+  {
+   "region": 12,
+   "label": "신청인원",
+   "type": "number",
+   "box": [
+    192,
+    515,
+    222,
+    625
+   ],
+   "key": "r12_number_1"
+  },
+  {
+   "region": 13,
+   "label": "수료인원 (수료증 제출 기준)",
+   "type": "number",
+   "box": [
+    192,
+    628,
+    222,
+    738
+   ],
+   "key": "r13_number_1"
+  },
+  {
+   "region": 14,
+   "label": "미수료인원",
+   "type": "number",
+   "box": [
+    192,
+    742,
+    222,
+    851
+   ],
+   "key": "r14_number_1"
+  },
+  {
+   "region": 36,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    389,
+    146,
+    416,
+    210
+   ],
+   "key": "r36_text_1"
+  },
+  {
+   "region": 37,
+   "label": "교육 신규 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    213,
+    416,
+    252
+   ],
+   "key": "r37_number_1"
+  },
+  {
+   "region": 38,
+   "label": "교육 월간 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    255,
+    416,
+    295
+   ],
+   "key": "r38_number_1"
+  },
+  {
+   "region": 39,
+   "label": "교육 진행 횟수",
+   "type": "number",
+   "box": [
+    389,
+    298,
+    416,
+    338
+   ],
+   "key": "r39_number_1"
+  },
+  {
+   "region": 40,
+   "label": "문화 신규 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    341,
+    416,
+    381
+   ],
+   "key": "r40_number_1"
+  },
+  {
+   "region": 41,
+   "label": "문화 월간 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    383,
+    416,
+    424
+   ],
+   "key": "r41_number_1"
+  },
+  {
+   "region": 42,
+   "label": "문화 진행 횟수",
+   "type": "number",
+   "box": [
+    389,
+    427,
+    416,
+    466
+   ],
+   "key": "r42_number_1"
+  },
+  {
+   "region": 43,
+   "label": "상담 및 치료 신규 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    469,
+    416,
+    509
+   ],
+   "key": "r43_number_1"
+  },
+  {
+   "region": 44,
+   "label": "상담 및 치료 월간 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    512,
+    416,
+    552
+   ],
+   "key": "r44_number_1"
+  },
+  {
+   "region": 45,
+   "label": "상담 및 치료 진행 횟수",
+   "type": "number",
+   "box": [
+    389,
+    555,
+    416,
+    595
+   ],
+   "key": "r45_number_1"
+  },
+  {
+   "region": 46,
+   "label": "자조모임 신규 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    597,
+    416,
+    638
+   ],
+   "key": "r46_number_1"
+  },
+  {
+   "region": 47,
+   "label": "자조모임 월간 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    641,
+    416,
+    680
+   ],
+   "key": "r47_number_1"
+  },
+  {
+   "region": 48,
+   "label": "자조모임 진행 횟수",
+   "type": "number",
+   "box": [
+    389,
+    683,
+    416,
+    723
+   ],
+   "key": "r48_number_1"
+  },
+  {
+   "region": 49,
+   "label": "정보제공 신규 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    726,
+    416,
+    766
+   ],
+   "key": "r49_number_1"
+  },
+  {
+   "region": 50,
+   "label": "정보제공 월간 프로그램",
+   "type": "number",
+   "box": [
+    389,
+    769,
+    416,
+    809
+   ],
+   "key": "r50_number_1"
+  },
+  {
+   "region": 51,
+   "label": "정보제공 진행 횟수",
+   "type": "number",
+   "box": [
+    389,
+    811,
+    416,
+    851
+   ],
+   "key": "r51_number_1"
+  },
+  {
+   "region": 60,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    567,
+    146,
+    598,
+    210
+   ],
+   "key": "r60_text_1"
+  },
+  {
+   "region": 61,
+   "label": "장애아동",
+   "type": "number",
+   "unit": "명",
+   "box": [
+    567,
+    213,
+    598,
+    316
+   ],
+   "key": "r61_number_명_1"
+  },
+  {
+   "region": 62,
+   "label": "부모",
+   "type": "number",
+   "unit": "명",
+   "box": [
+    567,
+    320,
+    598,
+    423
+   ],
+   "key": "r62_number_명_1"
+  },
+  {
+   "region": 63,
+   "label": "형제·자매",
+   "type": "number",
+   "unit": "명",
+   "box": [
+    567,
+    427,
+    598,
+    530
+   ],
+   "key": "r63_number_명_1"
+  },
+  {
+   "region": 64,
+   "label": "기타 가족원",
+   "type": "number",
+   "unit": "명",
+   "box": [
+    567,
+    534,
+    598,
+    637
+   ],
+   "key": "r64_number_명_1"
+  },
+  {
+   "region": 65,
+   "label": "계",
+   "type": "number",
+   "unit": "명",
+   "box": [
+    567,
+    641,
+    598,
+    744
+   ],
+   "key": "r65_number_명_1"
+  },
+  {
+   "region": 66,
+   "label": "가정수(신규)",
+   "type": "number",
+   "unit": "가정",
+   "box": [
+    567,
+    748,
+    598,
+    851
+   ],
+   "key": "r66_number_가정_1"
+  },
+  {
+   "region": 75,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    749,
+    146,
+    783,
+    210
+   ],
+   "key": "r75_text_1"
+  },
+  {
+   "region": 76,
+   "label": "장애아동",
+   "type": "number",
+   "box": [
+    749,
+    213,
+    783,
+    317
+   ],
+   "key": "r76_number_1"
+  },
+  {
+   "region": 77,
+   "label": "부모",
+   "type": "number",
+   "box": [
+    749,
+    320,
+    783,
+    424
+   ],
+   "key": "r77_number_1"
+  },
+  {
+   "region": 78,
+   "label": "형제·자매",
+   "type": "number",
+   "box": [
+    749,
+    427,
+    783,
+    531
+   ],
+   "key": "r78_number_1"
+  },
+  {
+   "region": 79,
+   "label": "기타 가족원",
+   "type": "number",
+   "box": [
+    749,
+    534,
+    783,
+    638
+   ],
+   "key": "r79_number_1"
+  },
+  {
+   "region": 80,
+   "label": "계",
+   "type": "number",
+   "box": [
+    749,
+    641,
+    783,
+    745
+   ],
+   "key": "r80_number_1"
+  },
+  {
+   "region": 81,
+   "label": "가정수 (신규)",
+   "type": "number",
+   "box": [
+    749,
+    748,
+    783,
+    851
+   ],
+   "key": "r81_number_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 6,
+  "n_calls": 6,
+  "n_failed": 0,
+  "merged_count": 37,
+  "cost_sum": 0.059308,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 27.9
+}

@@ -26,8 +26,8 @@ DOCS = [
     ("서식8호_계획", f"{OLD}/제3편_언어발달지원_서식/_extract/서식8호_언어발달지원_서비스_제공(이용)_계획서/pages/p-1.png"),
 ]
 MODEL = "google/gemini-3.1-pro-preview"
-TEMP = 0.2
-N_RUNS = 3
+TEMP = float(os.environ.get("TEMP", "0.2"))   # env로 온도 조절 (기본 0.2)
+N_RUNS = int(os.environ.get("N_RUNS", "3"))   # env로 회차 조절 (기본 3)
 WORKERS = 8
 
 

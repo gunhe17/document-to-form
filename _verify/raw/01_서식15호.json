@@ -1,0 +1,793 @@
+{
+ "name": "서식15호",
+ "index": 1,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식15호_사고보고서/pages/p-1.png",
+ "n_atoms": 37,
+ "groups": [
+  [
+   32,
+   33,
+   34,
+   35
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31
+  ],
+  [
+   36
+  ]
+ ],
+ "elements": [
+  {
+   "region": 1,
+   "label": "기관 명",
+   "type": "text",
+   "box": [
+    190,
+    270,
+    229,
+    486
+   ],
+   "key": "r1_text_1"
+  },
+  {
+   "region": 3,
+   "label": "전화번호",
+   "type": "phone",
+   "box": [
+    190,
+    622,
+    229,
+    854
+   ],
+   "key": "r3_phone_1"
+  },
+  {
+   "region": 5,
+   "label": "기관 주소",
+   "type": "text",
+   "box": [
+    232,
+    270,
+    274,
+    854
+   ],
+   "key": "r5_text_1"
+  },
+  {
+   "region": 7,
+   "label": "상해아동명",
+   "type": "text",
+   "box": [
+    277,
+    271,
+    318,
+    429
+   ],
+   "key": "r7_text_1"
+  },
+  {
+   "region": 9,
+   "label": "성별",
+   "type": "radio",
+   "box": [
+    287,
+    541,
+    305,
+    554
+   ],
+   "option": "남",
+   "key": "r9_radio_남_1"
+  },
+  {
+   "region": 9,
+   "label": "성별",
+   "type": "radio",
+   "box": [
+    287,
+    562,
+    305,
+    575
+   ],
+   "option": "여",
+   "key": "r9_radio_여_1"
+  },
+  {
+   "region": 11,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    287,
+    725,
+    304,
+    745
+   ],
+   "unit": "년",
+   "key": "r11_date_년_1"
+  },
+  {
+   "region": 11,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    287,
+    759,
+    304,
+    774
+   ],
+   "unit": "월",
+   "key": "r11_date_월_1"
+  },
+  {
+   "region": 11,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    287,
+    788,
+    304,
+    803
+   ],
+   "unit": "일",
+   "key": "r11_date_일_1"
+  },
+  {
+   "region": 13,
+   "label": "사고일자",
+   "type": "date",
+   "box": [
+    334,
+    335,
+    351,
+    346
+   ],
+   "unit": "년",
+   "key": "r13_date_년_1"
+  },
+  {
+   "region": 13,
+   "label": "사고일자",
+   "type": "date",
+   "box": [
+    334,
+    364,
+    351,
+    383
+   ],
+   "unit": "월",
+   "key": "r13_date_월_1"
+  },
+  {
+   "region": 13,
+   "label": "사고일자",
+   "type": "date",
+   "box": [
+    334,
+    401,
+    351,
+    419
+   ],
+   "unit": "일",
+   "key": "r13_date_일_1"
+  },
+  {
+   "region": 15,
+   "label": "사고시간",
+   "type": "time",
+   "box": [
+    334,
+    727,
+    351,
+    788
+   ],
+   "key": "r15_time_1"
+  },
+  {
+   "region": 15,
+   "label": "사고시간",
+   "type": "radio",
+   "box": [
+    334,
+    788,
+    351,
+    810
+   ],
+   "option": "am",
+   "key": "r15_radio_am_1"
+  },
+  {
+   "region": 15,
+   "label": "사고시간",
+   "type": "radio",
+   "box": [
+    334,
+    817,
+    351,
+    839
+   ],
+   "option": "pm",
+   "key": "r15_radio_pm_1"
+  },
+  {
+   "region": 17,
+   "label": "목격자명",
+   "type": "text",
+   "box": [
+    366,
+    269,
+    410,
+    429
+   ],
+   "key": "r17_text_1"
+  },
+  {
+   "region": 19,
+   "label": "부모에게 연락한 사항",
+   "type": "text",
+   "box": [
+    366,
+    705,
+    410,
+    854
+   ],
+   "key": "r19_text_1"
+  },
+  {
+   "region": 21,
+   "label": "연락시간",
+   "type": "time",
+   "box": [
+    426,
+    290,
+    442,
+    332
+   ],
+   "key": "r21_time_1"
+  },
+  {
+   "region": 21,
+   "label": "연락시간",
+   "type": "radio",
+   "box": [
+    426,
+    338,
+    442,
+    360
+   ],
+   "option": "am",
+   "key": "r21_radio_am_1"
+  },
+  {
+   "region": 21,
+   "label": "연락시간",
+   "type": "radio",
+   "box": [
+    426,
+    366,
+    442,
+    389
+   ],
+   "option": "pm",
+   "key": "r21_radio_pm_1"
+  },
+  {
+   "region": 23,
+   "label": "119신고여부",
+   "type": "radio",
+   "box": [
+    426,
+    756,
+    442,
+    778
+   ],
+   "option": "am",
+   "key": "r23_radio_am_1"
+  },
+  {
+   "region": 23,
+   "label": "119신고여부",
+   "type": "time",
+   "box": [
+    426,
+    756,
+    442,
+    778
+   ],
+   "key": "r23_time_1"
+  },
+  {
+   "region": 23,
+   "label": "119신고여부",
+   "type": "radio",
+   "box": [
+    426,
+    784,
+    442,
+    807
+   ],
+   "option": "pm",
+   "key": "r23_radio_pm_1"
+  },
+  {
+   "region": 23,
+   "label": "119신고여부",
+   "type": "checkbox_group",
+   "box": [
+    427,
+    641,
+    440,
+    683
+   ],
+   "option": "안함",
+   "key": "r23_checkbox_group_안함_1"
+  },
+  {
+   "region": 23,
+   "label": "119신고여부",
+   "type": "checkbox_group",
+   "box": [
+    427,
+    689,
+    440,
+    745
+   ],
+   "option": "신고함",
+   "key": "r23_checkbox_group_신고함_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    492,
+    278,
+    503,
+    335
+   ],
+   "option": "화장실",
+   "key": "r25_checkbox_group_화장실_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    492,
+    343,
+    503,
+    381
+   ],
+   "option": "거실",
+   "key": "r25_checkbox_group_거실_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    492,
+    486,
+    503,
+    524
+   ],
+   "option": "주방",
+   "key": "r25_checkbox_group_주방_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    492,
+    630,
+    503,
+    683
+   ],
+   "option": "외출중",
+   "key": "r25_checkbox_group_외출중_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    511,
+    278,
+    523,
+    366
+   ],
+   "option": "실외놀이터",
+   "key": "r25_checkbox_group_실외놀이터_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    511,
+    415,
+    523,
+    471
+   ],
+   "option": "이동중",
+   "key": "r25_checkbox_group_이동중_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "checkbox_group",
+   "box": [
+    511,
+    558,
+    523,
+    598
+   ],
+   "option": "기타",
+   "key": "r25_checkbox_group_기타_1"
+  },
+  {
+   "region": 25,
+   "label": "사고발생 장소",
+   "type": "text",
+   "box": [
+    511,
+    614,
+    522,
+    653
+   ],
+   "key": "r25_text_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    584,
+    277,
+    599,
+    409
+   ],
+   "option": "목욕 및 배변시간",
+   "key": "r27_checkbox_group_목욕및배변시간_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    584,
+    415,
+    599,
+    490
+   ],
+   "option": "학습활동",
+   "key": "r27_checkbox_group_학습활동_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    584,
+    558,
+    599,
+    660
+   ],
+   "option": "집안자유놀이",
+   "key": "r27_checkbox_group_집안자유놀이_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    605,
+    277,
+    620,
+    388
+   ],
+   "option": "식사/간식시간",
+   "key": "r27_checkbox_group_식사간식시간_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    605,
+    486,
+    620,
+    588
+   ],
+   "option": "실외자유놀이",
+   "key": "r27_checkbox_group_실외자유놀이_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    605,
+    630,
+    620,
+    771
+   ],
+   "option": "등하원, 외출지도시",
+   "key": "r27_checkbox_group_등하원외출지도시_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용",
+   "type": "checkbox_group",
+   "box": [
+    628,
+    277,
+    642,
+    328
+   ],
+   "option": "기타",
+   "key": "r27_checkbox_group_기타_1"
+  },
+  {
+   "region": 27,
+   "label": "사고당시 활동내용 기타",
+   "type": "text",
+   "box": [
+    628,
+    335,
+    642,
+    447
+   ],
+   "key": "r27_text_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    694,
+    277,
+    708,
+    328
+   ],
+   "option": "화상",
+   "key": "r29_checkbox_group_화상_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    694,
+    377,
+    708,
+    459
+   ],
+   "option": "쇼크/질식",
+   "key": "r29_checkbox_group_쇼크질식_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    694,
+    574,
+    708,
+    657
+   ],
+   "option": "추락/강타",
+   "key": "r29_checkbox_group_추락강타_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    694,
+    704,
+    708,
+    800
+   ],
+   "option": "물체에 끼임",
+   "key": "r29_checkbox_group_물체에끼임_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    718,
+    277,
+    732,
+    342
+   ],
+   "option": "찢어짐",
+   "key": "r29_checkbox_group_찢어짐_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    718,
+    377,
+    732,
+    532
+   ],
+   "option": "뼈가 부러지거나 탈구",
+   "key": "r29_checkbox_group_뼈가부러지거나탈구_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    718,
+    574,
+    732,
+    669
+   ],
+   "option": "압박, 눌림",
+   "key": "r29_checkbox_group_압박눌림_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    742,
+    277,
+    756,
+    328
+   ],
+   "option": "베임",
+   "key": "r29_checkbox_group_베임_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    742,
+    377,
+    756,
+    502
+   ],
+   "option": "찰과상(벗겨짐)",
+   "key": "r29_checkbox_group_찰과상벗겨짐_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    742,
+    574,
+    756,
+    611
+   ],
+   "option": "삠",
+   "key": "r29_checkbox_group_삠_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    742,
+    704,
+    756,
+    755
+   ],
+   "option": "중독",
+   "key": "r29_checkbox_group_중독_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    766,
+    277,
+    780,
+    356
+   ],
+   "option": "호흡곤란",
+   "key": "r29_checkbox_group_호흡곤란_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형",
+   "type": "checkbox_group",
+   "box": [
+    766,
+    377,
+    780,
+    428
+   ],
+   "option": "기타",
+   "key": "r29_checkbox_group_기타_1"
+  },
+  {
+   "region": 29,
+   "label": "상해의 유형 기타",
+   "type": "text",
+   "box": [
+    766,
+    435,
+    780,
+    560
+   ],
+   "key": "r29_text_1"
+  },
+  {
+   "region": 31,
+   "label": "상해를 입은 다른 형제가 있는가?",
+   "type": "checkbox_group",
+   "box": [
+    837,
+    612,
+    851,
+    642
+   ],
+   "option": "예",
+   "key": "r31_checkbox_group_예_1"
+  },
+  {
+   "region": 31,
+   "label": "상해를 입은 다른 형제가 있는가?",
+   "type": "checkbox_group",
+   "box": [
+    837,
+    670,
+    851,
+    729
+   ],
+   "option": "아니오",
+   "key": "r31_checkbox_group_아니오_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 6,
+  "n_calls": 6,
+  "n_failed": 0,
+  "merged_count": 57,
+  "cost_sum": 0.082152,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 38.2
+}

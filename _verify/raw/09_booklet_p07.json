@@ -1,0 +1,427 @@
+{
+ "name": "booklet p07",
+ "index": 9,
+ "image": "/Users/gunhee/workspace/codespace/project/lab-voucher/.old/document/제1편_장애아가족_양육지원_서식/_extract/서식24호_장애아가족_양육지원사업_(_)월_실적_보고서/pages/p-07.png",
+ "n_atoms": 68,
+ "groups": [
+  [
+   53,
+   54,
+   55
+  ],
+  [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11
+  ],
+  [
+   56,
+   57,
+   58,
+   59
+  ],
+  [
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26
+  ],
+  [
+   60,
+   61,
+   62
+  ],
+  [
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34
+  ],
+  [
+   63,
+   64,
+   65
+  ],
+  [
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51,
+   52
+  ],
+  [
+   66,
+   67
+  ]
+ ],
+ "elements": [
+  {
+   "region": 6,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    200,
+    146,
+    231,
+    220
+   ],
+   "key": "r6_text_1"
+  },
+  {
+   "region": 7,
+   "label": "자격정지",
+   "type": "text",
+   "box": [
+    200,
+    222,
+    231,
+    341
+   ],
+   "key": "r7_text_1"
+  },
+  {
+   "region": 8,
+   "label": "자격취소 (자격정지 3회 이상)",
+   "type": "text",
+   "box": [
+    200,
+    344,
+    231,
+    477
+   ],
+   "key": "r8_text_1"
+  },
+  {
+   "region": 9,
+   "label": "퇴직",
+   "type": "text",
+   "box": [
+    200,
+    480,
+    231,
+    599
+   ],
+   "key": "r9_text_1"
+  },
+  {
+   "region": 10,
+   "label": "활동보류",
+   "type": "text",
+   "box": [
+    200,
+    602,
+    231,
+    726
+   ],
+   "key": "r10_text_1"
+  },
+  {
+   "region": 11,
+   "label": "계",
+   "type": "text",
+   "box": [
+    200,
+    729,
+    231,
+    852
+   ],
+   "key": "r11_text_1"
+  },
+  {
+   "region": 20,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    426,
+    146,
+    453,
+    218
+   ],
+   "key": "r20_text_1"
+  },
+  {
+   "region": 21,
+   "label": "활동시간",
+   "type": "text",
+   "box": [
+    426,
+    222,
+    453,
+    319
+   ],
+   "key": "r21_text_1"
+  },
+  {
+   "region": 22,
+   "label": "시간 당 단가",
+   "type": "text",
+   "box": [
+    426,
+    324,
+    453,
+    421
+   ],
+   "key": "r22_text_1"
+  },
+  {
+   "region": 23,
+   "label": "교통비",
+   "type": "text",
+   "box": [
+    426,
+    426,
+    453,
+    523
+   ],
+   "key": "r23_text_1"
+  },
+  {
+   "region": 24,
+   "label": "법정수당",
+   "type": "text",
+   "box": [
+    426,
+    527,
+    453,
+    624
+   ],
+   "key": "r24_text_1"
+  },
+  {
+   "region": 25,
+   "label": "활동비(합계)",
+   "type": "text",
+   "box": [
+    426,
+    628,
+    453,
+    725
+   ],
+   "key": "r25_text_1"
+  },
+  {
+   "region": 26,
+   "label": "1인당 활동비(월평균)",
+   "type": "text",
+   "box": [
+    426,
+    730,
+    453,
+    851
+   ],
+   "key": "r26_text_1"
+  },
+  {
+   "region": 31,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    594,
+    146,
+    617,
+    220
+   ],
+   "key": "r31_text_1"
+  },
+  {
+   "region": 32,
+   "label": "남",
+   "type": "number",
+   "box": [
+    594,
+    223,
+    617,
+    489
+   ],
+   "key": "r32_number_1"
+  },
+  {
+   "region": 33,
+   "label": "여",
+   "type": "number",
+   "box": [
+    594,
+    493,
+    617,
+    759
+   ],
+   "key": "r33_number_1"
+  },
+  {
+   "region": 34,
+   "label": "계",
+   "type": "number",
+   "box": [
+    594,
+    764,
+    617,
+    851
+   ],
+   "key": "r34_number_1"
+  },
+  {
+   "region": 44,
+   "label": "월별",
+   "type": "text",
+   "box": [
+    783,
+    148,
+    815,
+    219
+   ],
+   "key": "r44_text_1"
+  },
+  {
+   "region": 45,
+   "label": "30세 미만",
+   "type": "number",
+   "box": [
+    783,
+    226,
+    815,
+    297
+   ],
+   "unit": "명",
+   "key": "r45_number_명_1"
+  },
+  {
+   "region": 46,
+   "label": "30세 이상 ~40세 미만",
+   "type": "number",
+   "box": [
+    783,
+    303,
+    815,
+    376
+   ],
+   "unit": "명",
+   "key": "r46_number_명_1"
+  },
+  {
+   "region": 47,
+   "label": "40세 이상 ~50세 미만",
+   "type": "number",
+   "box": [
+    783,
+    383,
+    815,
+    455
+   ],
+   "unit": "명",
+   "key": "r47_number_명_1"
+  },
+  {
+   "region": 48,
+   "label": "50세 이상 ~60세 미만",
+   "type": "number",
+   "box": [
+    783,
+    461,
+    815,
+    534
+   ],
+   "unit": "명",
+   "key": "r48_number_명_1"
+  },
+  {
+   "region": 49,
+   "label": "60세 이상 ~65세 미만",
+   "type": "number",
+   "box": [
+    783,
+    541,
+    815,
+    613
+   ],
+   "unit": "명",
+   "key": "r49_number_명_1"
+  },
+  {
+   "region": 50,
+   "label": "65세 이상 ~70세 미만",
+   "type": "number",
+   "box": [
+    783,
+    619,
+    815,
+    692
+   ],
+   "unit": "명",
+   "key": "r50_number_명_1"
+  },
+  {
+   "region": 51,
+   "label": "70세 초과",
+   "type": "number",
+   "box": [
+    783,
+    698,
+    815,
+    771
+   ],
+   "unit": "명",
+   "key": "r51_number_명_1"
+  },
+  {
+   "region": 52,
+   "label": "계",
+   "type": "number",
+   "box": [
+    783,
+    778,
+    815,
+    849
+   ],
+   "unit": "명",
+   "key": "r52_number_명_1"
+  }
+ ],
+ "_meta": {
+  "mode": "blocks",
+  "n_blocks": 9,
+  "n_calls": 9,
+  "n_failed": 0,
+  "merged_count": 26,
+  "cost_sum": 0.070612,
+  "cached_tokens_sum": 0,
+  "effort": "low"
+ },
+ "elapsed": 17.8
+}
