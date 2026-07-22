@@ -71,8 +71,8 @@
    "label": "성명",
    "type": "text",
    "box": [
-    172,
-    328,
+    171,
+    329,
     192,
     468
    ],
@@ -83,7 +83,7 @@
    "label": "성별",
    "type": "text",
    "box": [
-    172,
+    171,
     574,
     192,
     722
@@ -95,20 +95,81 @@
    "label": "칼라 사진",
    "type": "image",
    "box": [
-    172,
+    171,
     727,
     284,
-    850
+    852
    ],
    "key": "r5_image_1"
+  },
+  {
+   "region": 7,
+   "label": "생년월일",
+   "type": "date",
+   "box": [
+    194,
+    329,
+    215,
+    468
+   ],
+   "key": "r7_date_1"
+  },
+  {
+   "region": 9,
+   "label": "나이",
+   "type": "number",
+   "box": [
+    194,
+    574,
+    215,
+    650
+   ],
+   "unit": "세",
+   "key": "r9_number_세_1"
+  },
+  {
+   "region": 11,
+   "label": "연락처",
+   "type": "phone",
+   "box": [
+    217,
+    329,
+    238,
+    722
+   ],
+   "key": "r11_phone_1"
+  },
+  {
+   "region": 13,
+   "label": "이메일",
+   "type": "email",
+   "box": [
+    240,
+    329,
+    261,
+    722
+   ],
+   "key": "r13_email_1"
+  },
+  {
+   "region": 15,
+   "label": "거주지 주소",
+   "type": "text",
+   "box": [
+    263,
+    329,
+    284,
+    722
+   ],
+   "key": "r15_text_1"
   },
   {
    "region": 18,
    "label": "활동가능지역",
    "type": "text",
    "box": [
-    287,
-    328,
+    286,
+    329,
     307,
     852
    ],
@@ -116,75 +177,78 @@
   },
   {
    "region": 20,
-   "label": "요일",
-   "type": "text",
-   "box": [
-    309,
-    413,
-    326,
-    497
-   ],
-   "key": "r20_text_1"
-  },
-  {
-   "region": 20,
-   "label": "시",
-   "type": "time",
-   "box": [
-    309,
-    526,
-    326,
-    546
-   ],
-   "key": "r20_time_1"
-  },
-  {
-   "region": 20,
-   "label": "시",
-   "type": "time",
-   "box": [
-    309,
-    584,
-    326,
-    604
-   ],
-   "key": "r20_time_2"
-  },
-  {
-   "region": 20,
-   "label": "시간",
-   "type": "number",
-   "box": [
-    309,
-    650,
-    326,
-    672
-   ],
-   "unit": "시간",
-   "key": "r20_number_시간_1"
-  },
-  {
-   "region": 20,
    "label": "정기적",
    "type": "checkbox_group",
    "box": [
-    310,
-    335,
-    326,
-    404
+    313,
+    341,
+    324,
+    401
    ],
    "option": "정기적",
    "key": "r20_checkbox_group_정기적_1"
   },
   {
    "region": 20,
+   "label": "요일",
+   "type": "text",
+   "box": [
+    313,
+    415,
+    324,
+    497
+   ],
+   "unit": "요일",
+   "key": "r20_text_요일_1"
+  },
+  {
+   "region": 20,
+   "label": "시작 시각",
+   "type": "time",
+   "box": [
+    313,
+    529,
+    324,
+    560
+   ],
+   "unit": "시",
+   "key": "r20_time_시_1"
+  },
+  {
+   "region": 20,
+   "label": "종료 시각",
+   "type": "time",
+   "box": [
+    313,
+    583,
+    324,
+    619
+   ],
+   "unit": "시",
+   "key": "r20_time_시_2"
+  },
+  {
+   "region": 20,
+   "label": "총 시간",
+   "type": "number",
+   "box": [
+    313,
+    649,
+    324,
+    674
+   ],
+   "unit": "시간",
+   "key": "r20_number_시간_1"
+  },
+  {
+   "region": 20,
    "label": "언제든지",
    "type": "checkbox_group",
    "box": [
-    328,
-    335,
-    345,
-    417
+    332,
+    341,
+    343,
+    415
    ],
    "option": "언제든지",
    "key": "r20_checkbox_group_언제든지_1"
@@ -194,10 +258,10 @@
    "label": "①서비스 이용자 가정",
    "type": "checkbox_group",
    "box": [
-    351,
-    335,
-    366,
-    498
+    353,
+    341,
+    364,
+    497
    ],
    "option": "①서비스 이용자 가정",
    "key": "r22_checkbox_group_①서비스이용자가정_1"
@@ -207,10 +271,10 @@
    "label": "②돌보미 가정",
    "type": "checkbox_group",
    "box": [
-    351,
-    516,
-    366,
-    630
+    353,
+    521,
+    364,
+    628
    ],
    "option": "②돌보미 가정",
    "key": "r22_checkbox_group_②돌보미가정_1"
@@ -220,9 +284,9 @@
    "label": "①과 ② 모두 가능",
    "type": "checkbox_group",
    "box": [
-    351,
-    647,
-    366,
+    353,
+    652,
+    364,
     788
    ],
    "option": "①과 ② 모두 가능",
@@ -233,10 +297,10 @@
    "label": "자폐성장애",
    "type": "checkbox_group",
    "box": [
-    374,
-    335,
-    390,
-    430
+    377,
+    341,
+    388,
+    428
    ],
    "option": "자폐성장애",
    "key": "r24_checkbox_group_자폐성장애_1"
@@ -246,10 +310,10 @@
    "label": "지적장애",
    "type": "checkbox_group",
    "box": [
-    374,
-    454,
-    390,
-    533
+    377,
+    459,
+    388,
+    531
    ],
    "option": "지적장애",
    "key": "r24_checkbox_group_지적장애_1"
@@ -259,10 +323,10 @@
    "label": "뇌병변장애",
    "type": "checkbox_group",
    "box": [
-    374,
-    557,
-    390,
-    650
+    377,
+    562,
+    388,
+    649
    ],
    "option": "뇌병변장애",
    "key": "r24_checkbox_group_뇌병변장애_1"
@@ -272,76 +336,82 @@
    "label": "모두",
    "type": "checkbox_group",
    "box": [
-    374,
-    675,
-    390,
-    719
+    377,
+    679,
+    388,
+    720
    ],
    "option": "모두",
    "key": "r24_checkbox_group_모두_1"
   },
   {
    "region": 26,
-   "label": "관련신문",
+   "label": "활동참여경로",
    "type": "checkbox_group",
    "box": [
-    397,
-    335,
-    413,
-    417
+    398,
+    341,
+    411,
+    416
    ],
    "option": "관련신문",
+   "unit": null,
    "key": "r26_checkbox_group_관련신문_1"
   },
   {
    "region": 26,
-   "label": "인터넷",
+   "label": "활동참여경로",
    "type": "checkbox_group",
    "box": [
-    397,
-    454,
-    413,
-    519
+    398,
+    458,
+    411,
+    518
    ],
    "option": "인터넷",
+   "unit": null,
    "key": "r26_checkbox_group_인터넷_1"
   },
   {
    "region": 26,
-   "label": "주변권유",
+   "label": "활동참여경로",
    "type": "checkbox_group",
    "box": [
-    397,
-    557,
-    413,
+    398,
+    562,
+    411,
     636
    ],
    "option": "주변권유",
+   "unit": null,
    "key": "r26_checkbox_group_주변권유_1"
   },
   {
    "region": 26,
-   "label": "기타",
+   "label": "활동참여경로",
    "type": "checkbox_group",
    "box": [
-    397,
-    675,
-    413,
+    398,
+    679,
+    411,
     719
    ],
    "option": "기타",
+   "unit": null,
    "key": "r26_checkbox_group_기타_1"
   },
   {
    "region": 26,
-   "label": "기타 내용",
+   "label": "활동참여경로",
    "type": "text",
    "box": [
-    397,
-    725,
-    413,
-    818
+    399,
+    726,
+    411,
+    825
    ],
+   "option": null,
+   "unit": null,
    "key": "r26_text_1"
   },
   {
@@ -349,137 +419,161 @@
    "label": "자격증",
    "type": "text",
    "box": [
-    420,
-    340,
-    436,
+    421,
+    338,
+    434,
     461
    ],
+   "option": null,
+   "unit": null,
    "key": "r28_text_1"
   },
   {
    "region": 28,
-   "label": "급",
+   "label": "자격증",
    "type": "number",
    "box": [
-    420,
-    465,
-    436,
+    422,
+    466,
+    435,
     483
    ],
+   "option": null,
    "unit": "급",
    "key": "r28_number_급_1"
   },
   {
    "region": 28,
-   "label": "기타",
+   "label": "자격증",
    "type": "checkbox_group",
    "box": [
-    420,
-    532,
-    436,
-    576
+    422,
+    536,
+    434,
+    584
    ],
    "option": "기타",
+   "unit": null,
    "key": "r28_checkbox_group_기타_1"
   },
   {
    "region": 28,
-   "label": "기타 내용",
+   "label": "자격증",
    "type": "text",
    "box": [
-    420,
-    582,
-    436,
-    788
+    422,
+    591,
+    434,
+    793
    ],
+   "option": null,
+   "unit": null,
    "key": "r28_text_2"
   },
   {
    "region": 30,
-   "label": "예",
-   "type": "radio",
+   "label": "결격여부 확인",
+   "type": "checkbox_group",
    "box": [
-    451,
-    698,
-    466,
-    731
+    453,
+    703,
+    465,
+    735
    ],
    "option": "예",
-   "key": "r30_radio_예_1"
+   "unit": null,
+   "key": "r30_checkbox_group_예_1"
   },
   {
    "region": 30,
-   "label": "아니오",
-   "type": "radio",
+   "label": "결격여부 확인",
+   "type": "checkbox_group",
    "box": [
-    451,
-    773,
-    466,
-    835
+    453,
+    779,
+    465,
+    840
    ],
    "option": "아니오",
-   "key": "r30_radio_아니오_1"
+   "unit": null,
+   "key": "r30_checkbox_group_아니오_1"
   },
   {
    "region": 31,
    "label": "지원동기",
    "type": "textarea",
    "box": [
-    479,
-    188,
-    531,
-    852
+    480,
+    189,
+    530,
+    850
    ],
+   "option": null,
+   "unit": null,
    "key": "r31_textarea_1"
   },
   {
+   "region": 32,
+   "label": "기타사항(관련 활동 경험 및 이력사항)",
+   "type": "textarea",
+   "box": [
+    534,
+    189,
+    553,
+    850
+   ],
+   "option": null,
+   "unit": null,
+   "key": "r32_textarea_1"
+  },
+  {
    "region": 35,
-   "label": "기간 년",
+   "label": "기간 시작 년",
    "type": "date",
    "box": [
-    587,
+    583,
     190,
-    603,
-    204
+    604,
+    219
    ],
    "unit": "년",
    "key": "r35_date_년_1"
   },
   {
    "region": 35,
-   "label": "기간 월",
+   "label": "기간 시작 월",
    "type": "date",
    "box": [
-    587,
-    218,
-    603,
-    233
+    583,
+    220,
+    604,
+    248
    ],
    "unit": "월",
    "key": "r35_date_월_1"
   },
   {
    "region": 35,
-   "label": "기간 년",
+   "label": "기간 종료 년",
    "type": "date",
    "box": [
-    587,
-    258,
-    603,
-    272
+    583,
+    260,
+    604,
+    288
    ],
    "unit": "년",
    "key": "r35_date_년_2"
   },
   {
    "region": 35,
-   "label": "기간 월",
+   "label": "기간 종료 월",
    "type": "date",
    "box": [
-    587,
-    285,
-    603,
-    300
+    583,
+    289,
+    604,
+    316
    ],
    "unit": "월",
    "key": "r35_date_월_2"
@@ -489,8 +583,8 @@
    "label": "활동사항",
    "type": "text",
    "box": [
-    580,
-    337,
+    579,
+    338,
     604,
     852
    ],
@@ -498,52 +592,52 @@
   },
   {
    "region": 37,
-   "label": "기간 년",
+   "label": "기간 시작 년",
    "type": "date",
    "box": [
-    614,
+    609,
     190,
     630,
-    204
+    219
    ],
    "unit": "년",
    "key": "r37_date_년_1"
   },
   {
    "region": 37,
-   "label": "기간 월",
+   "label": "기간 시작 월",
    "type": "date",
    "box": [
-    614,
-    218,
+    609,
+    220,
     630,
-    233
+    248
    ],
    "unit": "월",
    "key": "r37_date_월_1"
   },
   {
    "region": 37,
-   "label": "기간 년",
+   "label": "기간 종료 년",
    "type": "date",
    "box": [
-    614,
-    258,
+    609,
+    260,
     630,
-    272
+    288
    ],
    "unit": "년",
    "key": "r37_date_년_2"
   },
   {
    "region": 37,
-   "label": "기간 월",
+   "label": "기간 종료 월",
    "type": "date",
    "box": [
-    614,
-    285,
+    609,
+    289,
     630,
-    300
+    316
    ],
    "unit": "월",
    "key": "r37_date_월_2"
@@ -553,8 +647,8 @@
    "label": "활동사항",
    "type": "text",
    "box": [
-    608,
-    337,
+    606,
+    338,
     631,
     852
    ],
@@ -562,52 +656,52 @@
   },
   {
    "region": 39,
-   "label": "기간 년",
+   "label": "기간 시작 년",
    "type": "date",
    "box": [
-    642,
+    636,
     190,
-    658,
-    204
+    657,
+    219
    ],
    "unit": "년",
    "key": "r39_date_년_1"
   },
   {
    "region": 39,
-   "label": "기간 월",
+   "label": "기간 시작 월",
    "type": "date",
    "box": [
-    642,
-    218,
-    658,
-    233
+    636,
+    220,
+    657,
+    248
    ],
    "unit": "월",
    "key": "r39_date_월_1"
   },
   {
    "region": 39,
-   "label": "기간 년",
+   "label": "기간 종료 년",
    "type": "date",
    "box": [
-    642,
-    258,
-    658,
-    272
+    636,
+    260,
+    657,
+    288
    ],
    "unit": "년",
    "key": "r39_date_년_2"
   },
   {
    "region": 39,
-   "label": "기간 월",
+   "label": "기간 종료 월",
    "type": "date",
    "box": [
-    642,
-    285,
-    658,
-    300
+    636,
+    289,
+    657,
+    316
    ],
    "unit": "월",
    "key": "r39_date_월_2"
@@ -617,8 +711,8 @@
    "label": "활동사항",
    "type": "text",
    "box": [
-    636,
-    337,
+    633,
+    338,
     658,
     852
    ],
@@ -626,52 +720,52 @@
   },
   {
    "region": 41,
-   "label": "기간 년",
+   "label": "기간 시작 년",
    "type": "date",
    "box": [
-    670,
+    663,
     190,
-    685,
-    204
+    684,
+    219
    ],
    "unit": "년",
    "key": "r41_date_년_1"
   },
   {
    "region": 41,
-   "label": "기간 월",
+   "label": "기간 시작 월",
    "type": "date",
    "box": [
-    670,
-    218,
-    685,
-    233
+    663,
+    220,
+    684,
+    248
    ],
    "unit": "월",
    "key": "r41_date_월_1"
   },
   {
    "region": 41,
-   "label": "기간 년",
+   "label": "기간 종료 년",
    "type": "date",
    "box": [
-    670,
-    258,
-    685,
-    272
+    663,
+    260,
+    684,
+    288
    ],
    "unit": "년",
    "key": "r41_date_년_2"
   },
   {
    "region": 41,
-   "label": "기간 월",
+   "label": "기간 종료 월",
    "type": "date",
    "box": [
-    670,
-    285,
-    685,
-    300
+    663,
+    289,
+    684,
+    316
    ],
    "unit": "월",
    "key": "r41_date_월_2"
@@ -681,8 +775,8 @@
    "label": "활동사항",
    "type": "text",
    "box": [
-    664,
-    337,
+    660,
+    338,
     685,
     852
    ],
@@ -693,8 +787,8 @@
    "label": "사업 시행기관",
    "type": "text",
    "box": [
-    730,
-    286,
+    731,
+    196,
     751,
     355
    ],
@@ -702,36 +796,74 @@
   },
   {
    "region": 45,
-   "label": "신청일",
+   "label": "동의",
+   "type": "consent",
+   "box": [
+    753,
+    170,
+    766,
+    792
+   ],
+   "key": "r45_consent_1"
+  },
+  {
+   "region": 45,
+   "label": "제공할 개인정보의 내용",
+   "type": "checkbox_group",
+   "box": [
+    782,
+    153,
+    811,
+    846
+   ],
+   "option": "제공할 개인정보의 내용",
+   "key": "r45_checkbox_group_제공할개인정보의내용_1"
+  },
+  {
+   "region": 45,
+   "label": "수집정보 활용",
+   "type": "checkbox_group",
+   "box": [
+    813,
+    153,
+    842,
+    846
+   ],
+   "option": "수집정보 활용",
+   "key": "r45_checkbox_group_수집정보활용_1"
+  },
+  {
+   "region": 45,
+   "label": "년",
    "type": "date",
    "box": [
-    852,
+    857,
     513,
     867,
-    542
+    539
    ],
    "unit": "년",
    "key": "r45_date_년_1"
   },
   {
    "region": 45,
-   "label": "신청일",
+   "label": "월",
    "type": "date",
    "box": [
-    852,
-    561,
+    857,
+    559,
     867,
-    576
+    575
    ],
    "unit": "월",
    "key": "r45_date_월_1"
   },
   {
    "region": 45,
-   "label": "신청일",
+   "label": "일",
    "type": "date",
    "box": [
-    852,
+    857,
     597,
     867,
     611
@@ -744,10 +876,10 @@
    "label": "신청인",
    "type": "text",
    "box": [
-    852,
-    691,
+    857,
+    689,
     867,
-    747
+    749
    ],
    "key": "r45_text_2"
   },
@@ -756,10 +888,10 @@
    "label": "서명 또는 인",
    "type": "signature",
    "box": [
-    853,
-    756,
+    857,
+    758,
     867,
-    846
+    842
    ],
    "key": "r45_signature_1"
   },
@@ -768,23 +900,23 @@
    "label": "접수번호",
    "type": "text",
    "box": [
-    149,
+    152,
     217,
     169,
-    278
+    274
    ],
    "key": "r48_text_1"
   }
  ],
  "_meta": {
   "mode": "blocks",
-  "n_blocks": 5,
-  "n_calls": 5,
+  "n_blocks": 7,
+  "n_calls": 7,
   "n_failed": 0,
-  "merged_count": 56,
-  "cost_sum": 0.075848,
+  "merged_count": 65,
+  "cost_sum": 0.093934,
   "cached_tokens_sum": 0,
   "effort": "low"
  },
- "elapsed": 26.0
+ "elapsed": 21.4
 }

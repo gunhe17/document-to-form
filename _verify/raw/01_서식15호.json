@@ -55,9 +55,9 @@
    "type": "text",
    "box": [
     190,
-    270,
+    269,
     229,
-    486
+    485
    ],
    "key": "r1_text_1"
   },
@@ -67,7 +67,7 @@
    "type": "phone",
    "box": [
     190,
-    622,
+    621,
     229,
     854
    ],
@@ -79,7 +79,7 @@
    "type": "text",
    "box": [
     232,
-    270,
+    269,
     274,
     854
    ],
@@ -91,9 +91,9 @@
    "type": "text",
    "box": [
     277,
-    271,
+    270,
     318,
-    429
+    430
    ],
    "key": "r7_text_1"
   },
@@ -103,7 +103,7 @@
    "type": "radio",
    "box": [
     287,
-    541,
+    540,
     305,
     554
    ],
@@ -116,9 +116,9 @@
    "type": "radio",
    "box": [
     287,
-    562,
+    560,
     305,
-    575
+    576
    ],
    "option": "여",
    "key": "r9_radio_여_1"
@@ -128,10 +128,10 @@
    "label": "생년월일",
    "type": "date",
    "box": [
-    287,
+    285,
     725,
-    304,
-    745
+    305,
+    761
    ],
    "unit": "년",
    "key": "r11_date_년_1"
@@ -141,10 +141,10 @@
    "label": "생년월일",
    "type": "date",
    "box": [
-    287,
-    759,
-    304,
-    774
+    285,
+    760,
+    305,
+    789
    ],
    "unit": "월",
    "key": "r11_date_월_1"
@@ -154,10 +154,10 @@
    "label": "생년월일",
    "type": "date",
    "box": [
-    287,
-    788,
-    304,
-    803
+    285,
+    789,
+    305,
+    818
    ],
    "unit": "일",
    "key": "r11_date_일_1"
@@ -167,10 +167,10 @@
    "label": "사고일자",
    "type": "date",
    "box": [
-    334,
-    335,
-    351,
-    346
+    332,
+    329,
+    350,
+    362
    ],
    "unit": "년",
    "key": "r13_date_년_1"
@@ -180,10 +180,10 @@
    "label": "사고일자",
    "type": "date",
    "box": [
-    334,
-    364,
-    351,
-    383
+    332,
+    365,
+    350,
+    398
    ],
    "unit": "월",
    "key": "r13_date_월_1"
@@ -193,10 +193,10 @@
    "label": "사고일자",
    "type": "date",
    "box": [
-    334,
+    332,
     401,
-    351,
-    419
+    350,
+    434
    ],
    "unit": "일",
    "key": "r13_date_일_1"
@@ -207,9 +207,9 @@
    "type": "time",
    "box": [
     334,
-    727,
+    723,
     351,
-    788
+    787
    ],
    "key": "r15_time_1"
   },
@@ -218,10 +218,10 @@
    "label": "사고시간",
    "type": "radio",
    "box": [
-    334,
-    788,
+    335,
+    787,
     351,
-    810
+    809
    ],
    "option": "am",
    "key": "r15_radio_am_1"
@@ -231,10 +231,10 @@
    "label": "사고시간",
    "type": "radio",
    "box": [
-    334,
-    817,
+    335,
+    814,
     351,
-    839
+    840
    ],
    "option": "pm",
    "key": "r15_radio_pm_1"
@@ -268,34 +268,34 @@
    "label": "연락시간",
    "type": "time",
    "box": [
-    426,
-    290,
-    442,
-    332
+    412,
+    269,
+    455,
+    335
    ],
    "key": "r21_time_1"
   },
   {
    "region": 21,
-   "label": "연락시간",
+   "label": "am",
    "type": "radio",
    "box": [
     426,
     338,
-    442,
-    360
+    440,
+    359
    ],
    "option": "am",
    "key": "r21_radio_am_1"
   },
   {
    "region": 21,
-   "label": "연락시간",
+   "label": "pm",
    "type": "radio",
    "box": [
     426,
     366,
-    442,
+    440,
     389
    ],
    "option": "pm",
@@ -303,49 +303,11 @@
   },
   {
    "region": 23,
-   "label": "119신고여부",
-   "type": "radio",
-   "box": [
-    426,
-    756,
-    442,
-    778
-   ],
-   "option": "am",
-   "key": "r23_radio_am_1"
-  },
-  {
-   "region": 23,
-   "label": "119신고여부",
-   "type": "time",
-   "box": [
-    426,
-    756,
-    442,
-    778
-   ],
-   "key": "r23_time_1"
-  },
-  {
-   "region": 23,
-   "label": "119신고여부",
-   "type": "radio",
-   "box": [
-    426,
-    784,
-    442,
-    807
-   ],
-   "option": "pm",
-   "key": "r23_radio_pm_1"
-  },
-  {
-   "region": 23,
-   "label": "119신고여부",
+   "label": "안함",
    "type": "checkbox_group",
    "box": [
-    427,
-    641,
+    426,
+    642,
     440,
     683
    ],
@@ -354,117 +316,155 @@
   },
   {
    "region": 23,
-   "label": "119신고여부",
+   "label": "신고함",
    "type": "checkbox_group",
    "box": [
-    427,
+    426,
     689,
     440,
-    745
+    744
    ],
    "option": "신고함",
    "key": "r23_checkbox_group_신고함_1"
   },
   {
+   "region": 23,
+   "label": "신고시간",
+   "type": "time",
+   "box": [
+    426,
+    750,
+    440,
+    778
+   ],
+   "key": "r23_time_1"
+  },
+  {
+   "region": 23,
+   "label": "am",
+   "type": "radio",
+   "box": [
+    426,
+    755,
+    440,
+    776
+   ],
+   "option": "am",
+   "key": "r23_radio_am_1"
+  },
+  {
+   "region": 23,
+   "label": "pm",
+   "type": "radio",
+   "box": [
+    426,
+    783,
+    440,
+    806
+   ],
+   "option": "pm",
+   "key": "r23_radio_pm_1"
+  },
+  {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "화장실",
    "type": "checkbox_group",
    "box": [
-    492,
+    489,
     278,
     503,
-    335
+    339
    ],
    "option": "화장실",
    "key": "r25_checkbox_group_화장실_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "거실",
    "type": "checkbox_group",
    "box": [
-    492,
+    489,
     343,
     503,
-    381
+    390
    ],
    "option": "거실",
    "key": "r25_checkbox_group_거실_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "주방",
    "type": "checkbox_group",
    "box": [
-    492,
-    486,
+    489,
+    487,
     503,
-    524
+    534
    ],
    "option": "주방",
    "key": "r25_checkbox_group_주방_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "외출중",
    "type": "checkbox_group",
    "box": [
-    492,
-    630,
+    489,
+    631,
     503,
-    683
+    692
    ],
    "option": "외출중",
    "key": "r25_checkbox_group_외출중_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "실외놀이터",
    "type": "checkbox_group",
    "box": [
-    511,
+    510,
     278,
-    523,
-    366
+    524,
+    367
    ],
    "option": "실외놀이터",
    "key": "r25_checkbox_group_실외놀이터_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "이동중",
    "type": "checkbox_group",
    "box": [
-    511,
+    510,
     415,
-    523,
-    471
+    524,
+    476
    ],
    "option": "이동중",
    "key": "r25_checkbox_group_이동중_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "기타",
    "type": "checkbox_group",
    "box": [
-    511,
+    510,
     558,
-    523,
-    598
+    524,
+    604
    ],
    "option": "기타",
    "key": "r25_checkbox_group_기타_1"
   },
   {
    "region": 25,
-   "label": "사고발생 장소",
+   "label": "기타",
    "type": "text",
    "box": [
-    511,
-    614,
-    522,
-    653
+    510,
+    613,
+    524,
+    655
    ],
    "key": "r25_text_1"
   },
@@ -473,9 +473,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    584,
-    277,
-    599,
+    586,
+    278,
+    597,
     409
    ],
    "option": "목욕 및 배변시간",
@@ -486,9 +486,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    584,
+    586,
     415,
-    599,
+    597,
     490
    ],
    "option": "학습활동",
@@ -499,9 +499,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    584,
+    586,
     558,
-    599,
+    597,
     660
    ],
    "option": "집안자유놀이",
@@ -512,9 +512,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    605,
-    277,
-    620,
+    607,
+    278,
+    618,
     388
    ],
    "option": "식사/간식시간",
@@ -525,9 +525,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    605,
+    607,
     486,
-    620,
+    618,
     588
    ],
    "option": "실외자유놀이",
@@ -538,9 +538,9 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    605,
-    630,
-    620,
+    607,
+    631,
+    618,
     771
    ],
    "option": "등하원, 외출지도시",
@@ -551,10 +551,10 @@
    "label": "사고당시 활동내용",
    "type": "checkbox_group",
    "box": [
-    628,
-    277,
-    642,
-    328
+    629,
+    278,
+    640,
+    327
    ],
    "option": "기타",
    "key": "r27_checkbox_group_기타_1"
@@ -564,10 +564,10 @@
    "label": "사고당시 활동내용 기타",
    "type": "text",
    "box": [
-    628,
-    335,
-    642,
-    447
+    629,
+    333,
+    640,
+    449
    ],
    "key": "r27_text_1"
   },
@@ -576,10 +576,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    694,
-    277,
-    708,
-    328
+    695,
+    278,
+    706,
+    330
    ],
    "option": "화상",
    "key": "r29_checkbox_group_화상_1"
@@ -589,9 +589,9 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    694,
+    695,
     377,
-    708,
+    706,
     459
    ],
    "option": "쇼크/질식",
@@ -602,9 +602,9 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    694,
-    574,
-    708,
+    695,
+    575,
+    706,
     657
    ],
    "option": "추락/강타",
@@ -615,9 +615,9 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    694,
+    695,
     704,
-    708,
+    706,
     800
    ],
    "option": "물체에 끼임",
@@ -628,9 +628,9 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    718,
-    277,
-    732,
+    719,
+    278,
+    730,
     342
    ],
    "option": "찢어짐",
@@ -641,10 +641,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    718,
+    719,
     377,
-    732,
-    532
+    730,
+    520
    ],
    "option": "뼈가 부러지거나 탈구",
    "key": "r29_checkbox_group_뼈가부러지거나탈구_1"
@@ -654,10 +654,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    718,
-    574,
-    732,
-    669
+    719,
+    575,
+    730,
+    663
    ],
    "option": "압박, 눌림",
    "key": "r29_checkbox_group_압박눌림_1"
@@ -667,10 +667,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    742,
-    277,
-    756,
-    328
+    743,
+    278,
+    754,
+    327
    ],
    "option": "베임",
    "key": "r29_checkbox_group_베임_1"
@@ -680,10 +680,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    742,
+    743,
     377,
-    756,
-    502
+    754,
+    490
    ],
    "option": "찰과상(벗겨짐)",
    "key": "r29_checkbox_group_찰과상벗겨짐_1"
@@ -693,10 +693,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    742,
-    574,
-    756,
-    611
+    743,
+    575,
+    754,
+    609
    ],
    "option": "삠",
    "key": "r29_checkbox_group_삠_1"
@@ -706,10 +706,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    742,
+    743,
     704,
-    756,
-    755
+    754,
+    754
    ],
    "option": "중독",
    "key": "r29_checkbox_group_중독_1"
@@ -719,10 +719,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    766,
-    277,
-    780,
-    356
+    767,
+    278,
+    778,
+    354
    ],
    "option": "호흡곤란",
    "key": "r29_checkbox_group_호흡곤란_1"
@@ -732,10 +732,10 @@
    "label": "상해의 유형",
    "type": "checkbox_group",
    "box": [
-    766,
+    767,
     377,
-    780,
-    428
+    778,
+    427
    ],
    "option": "기타",
    "key": "r29_checkbox_group_기타_1"
@@ -745,10 +745,10 @@
    "label": "상해의 유형 기타",
    "type": "text",
    "box": [
-    766,
-    435,
-    780,
-    560
+    767,
+    432,
+    778,
+    563
    ],
    "key": "r29_text_1"
   },
@@ -757,10 +757,10 @@
    "label": "상해를 입은 다른 형제가 있는가?",
    "type": "checkbox_group",
    "box": [
-    837,
-    612,
-    851,
-    642
+    841,
+    613,
+    852,
+    638
    ],
    "option": "예",
    "key": "r31_checkbox_group_예_1"
@@ -770,10 +770,10 @@
    "label": "상해를 입은 다른 형제가 있는가?",
    "type": "checkbox_group",
    "box": [
-    837,
-    670,
-    851,
-    729
+    841,
+    671,
+    852,
+    721
    ],
    "option": "아니오",
    "key": "r31_checkbox_group_아니오_1"
@@ -785,9 +785,9 @@
   "n_calls": 6,
   "n_failed": 0,
   "merged_count": 57,
-  "cost_sum": 0.082152,
+  "cost_sum": 0.08148,
   "cached_tokens_sum": 0,
   "effort": "low"
  },
- "elapsed": 38.2
+ "elapsed": 21.4
 }
