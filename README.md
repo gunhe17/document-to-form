@@ -3,6 +3,8 @@
 서식 이미지 → **입력 필드 위치 추출** → `FormSchema` JSON.
 (image-to-md 가 "표 내용"이라면, image-to-form 은 "작성해야 할 입력 위치".)
 
+> 📄 **문서**: [의사결정 기록](docs/DECISIONS.md) · [Gemini 3 프롬프트 지침](docs/gemini3devguide.md) · [실측 비용](docs/price.md)
+
 ## 파이프라인
 
 > 📊 **시각 자료**: [절차 다이어그램](_verify/pipeline_diagram.html) · [서식2호 단계별 입력→출력](_verify/stagedemo.html)
@@ -43,14 +45,29 @@
 | signature | `_fit_ink` | "(서명 또는 인)" 문구 잉크 |
 | image | `_snap_cell` | 표 셀 격자 스냅 |
 
-### 연결 상태 (정직)
-- ✅ **end-to-end**: `ground_focus.extract_form(img)` = ①영역분리 → ②대구획 → ③구획별 그라운딩(+④region-clamp). carve 전 raw 반환.
-- ✅ **부품·동작**: `detect_focus_regions` · `ground_blocks`(구획별 하이라이트 그라운딩+clamp) · `place_elements`(carve)
-- ✅ **전체 실행됨**: 18개 서식 raw 그라운딩 → `_verify/raw/*.json`(재사용, LLM 재호출 없이 carve/렌더 재생성). 러너 `_verify/run_all.py`(resumable·예산가드·불완전결과 미저장).
-- 🔴 **미구현**: MD-context(전사모듈 제거) · `extract_form`+carve를 잇는 `to_form_schema` 자동화(수동으로는 `place_elements`로 재실행 가능)
-- **레거시**: `pipeline.build()`는 page 모드(단일 그라운딩) — 여전히 동작, `_verify/render.py`가 사용
+### 공개 API (image-to-md `Converter` 대응)
+```python
+from core import FormExtractor
+r = FormExtractor().extract("form.png")   # 이미지 → FormResult (end-to-end)
+r.schema        # FormSchema dict (validate_form_schema 통과)
+r.elements      # carve된 배치 요소 (좌표)
+r.raw           # carve 전 LLM 그라운딩 (재사용: carve만 재실행 가능)
+r.validate()    # 계약 검증
 
-**OCR**: EasyOCR, 작은 글자 자동 업스케일. **일관성 원천은 파라미터보다 MD-context·대구획 스코핑**(검출→localization).
+from core import carve_from_raw
+carve_from_raw("form.png", raw_elements)  # 저장 raw로 carve~FormSchema만 (LLM 없음)
+```
+`core/convert.py` 가 안정 공개 표면(`FormExtractor`·`FormResult`·`extract_form_schema`·`carve_from_raw`).
+내부 CV/LLM 상세(region_segment·ground_focus·extract·carve·pipeline)는 계약이 아니다.
+
+### 연결 상태
+- ✅ **end-to-end**: `FormExtractor().extract(img)` = ①영역분리 → ②대구획(cap-split·반복테이블유지) → ③구획별 그라운딩(+region-clamp) → ⑤carve → FormSchema.
+- ✅ **부품·동작**: `detect_focus_regions` · `_split_big_groups` · `ground_blocks` · `place_elements`(carve)
+- ✅ **전체 실행됨**: 18개 서식 raw → `_verify/raw/*.json`(재사용, LLM 재호출 없이 carve/렌더 재생성). 러너 `_verify/run_all.py`(resumable·예산가드·불완전결과 미저장).
+- 🔴 **채택 안 함**: MD-context(전사를 context 주입) — date 분리·recall은 개선하나 라벨 셀 과검출 유발이라 제외.
+- **레거시**: `pipeline.build()`는 page 모드(단일 그라운딩) — 여전히 동작, `_verify/render.py`가 사용.
+
+**OCR**: EasyOCR, 작은 글자 자동 업스케일. **검출 일관성은 대구획 스코핑 + cap-split**(거대영역 붕괴 방지). 잔여 분산은 date 단위 쪼개기.
 
 ## 출력 형태 — FormSchema (3 평면)
 
@@ -100,9 +117,11 @@ imomtae `FormTemplate.schema` 계약. 검증기 통과가 합격선.
 ## 구조
 ```
 image-to-form/
-├── README.md
-├── price.md                           그라운딩 실측 비용
-├── gemini3devguide.md                 Gemini 3 프롬프트 지침 (간결·직접)
+├── README.md                          ← root 문서
+├── docs/
+│   ├── DECISIONS.md                   의사결정 기록 (대구획 안정화 과정·결정)
+│   ├── gemini3devguide.md             Gemini 3 프롬프트 지침 (간결·직접)
+│   └── price.md                       그라운딩 실측 비용
 ├── examples/minimal.formschema.json   유효 예시
 ├── _verify/
 │   ├── run_all.py                     확정 파이프라인 전체 서식 실행 → raw/*.json (resumable·예산가드)
@@ -112,23 +131,35 @@ image-to-form/
 │   ├── render.py                      page 모드 검증 HTML (→ step5_grounding.html)
 │   ├── pipeline_diagram.html          절차 다이어그램 (연결 상태색)
 │   └── stagedemo.html                 서식2호 단계별 입력→출력
-└── core/
-    ├── schema.py          FormSchema pydantic 계약 + validate_form_schema
-    ├── region_segment.py  ① 영역분리 (CV)
-    ├── ground_focus.py    ② 대구획 검출 + ③ 구획별 그라운딩 — detect_focus_regions() · mark_focus_multi() · PARTITION_SYS
-    ├── extract.py         LLM 그라운딩 (Gemini) — SYS 프롬프트 · ground(focus_ids)
-    ├── carve.py           ⑤ 위치 도구함 (CV/OCR) — place() · fit_ink · ocr_anchor · fit_placeholder …
+└── core/                             ← 패키지 (내부 CV/LLM). __init__·convert 만 공개 계약
+    ├── __init__.py        ★공개 API 표면 — FormExtractor·FormResult·FormSchema 재노출
+    ├── convert.py         ★end-to-end 진입점 — FormExtractor·extract_form_schema·carve_from_raw·FormResult
+    ├── schema.py          FormSchema 계약 + validate_form_schema
+    ├── region_segment.py  ① 영역분리 (CV·결정론)
+    ├── ground_focus.py    ② 대구획 검출 + cap-split + ③ 구획별 그라운딩 — extract_form·detect_focus_regions·_split_big_groups·_is_repeating_table
+    ├── extract.py         LLM 그라운딩 (Gemini) — SYS_V2 · ground(focus_ids)
+    ├── carve.py           ⑤ 위치 도구함 (CV/OCR) — place·fit_ink·ocr_anchor·ocr_word_box …
+    ├── carve_slots.py     radio 슬롯 배치 (place_radios)
     ├── budget.py          OpenRouter $20/일 가드
-    ├── pipeline.py        오케스트레이션 — build()(page 레거시) · place_elements()(carve) · to_form_schema()
-    └── __init__.py        공개 API
+    └── pipeline.py        내부 오케스트레이션 — place_elements(carve)·to_form_schema · build()(page 레거시)
 ```
+
+**계층 (image-to-md 대응)**: `convert.py`(공개 진입, = img2md `convert.py`) → `ground_focus`·`extract`·`carve`·`pipeline`(내부, = img2md `core/`). 서버/CLI/도구는 `from core import FormExtractor` 만.
 
 ## 사용
 ```python
-from core import pipeline, validate_form_schema
+from core import FormExtractor
 
-built = pipeline.build("form.png", cache_path="cache.json")   # ①~⑤ 실행 (LLM 응답 캐시)
-fs = pipeline.to_form_schema(built, "form.png")               # → FormSchema dict
-validate_form_schema(fs)                                       # 계약 검증 (실패 시 ValidationError)
+r = FormExtractor().extract("form.png")   # 이미지 → FormResult (대구획 파이프라인 end-to-end)
+r.validate()                              # FormSchema 계약 검증
+r.schema                                  # {pages, fields, elements}
+r.raw                                     # carve 전 raw (재사용: carve만 재실행)
 ```
-검증 리포트: `python _verify/render.py [문서번호…]` → `_verify/step5_grounding.html` (①분리 ②SoM ③LLM원본 ④배치).
+재사용 raw로 carve만 재실행 (LLM 없음):
+```python
+from core import carve_from_raw
+r = carve_from_raw("form.png", raw_elements)   # 저장 raw/*.json 의 elements
+```
+- **전체 서식 실행**: `python _verify/run_all.py` → `_verify/raw/*.json` (재사용 raw)
+- **절차별 리포트**: `python _verify/render_raw.py` → `_verify/pipeline_raw.html` (①~⑤, LLM 재호출 없음)
+- **레거시(page) 검증**: `python _verify/render.py [문서번호…]` → `_verify/step5_grounding.html`
