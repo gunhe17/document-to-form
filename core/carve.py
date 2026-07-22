@@ -198,6 +198,15 @@ def ocr_word_box(gray, box, text, hw, bounds=None, min_ratio=0.5, expand=3.0, al
                    if core_key and _ocr_core(t) == core_key]
         if wrapped:
             return max(wrapped, key=lambda b: b[2])  # 가장 넓은 = 전체 인쇄 문구
+        # 벌어진 인장 문구 '(직   인)' — 인장 공백이 커서 토큰이 안 이어진 경우:
+        # 라벨 글자들이 흩어진 토큰으로 다 나오면(합쳐서 라벨과 동일) 처음~끝을 통째 박스.
+        if core_key:
+            parts = [(x0, x1, y0, y1, _ocr_core(t)) for x0, x1, y0, y1, t in toks
+                     if _ocr_core(t) and _ocr_core(t) in core_key]
+            parts.sort()
+            if parts and "".join(p[4] for p in parts) == core_key:
+                return (parts[0][0], min(p[2] for p in parts),
+                        parts[-1][1] - parts[0][0], max(p[3] for p in parts) - min(p[2] for p in parts))
     best = None; br = min_ratio
     for x0, x1, y0, y1, t in cands:
         if len(t) > len(key):
